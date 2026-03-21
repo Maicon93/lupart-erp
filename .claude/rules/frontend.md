@@ -1,0 +1,29 @@
+# frontend.md
+
+- **Vue3 + Quasar + JavaScript**
+- **Options API**: `export default { data, computed, watch, methods }`
+- Componentes PascalCase (`SidebarUser.vue`, `ConfirmDialog.vue`)
+  - Globais → `src/components/`
+  - Específicos de feature → `src/views/<modulo>/components/`
+  - Props e emits sempre declarados explicitamente
+- Componentização modular e granular: formulários de criação/edição, filtros e seções relevantes devem ser componentes separados
+- Services: **sempre** abstrair HTTP em services — nunca chamar HTTP direto da view
+  - Fluxo: `View → Service → axios → API`
+  - Um service por entidade (`CustomerService.js`)
+- Mixins: lógica reutilizável entre componentes → pasta `src/mixins/`
+- Utils: utilitários (formatadores, masks, ErrorCodes) → pasta `src/utils/`
+- Validação: **Zod** antes de enviar para a API — schemas na pasta `schemas/`
+- Stores (Pinia): apenas para o necessário (`auth`, `enterprise`, `theme`) — não usar para estado local de tela
+- Permissões: validação via **requisição HTTP** no `beforeEach` do Vue Router a cada navegação
+- Lazy loading em todas as views: `() => import(...)`
+- Listagens: **skeleton/placeholder** enquanto carrega
+- Botões/ações: **spinner (loading)** enquanto processa
+- Axios interceptor:
+  - Request: adiciona JWT no header automaticamente
+  - Response: exibe toast (via i18n) se houver `messageCode`
+  - 401: tenta refresh token automaticamente, fila de requisições
+- Toasts de retorno da API são exibidos **apenas pelo interceptor do axios** — nunca exibir toast de resposta HTTP no código Vue
+  - Toasts locais (validação de formulário, confirmações, etc.) podem ser usados normalmente nos componentes
+- Estilo: usar classes e componentes do Quasar — evitar CSS inline. Variáveis de tema centralizadas (cores, espaçamentos)
+- Arquivos JS em PascalCase (`CustomerService.js`, `ErrorCodes.js`)
+- Rotas em kebab-case (`/dashboard`, `/stock-entry`)

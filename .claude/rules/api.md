@@ -1,0 +1,24 @@
+# api.md
+
+- **TypeScript** strict mode
+- Camadas: `Route → Middleware → Controller → Service → Repository`
+  - **Controller**: recebe request, chama service, monta `IApiResponse`, retorna response
+  - **Service**: regras de negócio — retorna **dados puros**, nunca `IApiResponse`
+  - **Repository**: apenas acesso ao banco, sem lógica de negócio
+- **IApiResponse**: `{ type: 'success'|'error'|'info'|'warning', messageCode?: string, data?: T }`
+  - API **nunca** retorna texto, apenas códigos (`messageCode`) para i18n
+- Interfaces na pasta `interfaces/` com prefixo **I** (ex: `IUser`, `IProduct`)
+  - Types locais (usados só no arquivo) ficam dentro do arquivo, sem `export`
+- Nunca retornar o model completo na resposta — usar interfaces para definir o que a API expõe
+- Models (TypeORM): PascalCase singular (`Product`), tabela snake_case plural (`products`), colunas em snake_case (`company_id`, `created_at`)
+- Rotas: RESTful, kebab-case plural (`/api/customers`, `/api/stock-entries`)
+- Validação: **Zod** via middleware — schemas na pasta `schemas/`. Sanitizar strings — nunca confiar em input do usuário
+- **Sempre** usar transaction ao persistir dados (create, update, delete) — gerenciada no Service
+- Migrations reversíveis (up e down) para toda alteração no banco — nunca alterar manualmente. Nomenclatura: `{timestamp}-{DescricaoEmPascalCase}.ts`
+- Logger (**Winston**): `logger.info(message, context?)` — nunca `console.log`
+  - Nunca logar dados sensíveis (senhas, tokens, dados de cartão)
+- Multi-tenant: nunca confiar no `company_id` do body — usar o do middleware. Rotas de admin não passam pelo middleware de tenant
+- CORS: aberto para todas as origens
+- Status HTTP corretos: 200, 201, 400, 401, 403, 404, 429, 500
+- Variáveis de ambiente em `UPPER_SNAKE_CASE` — configs sensíveis nunca hardcoded. Sempre incluir nova env no `.env.example` (sem valor real)
+- Arquivos TS em PascalCase (`ProductService.ts`, `JWTUtil.ts`)
