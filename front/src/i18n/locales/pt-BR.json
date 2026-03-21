@@ -1,0 +1,36 @@
+{
+    "common": {
+        "actions": {
+            "SAVE": "Salvar",
+            "CANCEL": "Cancelar",
+            "DELETE": "Excluir",
+            "EDIT": "Editar",
+            "CREATE": "Criar",
+            "SEARCH": "Pesquisar",
+            "FILTER": "Filtrar",
+            "BACK": "Voltar",
+            "CONFIRM": "Confirmar",
+            "CLOSE": "Fechar"
+        },
+        "validations": {
+            "REQUIRED_FIELD": "Campo obrigatório",
+            "INVALID_EMAIL": "E-mail inválido",
+            "MIN_LENGTH": "Mínimo de {min} caracteres",
+            "MAX_LENGTH": "Máximo de {max} caracteres"
+        },
+        "messages": {
+            "CREATED": "Registro criado com sucesso",
+            "UPDATED": "Registro atualizado com sucesso",
+            "DELETED": "Registro excluído com sucesso",
+            "ERROR": "Ocorreu um erro inesperado",
+            "NOT_FOUND": "Registro não encontrado",
+            "UNAUTHORIZED": "Sessão expirada, faça login novamente",
+            "FORBIDDEN": "Você não tem permissão para acessar este recurso",
+            "TOO_MANY_REQUESTS": "Muitas requisições, tente novamente em instantes"
+        },
+        "status": {
+            "ACTIVE": "Ativo",
+            "INACTIVE": "Inativo"
+        }
+    }
+}

@@ -1,0 +1,28 @@
+/* ── Light Mode (padrão) ── */
+:root {
+    /* Fundos */
+    --bg-page: #f8f8f8;
+    --bg-card: #ffffff;
+    --bg-header: #ffffff;
+    --bg-sidebar: #ffffff;
+
+    /* Bordas */
+    --border-color: #e8e8e8;
+
+    /* Textos */
+    --text-primary: #2c2c2c;
+    --text-secondary: #888888;
+}
+
+/* ── Dark Mode ── */
+.dark-mode {
+    --bg-page: #1a1a1a;
+    --bg-card: #242424;
+    --bg-header: #141414;
+    --bg-sidebar: #141414;
+
+    --border-color: #333333;
+
+    --text-primary: #e0e0e0;
+    --text-secondary: #888888;
+}

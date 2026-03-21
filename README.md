@@ -6,7 +6,7 @@ Multi-tenant ERP for commerce and services.
 
 | Layer | Technologies |
 |-------|-------------|
-| Frontend | Vue3, Quasar, JavaScript, Pinia, vue-i18n, Zod, ESLint, Prettier |
+| Frontend | Vue3, Quasar, JavaScript, Pinia, vue-i18n, Zod, ESLint, Prettier, [Material Icons](https://fonts.google.com/icons) |
 | API | TypeScript, Express, TypeORM, JWT, Zod, Winston, ESLint, Prettier |
 | Database | PostgreSQL |
 | Storage | AWS S3 |

@@ -1,0 +1,36 @@
+{
+    "common": {
+        "actions": {
+            "SAVE": "Save",
+            "CANCEL": "Cancel",
+            "DELETE": "Delete",
+            "EDIT": "Edit",
+            "CREATE": "Create",
+            "SEARCH": "Search",
+            "FILTER": "Filter",
+            "BACK": "Back",
+            "CONFIRM": "Confirm",
+            "CLOSE": "Close"
+        },
+        "validations": {
+            "REQUIRED_FIELD": "Required field",
+            "INVALID_EMAIL": "Invalid email",
+            "MIN_LENGTH": "Minimum {min} characters",
+            "MAX_LENGTH": "Maximum {max} characters"
+        },
+        "messages": {
+            "CREATED": "Record created successfully",
+            "UPDATED": "Record updated successfully",
+            "DELETED": "Record deleted successfully",
+            "ERROR": "An unexpected error occurred",
+            "NOT_FOUND": "Record not found",
+            "UNAUTHORIZED": "Session expired, please log in again",
+            "FORBIDDEN": "You do not have permission to access this resource",
+            "TOO_MANY_REQUESTS": "Too many requests, please try again shortly"
+        },
+        "status": {
+            "ACTIVE": "Active",
+            "INACTIVE": "Inactive"
+        }
+    }
+}
