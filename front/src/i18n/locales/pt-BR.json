@@ -15,6 +15,7 @@
         "validations": {
             "REQUIRED_FIELD": "Campo obrigatório",
             "INVALID_EMAIL": "E-mail inválido",
+            "VALIDATION_ERROR": "Erro de validação",
             "MIN_LENGTH": "Mínimo de {min} caracteres",
             "MAX_LENGTH": "Máximo de {max} caracteres"
         },

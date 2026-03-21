@@ -22,6 +22,14 @@ lupart/
 
 ## Setup
 
+### Database
+
+```bash
+docker compose up -d
+```
+
+PostgreSQL 16 via Docker (port 5430).
+
 ### API
 
 ```bash

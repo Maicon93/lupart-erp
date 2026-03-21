@@ -1,0 +1,52 @@
+/**
+ * Códigos de mensagem i18n — sincronizados com o frontend.
+ * A API envia apenas o código via messageCode, o frontend traduz via i18n.
+ *
+ * O valor de cada chave é a descrição em português (para documentação).
+ * O builder gera automaticamente o caminho como string (ex: 'common.messages.CREATED').
+ *
+ * Uso: MessageCodes.common.messages.CREATED → 'common.messages.CREATED'
+ */
+
+type CodeLeaf = string;
+type CodeTree = { [key: string]: CodeTree | CodeLeaf };
+type ResolvedTree<T> = { [K in keyof T]: T[K] extends string ? string : ResolvedTree<T[K]> };
+
+const buildMessageCodes = <T extends CodeTree>(tree: T, prefix = ''): ResolvedTree<T> => {
+    const result = {} as Record<string, unknown>;
+
+    for (const key of Object.keys(tree)) {
+        const value = tree[key];
+        const path = prefix ? `${prefix}.${key}` : key;
+
+        if (typeof value === 'string') {
+            result[key] = path;
+        } else {
+            result[key] = buildMessageCodes(value as CodeTree, path);
+        }
+    }
+
+    return result as ResolvedTree<T>;
+};
+
+const messageCodes = buildMessageCodes({
+    common: {
+        messages: {
+            CREATED: 'Registro criado com sucesso',
+            UPDATED: 'Registro atualizado com sucesso',
+            DELETED: 'Registro excluído com sucesso',
+            ERROR: 'Erro inesperado no servidor',
+            NOT_FOUND: 'Registro não encontrado',
+            UNAUTHORIZED: 'Sessão expirada ou token inválido',
+            FORBIDDEN: 'Usuário sem permissão para o recurso',
+            TOO_MANY_REQUESTS: 'Rate limit atingido',
+        },
+        validations: {
+            VALIDATION_ERROR: 'Erro de validação nos dados enviados',
+            REQUIRED_FIELD: 'Campo obrigatório não preenchido',
+            INVALID_EMAIL: 'Formato de e-mail inválido',
+        },
+    },
+});
+
+export default messageCodes;

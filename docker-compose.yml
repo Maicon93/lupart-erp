@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: lupart-postgres
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: "1"
+      POSTGRES_DB: lupart
+    ports:
+      - "5430:5432"
+    volumes:
+      - lupart_pgdata:/var/lib/postgresql/data
+
+volumes:
+  lupart_pgdata:
