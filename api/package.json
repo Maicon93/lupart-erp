@@ -12,7 +12,9 @@
     "format": "prettier --write src/",
     "test": "vitest run",
     "test:watch": "vitest",
-    "typeorm": "typeorm-ts-node-commonjs"
+    "typeorm": "typeorm-ts-node-commonjs",
+    "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/database.ts",
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",
