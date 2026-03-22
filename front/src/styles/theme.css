@@ -15,7 +15,8 @@
 }
 
 /* ── Dark Mode ── */
-.dark-mode {
+.dark-mode,
+.body--dark {
     --bg-page: #1a1a1a;
     --bg-card: #242424;
     --bg-header: #141414;

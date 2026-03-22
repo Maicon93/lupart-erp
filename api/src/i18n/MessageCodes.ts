@@ -30,6 +30,23 @@ const buildMessageCodes = <T extends CodeTree>(tree: T, prefix = ''): ResolvedTr
 };
 
 const messageCodes = buildMessageCodes({
+    auth: {
+        messages: {
+            LOGIN_SUCCESS: 'Login realizado com sucesso',
+            LOGOUT_SUCCESS: 'Logout realizado com sucesso',
+            TOKEN_REFRESHED: 'Token renovado com sucesso',
+        },
+        errors: {
+            INVALID_CREDENTIALS: 'E-mail ou senha inválidos',
+            USER_INACTIVE: 'Usuário inativo no sistema',
+            INVALID_REFRESH_TOKEN: 'Refresh token inválido ou expirado',
+        },
+    },
+    accessPlans: {
+        errors: {
+            HAS_LINKED_COMPANIES: 'Não é possível excluir este plano pois existem empresas vinculadas',
+        },
+    },
     common: {
         messages: {
             CREATED: 'Registro criado com sucesso',

@@ -1,6 +1,153 @@
 {
+    "accessPlans": {
+        "TITLE": "Access Plans",
+        "fields": {
+            "TITLE": "Title",
+            "USER_LIMIT": "User limit",
+            "DURATION_DAYS": "Duration (days)",
+            "PRICE": "Invoice amount",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Plan",
+            "EDIT": "Edit Plan",
+            "DELETE": "Delete Plan",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Are you sure you want to delete the plan \"{title}\"?"
+        },
+        "errors": {
+            "HAS_LINKED_COMPANIES": "Cannot delete this plan because there are linked companies"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "validations": {
+            "POSITIVE_NUMBER": "Must be a positive number"
+        }
+    },
+    "auth": {
+        "messages": {
+            "LOGIN_SUCCESS": "Login successful",
+            "LOGOUT_SUCCESS": "Logout successful",
+            "TOKEN_REFRESHED": "Token refreshed successfully"
+        },
+        "errors": {
+            "INVALID_CREDENTIALS": "Invalid email or password",
+            "USER_INACTIVE": "User is inactive",
+            "INVALID_REFRESH_TOKEN": "Invalid or expired refresh token"
+        }
+    },
+    "login": {
+        "fields": {
+            "EMAIL": "Email",
+            "PASSWORD": "Password"
+        },
+        "actions": {
+            "LOGIN": "Sign in"
+        }
+    },
+    "navbar": {
+        "NOTIFICATIONS": "Notifications",
+        "ADMIN_PANEL": "Admin Panel",
+        "USER_PANEL": "User Panel",
+        "BACK_TO_ADMIN": "Back to Admin Panel",
+        "DARK_MODE": "Dark mode",
+        "LIGHT_MODE": "Light mode"
+    },
+    "sidebar": {
+        "admin": {
+            "sections": {
+                "REGISTRATIONS": "Registrations",
+                "ACCESS_PLANS": "Access Plans",
+                "SETTINGS": "Settings",
+                "REPORTS": "Reports",
+                "MONITORING": "Monitoring"
+            },
+            "items": {
+                "COMPANIES": "Companies",
+                "BRANCHES": "Branches",
+                "USERS": "Users",
+                "ROLES": "Roles",
+                "PERMISSIONS": "Permissions",
+                "PLANS": "Plan Registration",
+                "SYSTEM_PARAMETERS": "System Parameters",
+                "COMPANIES_AND_PLANS": "Companies & Plans",
+                "DEFAULTING_COMPANIES": "Defaulting Companies",
+                "USERS_BY_COMPANY": "Users by Company",
+                "AUDIT_LOGS": "Audit Logs"
+            }
+        },
+        "user": {
+            "sections": {
+                "GENERAL": "General",
+                "REGISTRATIONS": "Registrations",
+                "STOCK_CONTROL": "Stock Control",
+                "TRANSACTIONS": "Transactions",
+                "FINANCIAL": "Financial",
+                "REPORTS": "Reports",
+                "SETTINGS": "Settings"
+            },
+            "items": {
+                "DASHBOARD": "Dashboard",
+                "MY_PROFILE": "My Profile",
+                "CUSTOMERS": "Customers",
+                "SUPPLIERS": "Suppliers",
+                "PRODUCTS": "Products",
+                "CATEGORIES": "Product Categories",
+                "MEASUREMENT_UNITS": "Measurement Units",
+                "PAYMENT_TYPES": "Payment Types",
+                "STOCK_ENTRY": "Stock Entry",
+                "STOCK_ADJUSTMENT": "Stock Adjustment",
+                "INVENTORY": "Inventory",
+                "DIRECT_SALE": "Direct Sale (POS)",
+                "SALES": "Sales",
+                "QUOTES": "Quotes",
+                "SERVICE_ORDERS": "Service Orders",
+                "ACCOUNTS_RECEIVABLE": "Accounts Receivable",
+                "ACCOUNTS_PAYABLE": "Accounts Payable",
+                "CASH_FLOW": "Cash Flow",
+                "CASH_MOVEMENTS": "Cash Movements",
+                "MOVEMENT_HISTORY": "Movement History",
+                "SALES_BY_PERIOD": "Sales by Period",
+                "TOP_SELLING_PRODUCTS": "Top Selling Products",
+                "MINIMUM_STOCK": "Minimum Stock",
+                "COMPANY_SETTINGS": "Company Settings",
+                "MY_PLAN": "My Plan",
+                "USERS": "Users"
+            }
+        }
+    },
+    "home": {
+        "TITLE": "Home",
+        "WELCOME": "Welcome to Lupart!",
+        "DESCRIPTION": "Use the side menu to navigate between system modules. If you need help, contact our support team.",
+        "QUICK_LINKS": "Quick links",
+        "SUPPORT": "Support",
+        "HOURS": "Business hours",
+        "HOURS_WEEKDAYS": "Monday to Friday: 08:00 AM — 06:00 PM",
+        "HOURS_SATURDAY": "Saturday: 08:00 AM — 12:00 PM",
+        "links": {
+            "PRODUCTS": "Products",
+            "PRODUCTS_DESC": "Manage catalog and inventory",
+            "SALES": "Sales",
+            "SALES_DESC": "Register and track sales",
+            "CUSTOMERS": "Customers",
+            "CUSTOMERS_DESC": "Customer records and history",
+            "SERVICE_ORDERS": "Service Orders",
+            "SERVICE_ORDERS_DESC": "Manage services and technicians"
+        },
+        "contact": {
+            "EMAIL": "Email",
+            "PHONE": "Phone",
+            "WEBSITE": "Website"
+        }
+    },
     "common": {
         "actions": {
+            "LOGOUT": "Logout",
             "SAVE": "Save",
             "CANCEL": "Cancel",
             "DELETE": "Delete",

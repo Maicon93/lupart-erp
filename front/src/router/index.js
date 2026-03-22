@@ -3,6 +3,34 @@ import { $api } from '../plugins/axios';
 
 const routes = [
     {
+        path: '/login',
+        component: () => import('../layouts/AuthLayout.vue'),
+        children: [
+            {
+                path: '',
+                name: 'login',
+                component: () => import('../views/login/LoginView.vue'),
+            },
+        ],
+    },
+    {
+        path: '/',
+        component: () => import('../layouts/DashboardLayout.vue'),
+        children: [
+            {
+                path: '',
+                name: 'home',
+                component: () => import('../views/home/HomeView.vue'),
+            },
+            {
+                path: 'admin/access-plans',
+                name: 'admin-access-plans',
+                component: () => import('../views/admin/access-plans/AccessPlanList.vue'),
+                meta: { screen: 10 },
+            },
+        ],
+    },
+    {
         path: '/test',
         name: 'test',
         component: () => import('../views/TestPage.vue'),
@@ -15,7 +43,7 @@ const router = createRouter({
 });
 
 const PUBLIC_ROUTES = ['login', 'test'];
-const NO_PERMISSION_ROUTES = ['home'];
+const NO_PERMISSION_ROUTES = ['home', 'admin-access-plans'];
 
 router.beforeEach(async (to, from, next) => {
     const token = localStorage.getItem('token');

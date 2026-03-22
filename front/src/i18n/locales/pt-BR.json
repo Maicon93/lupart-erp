@@ -1,6 +1,153 @@
 {
+    "accessPlans": {
+        "TITLE": "Planos de Acesso",
+        "fields": {
+            "TITLE": "Título",
+            "USER_LIMIT": "Quantidade de usuários",
+            "DURATION_DAYS": "Dias de vigência",
+            "PRICE": "Valor da fatura",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Novo Plano",
+            "EDIT": "Editar Plano",
+            "DELETE": "Excluir Plano",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Deseja realmente excluir o plano \"{title}\"?"
+        },
+        "errors": {
+            "HAS_LINKED_COMPANIES": "Não é possível excluir este plano pois existem empresas vinculadas"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "validations": {
+            "POSITIVE_NUMBER": "Deve ser um número positivo"
+        }
+    },
+    "auth": {
+        "messages": {
+            "LOGIN_SUCCESS": "Login realizado com sucesso",
+            "LOGOUT_SUCCESS": "Logout realizado com sucesso",
+            "TOKEN_REFRESHED": "Token renovado com sucesso"
+        },
+        "errors": {
+            "INVALID_CREDENTIALS": "E-mail ou senha inválidos",
+            "USER_INACTIVE": "Usuário inativo no sistema",
+            "INVALID_REFRESH_TOKEN": "Refresh token inválido ou expirado"
+        }
+    },
+    "login": {
+        "fields": {
+            "EMAIL": "E-mail",
+            "PASSWORD": "Senha"
+        },
+        "actions": {
+            "LOGIN": "Entrar"
+        }
+    },
+    "navbar": {
+        "NOTIFICATIONS": "Notificações",
+        "ADMIN_PANEL": "Painel Admin",
+        "USER_PANEL": "Painel Usuário",
+        "BACK_TO_ADMIN": "Voltar ao Painel Administrador",
+        "DARK_MODE": "Modo escuro",
+        "LIGHT_MODE": "Modo claro"
+    },
+    "sidebar": {
+        "admin": {
+            "sections": {
+                "REGISTRATIONS": "Cadastros",
+                "ACCESS_PLANS": "Planos de Acesso",
+                "SETTINGS": "Configurações",
+                "REPORTS": "Relatórios",
+                "MONITORING": "Monitoramento"
+            },
+            "items": {
+                "COMPANIES": "Empresas",
+                "BRANCHES": "Filiais",
+                "USERS": "Usuários",
+                "ROLES": "Cargos",
+                "PERMISSIONS": "Permissões",
+                "PLANS": "Cadastro de Planos",
+                "SYSTEM_PARAMETERS": "Parâmetros do Sistema",
+                "COMPANIES_AND_PLANS": "Empresas e Planos",
+                "DEFAULTING_COMPANIES": "Empresas Inadimplentes",
+                "USERS_BY_COMPANY": "Usuários por Empresa",
+                "AUDIT_LOGS": "Logs / Auditoria"
+            }
+        },
+        "user": {
+            "sections": {
+                "GENERAL": "Geral",
+                "REGISTRATIONS": "Cadastros",
+                "STOCK_CONTROL": "Controle de Estoque",
+                "TRANSACTIONS": "Movimentações",
+                "FINANCIAL": "Financeiro",
+                "REPORTS": "Relatórios",
+                "SETTINGS": "Configurações"
+            },
+            "items": {
+                "DASHBOARD": "Dashboard",
+                "MY_PROFILE": "Meu Perfil",
+                "CUSTOMERS": "Clientes",
+                "SUPPLIERS": "Fornecedores",
+                "PRODUCTS": "Produtos",
+                "CATEGORIES": "Categorias de Produto",
+                "MEASUREMENT_UNITS": "Unidades de Medida",
+                "PAYMENT_TYPES": "Tipos de Pagamento",
+                "STOCK_ENTRY": "Entrada de Estoque",
+                "STOCK_ADJUSTMENT": "Ajuste de Estoque",
+                "INVENTORY": "Inventário",
+                "DIRECT_SALE": "Venda Direta (PDV)",
+                "SALES": "Vendas",
+                "QUOTES": "Orçamentos",
+                "SERVICE_ORDERS": "Ordens de Serviço",
+                "ACCOUNTS_RECEIVABLE": "Contas a Receber",
+                "ACCOUNTS_PAYABLE": "Contas a Pagar",
+                "CASH_FLOW": "Fluxo de Caixa",
+                "CASH_MOVEMENTS": "Movimentações de Caixa",
+                "MOVEMENT_HISTORY": "Histórico de Movimentações",
+                "SALES_BY_PERIOD": "Vendas por Período",
+                "TOP_SELLING_PRODUCTS": "Produtos Mais Vendidos",
+                "MINIMUM_STOCK": "Estoque Mínimo",
+                "COMPANY_SETTINGS": "Configurações da Empresa",
+                "MY_PLAN": "Meu Plano",
+                "USERS": "Usuários"
+            }
+        }
+    },
+    "home": {
+        "TITLE": "Início",
+        "WELCOME": "Bem-vindo ao Lupart!",
+        "DESCRIPTION": "Utilize o menu lateral para navegar entre os módulos do sistema. Caso precise de ajuda, entre em contato com nosso suporte.",
+        "QUICK_LINKS": "Acesso rápido",
+        "SUPPORT": "Suporte",
+        "HOURS": "Horário de atendimento",
+        "HOURS_WEEKDAYS": "Segunda a Sexta: 08:00 — 18:00",
+        "HOURS_SATURDAY": "Sábado: 08:00 — 12:00",
+        "links": {
+            "PRODUCTS": "Produtos",
+            "PRODUCTS_DESC": "Gerenciar catálogo e estoque",
+            "SALES": "Vendas",
+            "SALES_DESC": "Registrar e acompanhar vendas",
+            "CUSTOMERS": "Clientes",
+            "CUSTOMERS_DESC": "Cadastro e histórico de clientes",
+            "SERVICE_ORDERS": "Ordens de Serviço",
+            "SERVICE_ORDERS_DESC": "Controlar serviços e técnicos"
+        },
+        "contact": {
+            "EMAIL": "E-mail",
+            "PHONE": "Telefone",
+            "WEBSITE": "Site"
+        }
+    },
     "common": {
         "actions": {
+            "LOGOUT": "Sair",
             "SAVE": "Salvar",
             "CANCEL": "Cancelar",
             "DELETE": "Excluir",
