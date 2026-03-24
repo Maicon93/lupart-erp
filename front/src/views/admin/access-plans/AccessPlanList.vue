@@ -68,15 +68,14 @@
 
             <template #body-cell-actions="props">
                 <q-td :props="props">
-                    <q-btn flat dense round icon="edit" size="sm" @click="openForm(props.row)">
+                    <q-btn flat round icon="edit" size="md" @click="openForm(props.row)">
                         <q-tooltip>{{ $t('common.actions.EDIT') }}</q-tooltip>
                     </q-btn>
                     <q-btn
                         flat
-                        dense
                         round
                         icon="delete"
-                        size="sm"
+                        size="md"
                         color="negative"
                         @click="handleDelete(props.row)"
                     >

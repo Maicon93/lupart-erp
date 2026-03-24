@@ -13,6 +13,7 @@
 - Mixins: lógica reutilizável entre componentes → pasta `src/mixins/`
 - Utils: utilitários (formatadores, masks, ErrorCodes) → pasta `src/utils/`
 - Validação: **Zod** antes de enviar para a API — schemas na pasta `schemas/`
+- Campos obrigatórios: adicionar `*` no label — `:label="$t('chave') + ' *'"`. Campos opcionais não recebem asterisco
 - Stores (Pinia): apenas para o necessário (`auth`, `enterprise`, `theme`) — não usar para estado local de tela
 - Permissões: validação via **requisição HTTP** no `beforeEach` do Vue Router a cada navegação
 - Lazy loading em todas as views: `() => import(...)`

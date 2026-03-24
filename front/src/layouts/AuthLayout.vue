@@ -62,13 +62,3 @@ export default {
     letter-spacing: -0.5px;
 }
 </style>
-
-<style>
-.auth-layout input:-webkit-autofill,
-.auth-layout input:-webkit-autofill:hover,
-.auth-layout input:-webkit-autofill:focus {
-    -webkit-box-shadow: 0 0 0 1000px var(--bg-card) inset !important;
-    -webkit-text-fill-color: var(--text-primary) !important;
-    transition: background-color 5000s ease-in-out 0s;
-}
-</style>

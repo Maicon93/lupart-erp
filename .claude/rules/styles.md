@@ -80,3 +80,10 @@ Definidas em `src/styles/theme.css`. Usar sempre que a cor depende do tema (ligh
 - As variáveis CSS se alternam automaticamente
 - Componentes Quasar usam `$q.dark.set(value)` para reagir ao tema
 - Cores de tema Quasar (`primary`, `secondary`, etc.) são as mesmas nos dois modos
+
+## Autofill do navegador
+
+- O Chrome/Edge aplica fundo branco/azul nos inputs com autocomplete, ignorando CSS
+- O fix global está em `src/styles/theme.css` usando `-webkit-autofill`
+- **Nunca** adicionar fix de autofill em componentes individuais — o global já cobre todos os formulários
+- Se criar um novo formulário, ele já herda o fix automaticamente

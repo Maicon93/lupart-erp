@@ -2,7 +2,7 @@
     <q-form @submit.prevent="handleLogin">
         <q-input
             v-model="form.email"
-            :label="$t('login.fields.EMAIL')"
+            :label="$t('login.fields.EMAIL') + ' *'"
             type="email"
             outlined
             :error="!!errors.email"
@@ -16,7 +16,7 @@
 
         <q-input
             v-model="form.password"
-            :label="$t('login.fields.PASSWORD')"
+            :label="$t('login.fields.PASSWORD') + ' *'"
             :type="showPassword ? 'text' : 'password'"
             outlined
             class="q-mt-sm"

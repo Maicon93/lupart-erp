@@ -15,7 +15,7 @@
                 <q-form @submit.prevent="handleSubmit" class="q-gutter-sm">
                     <q-input
                         v-model="form.title"
-                        :label="$t('accessPlans.fields.TITLE')"
+                        :label="$t('accessPlans.fields.TITLE') + ' *'"
                         outlined
                         :error="!!errors.title"
                         :error-message="errors.title ? $t(errors.title) : ''"
@@ -24,7 +24,7 @@
 
                     <q-input
                         v-model.number="form.userLimit"
-                        :label="$t('accessPlans.fields.USER_LIMIT')"
+                        :label="$t('accessPlans.fields.USER_LIMIT') + ' *'"
                         type="number"
                         outlined
                         :error="!!errors.userLimit"
@@ -34,7 +34,7 @@
 
                     <q-input
                         v-model.number="form.durationDays"
-                        :label="$t('accessPlans.fields.DURATION_DAYS')"
+                        :label="$t('accessPlans.fields.DURATION_DAYS') + ' *'"
                         type="number"
                         outlined
                         :error="!!errors.durationDays"
@@ -44,7 +44,7 @@
 
                     <q-input
                         v-model.number="form.price"
-                        :label="$t('accessPlans.fields.PRICE')"
+                        :label="$t('accessPlans.fields.PRICE') + ' *'"
                         type="number"
                         step="0.01"
                         prefix="R$"
