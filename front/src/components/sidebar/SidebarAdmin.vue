@@ -38,9 +38,9 @@ export default {
                 {
                     label: 'sidebar.admin.sections.REGISTRATIONS',
                     items: [
-                        { icon: 'business', label: 'sidebar.admin.items.COMPANIES', to: '/admin/companies', disabled: true },
+                        { icon: 'business', label: 'sidebar.admin.items.COMPANIES', to: '/admin/companies', disabled: false },
                         { icon: 'account_tree', label: 'sidebar.admin.items.BRANCHES', to: '/admin/branches', disabled: true },
-                        { icon: 'people', label: 'sidebar.admin.items.USERS', to: '/admin/users', disabled: true },
+                        { icon: 'people', label: 'sidebar.admin.items.USERS', to: '/admin/users', disabled: false },
                         { icon: 'badge', label: 'sidebar.admin.items.ROLES', to: '/admin/roles', disabled: true },
                         { icon: 'lock', label: 'sidebar.admin.items.PERMISSIONS', to: '/admin/permissions', disabled: true },
                     ],

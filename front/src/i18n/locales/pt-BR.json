@@ -28,6 +28,102 @@
             "POSITIVE_NUMBER": "Deve ser um número positivo"
         }
     },
+    "companies": {
+        "TITLE": "Empresas",
+        "fields": {
+            "NAME": "Nome",
+            "CNPJ": "CNPJ",
+            "PHONE": "Telefone",
+            "EMAIL": "E-mail",
+            "ZIP_CODE": "CEP",
+            "STREET": "Endereço",
+            "NUMBER": "Número",
+            "COMPLEMENT": "Complemento",
+            "NEIGHBORHOOD": "Bairro",
+            "CITY": "Cidade",
+            "STATE": "Estado",
+            "ACCESS_PLAN": "Plano de Acesso",
+            "RESPONSIBLE": "Responsável",
+            "MATRIZ": "Matriz",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Nova Empresa",
+            "EDIT": "Editar Empresa",
+            "DETAILS": "Detalhes",
+            "INSPECT": "Inspecionar",
+            "BRANCHES": "Filiais",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "hints": {
+            "MATRIZ_HINT": "Deixe vazio para cadastrar como matriz"
+        },
+        "messages": {
+            "CONFIRM_TOGGLE": "Deseja alterar o status desta empresa?",
+            "NO_BRANCHES": "Esta empresa não possui filiais cadastradas"
+        },
+        "validations": {
+            "INVALID_CNPJ": "CNPJ inválido"
+        },
+        "errors": {
+            "CNPJ_ALREADY_EXISTS": "CNPJ já cadastrado no sistema",
+            "HAS_ACTIVE_BRANCHES": "Não é possível inativar empresa com filiais ativas"
+        }
+    },
+    "users": {
+        "TITLE": "Usuários",
+        "fields": {
+            "NAME": "Nome",
+            "EMAIL": "E-mail",
+            "PASSWORD": "Senha",
+            "CONFIRM_PASSWORD": "Confirmar Senha",
+            "PHONE": "Telefone",
+            "COUNTRY": "País",
+            "LANGUAGE": "Idioma",
+            "ROLE": "Cargo",
+            "COMPANIES": "Empresas",
+            "STATUS": "Status",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Novo Usuário",
+            "EDIT": "Editar Usuário",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar",
+            "CHANGE_PASSWORD": "Alterar senha"
+        },
+        "roles": {
+            "ADMIN": "Administrador",
+            "USER": "Usuário"
+        },
+        "countries": {
+            "BRAZIL": "Brasil",
+            "USA": "Estados Unidos",
+            "PORTUGAL": "Portugal",
+            "OTHER": "Outro"
+        },
+        "languages": {
+            "PT_BR": "Português",
+            "EN": "English"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "hints": {
+            "COMPANIES_OPTIONAL": "Opcional — o usuário pode ser vinculado a empresas posteriormente"
+        },
+        "validations": {
+            "PASSWORDS_DONT_MATCH": "As senhas não conferem",
+            "PASSWORD_MIN_LENGTH": "A senha deve ter no mínimo 6 caracteres"
+        },
+        "errors": {
+            "EMAIL_ALREADY_EXISTS": "E-mail já cadastrado no sistema"
+        }
+    },
     "auth": {
         "messages": {
             "LOGIN_SUCCESS": "Login realizado com sucesso",

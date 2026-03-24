@@ -28,6 +28,102 @@
             "POSITIVE_NUMBER": "Must be a positive number"
         }
     },
+    "companies": {
+        "TITLE": "Companies",
+        "fields": {
+            "NAME": "Name",
+            "CNPJ": "CNPJ",
+            "PHONE": "Phone",
+            "EMAIL": "Email",
+            "ZIP_CODE": "Zip Code",
+            "STREET": "Address",
+            "NUMBER": "Number",
+            "COMPLEMENT": "Complement",
+            "NEIGHBORHOOD": "Neighborhood",
+            "CITY": "City",
+            "STATE": "State",
+            "ACCESS_PLAN": "Access Plan",
+            "RESPONSIBLE": "Responsible",
+            "MATRIZ": "Parent Company",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Company",
+            "EDIT": "Edit Company",
+            "DETAILS": "Details",
+            "INSPECT": "Inspect",
+            "BRANCHES": "Branches",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "hints": {
+            "MATRIZ_HINT": "Leave empty to register as parent company"
+        },
+        "messages": {
+            "CONFIRM_TOGGLE": "Do you want to change the status of this company?",
+            "NO_BRANCHES": "This company has no registered branches"
+        },
+        "validations": {
+            "INVALID_CNPJ": "Invalid CNPJ"
+        },
+        "errors": {
+            "CNPJ_ALREADY_EXISTS": "CNPJ already registered in the system",
+            "HAS_ACTIVE_BRANCHES": "Cannot inactivate company with active branches"
+        }
+    },
+    "users": {
+        "TITLE": "Users",
+        "fields": {
+            "NAME": "Name",
+            "EMAIL": "Email",
+            "PASSWORD": "Password",
+            "CONFIRM_PASSWORD": "Confirm Password",
+            "PHONE": "Phone",
+            "COUNTRY": "Country",
+            "LANGUAGE": "Language",
+            "ROLE": "Role",
+            "COMPANIES": "Companies",
+            "STATUS": "Status",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New User",
+            "EDIT": "Edit User",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate",
+            "CHANGE_PASSWORD": "Change password"
+        },
+        "roles": {
+            "ADMIN": "Administrator",
+            "USER": "User"
+        },
+        "countries": {
+            "BRAZIL": "Brazil",
+            "USA": "United States",
+            "PORTUGAL": "Portugal",
+            "OTHER": "Other"
+        },
+        "languages": {
+            "PT_BR": "Português",
+            "EN": "English"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "hints": {
+            "COMPANIES_OPTIONAL": "Optional — the user can be linked to companies later"
+        },
+        "validations": {
+            "PASSWORDS_DONT_MATCH": "Passwords don't match",
+            "PASSWORD_MIN_LENGTH": "Password must be at least 6 characters"
+        },
+        "errors": {
+            "EMAIL_ALREADY_EXISTS": "Email already registered in the system"
+        }
+    },
     "auth": {
         "messages": {
             "LOGIN_SUCCESS": "Login successful",

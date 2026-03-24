@@ -47,6 +47,20 @@ const messageCodes = buildMessageCodes({
             HAS_LINKED_COMPANIES: 'Não é possível excluir este plano pois existem empresas vinculadas',
         },
     },
+    companies: {
+        errors: {
+            CNPJ_ALREADY_EXISTS: 'CNPJ já cadastrado no sistema',
+            HAS_ACTIVE_BRANCHES: 'Não é possível inativar empresa com filiais ativas',
+        },
+    },
+    users: {
+        errors: {
+            EMAIL_ALREADY_EXISTS: 'E-mail já cadastrado no sistema',
+        },
+        validations: {
+            PASSWORDS_DONT_MATCH: 'As senhas não conferem',
+        },
+    },
     common: {
         messages: {
             CREATED: 'Registro criado com sucesso',

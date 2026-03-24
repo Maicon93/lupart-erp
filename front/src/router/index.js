@@ -28,6 +28,18 @@ const routes = [
                 component: () => import('../views/admin/access-plans/AccessPlanList.vue'),
                 meta: { screen: 10 },
             },
+            {
+                path: 'admin/companies',
+                name: 'admin-companies',
+                component: () => import('../views/admin/companies/CompanyList.vue'),
+                meta: { screen: 12 },
+            },
+            {
+                path: 'admin/users',
+                name: 'admin-users',
+                component: () => import('../views/admin/users/UserList.vue'),
+                meta: { screen: 11 },
+            },
         ],
     },
     {
@@ -43,7 +55,7 @@ const router = createRouter({
 });
 
 const PUBLIC_ROUTES = ['login', 'test'];
-const NO_PERMISSION_ROUTES = ['home', 'admin-access-plans'];
+const NO_PERMISSION_ROUTES = ['home', 'admin-access-plans', 'admin-companies', 'admin-users'];
 
 router.beforeEach(async (to, from, next) => {
     const token = localStorage.getItem('token');
