@@ -124,6 +124,37 @@
             "EMAIL_ALREADY_EXISTS": "Email already registered in the system"
         }
     },
+    "positions": {
+        "TITLE": "Positions",
+        "fields": {
+            "NAME": "Name",
+            "PERMISSIONS": "Permissions",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Position",
+            "EDIT": "Edit Position",
+            "DELETE": "Delete Position"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Are you sure you want to delete the position \"{name}\"?"
+        },
+        "validations": {
+            "AT_LEAST_ONE_PERMISSION": "At least one permission must be selected"
+        },
+        "errors": {
+            "HAS_LINKED_USERS": "Cannot delete this position because there are linked users",
+            "CANNOT_DELETE_GLOBAL": "Cannot delete global system positions",
+            "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
+        }
+    },
+    "permissions": {
+        "TITLE": "Permissions",
+        "fields": {
+            "NAME": "Code",
+            "OBSERVATION": "Description"
+        }
+    },
     "auth": {
         "messages": {
             "LOGIN_SUCCESS": "Login successful",

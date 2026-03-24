@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Company } from './Company';
+import { RolePermission } from './RolePermission';
 import { User } from './User';
 
 @Entity('roles')
@@ -19,6 +20,9 @@ export class Role {
     @ManyToOne(() => Company)
     @JoinColumn({ name: 'company_id' })
     company: Company;
+
+    @OneToMany(() => RolePermission, (rolePermission) => rolePermission.role)
+    rolePermissions: RolePermission[];
 
     @Column({ type: 'integer', name: 'created_by', nullable: true })
     createdBy: number;

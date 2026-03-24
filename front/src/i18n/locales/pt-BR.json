@@ -124,6 +124,37 @@
             "EMAIL_ALREADY_EXISTS": "E-mail já cadastrado no sistema"
         }
     },
+    "positions": {
+        "TITLE": "Cargos",
+        "fields": {
+            "NAME": "Nome",
+            "PERMISSIONS": "Permissões",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Novo Cargo",
+            "EDIT": "Editar Cargo",
+            "DELETE": "Excluir Cargo"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Deseja realmente excluir o cargo \"{name}\"?"
+        },
+        "validations": {
+            "AT_LEAST_ONE_PERMISSION": "Ao menos uma permissão deve ser selecionada"
+        },
+        "errors": {
+            "HAS_LINKED_USERS": "Não é possível excluir este cargo pois existem usuários vinculados a ele",
+            "CANNOT_DELETE_GLOBAL": "Não é possível excluir cargos globais do sistema",
+            "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
+        }
+    },
+    "permissions": {
+        "TITLE": "Permissões",
+        "fields": {
+            "NAME": "Código",
+            "OBSERVATION": "Descrição"
+        }
+    },
     "auth": {
         "messages": {
             "LOGIN_SUCCESS": "Login realizado com sucesso",

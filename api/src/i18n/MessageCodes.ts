@@ -61,6 +61,13 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    positions: {
+        errors: {
+            HAS_LINKED_USERS: 'Não é possível excluir este cargo pois existem usuários vinculados a ele',
+            CANNOT_DELETE_GLOBAL: 'Não é possível excluir cargos globais do sistema',
+            CANNOT_EDIT_GLOBAL: 'Não é possível editar cargos globais do sistema',
+        },
+    },
     common: {
         messages: {
             CREATED: 'Registro criado com sucesso',
