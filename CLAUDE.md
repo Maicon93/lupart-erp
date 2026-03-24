@@ -65,10 +65,12 @@ Convenções e padrões detalhados estão em `.claude/rules/`:
 - `teammates.md` — Regras de uso de Agent Teams
 - `skills-api.md` — Template para criar skills de módulos da API
 - `skills-frontend.md` — Template para criar skills de módulos do frontend
+- `styles.md` — Padrões de estilo (Quasar, CSS, dark mode, autofill)
+- `code-review.md` — Quando sugerir code review
 
 ## Skills Disponíveis
 
-<!-- Atualizar conforme skills forem criadas -->
+- `/code-review` — Revisão de código nos arquivos não commitados, baseada nas regras do projeto. Lança um subagent isolado que analisa convenções, arquitetura, i18n, segurança e testes.
 
 ## Comandos
 
