@@ -11,7 +11,7 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
             search as string,
             status as string,
             parseInt(page as string),
-            parseInt(limit as string),
+            parseInt(limit as string)
         );
 
         const apiResponse: IApiResponse = {

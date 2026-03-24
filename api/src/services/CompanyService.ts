@@ -141,9 +141,7 @@ const update = async (id: number, input: ICompanyInput): Promise<Company> => {
 
 const toggleStatus = async (id: number): Promise<Company> => {
     const company = await findById(id);
-    const newStatus = company.status === CompanyStatus.ACTIVE
-        ? CompanyStatus.INACTIVE
-        : CompanyStatus.ACTIVE;
+    const newStatus = company.status === CompanyStatus.ACTIVE ? CompanyStatus.INACTIVE : CompanyStatus.ACTIVE;
 
     if (newStatus === CompanyStatus.INACTIVE) {
         const branchCount = await CompanyRepository.countBranches(id);

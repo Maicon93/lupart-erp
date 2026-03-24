@@ -7,7 +7,9 @@ export class CreateProductsStockSalesFinancialTables1742861000000 implements Mig
         await queryRunner.query(`CREATE TYPE "product_status" AS ENUM ('active', 'inactive')`);
         await queryRunner.query(`CREATE TYPE "inventory_scope" AS ENUM ('all', 'category')`);
         await queryRunner.query(`CREATE TYPE "inventory_status" AS ENUM ('in_progress', 'finalized')`);
-        await queryRunner.query(`CREATE TYPE "product_movimentation_type" AS ENUM ('entry', 'adjustment', 'inventory', 'sale', 'sale_return', 'service_order')`);
+        await queryRunner.query(
+            `CREATE TYPE "product_movimentation_type" AS ENUM ('entry', 'adjustment', 'inventory', 'sale', 'sale_return', 'service_order')`
+        );
         await queryRunner.query(`CREATE TYPE "sale_status" AS ENUM ('finalized', 'cancelled')`);
         await queryRunner.query(`CREATE TYPE "sale_payment_form" AS ENUM ('cash', 'installment')`);
 

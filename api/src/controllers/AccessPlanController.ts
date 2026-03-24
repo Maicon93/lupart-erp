@@ -7,11 +7,7 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 const findAll = async (request: Request, response: Response): Promise<void> => {
     try {
         const { status, page = '1', limit = '20' } = request.query;
-        const result = await AccessPlanService.findAll(
-            status as string,
-            parseInt(page as string),
-            parseInt(limit as string),
-        );
+        const result = await AccessPlanService.findAll(status as string, parseInt(page as string), parseInt(limit as string));
 
         const apiResponse: IApiResponse = {
             type: 'success',

@@ -6,7 +6,8 @@ const repository = AppDataSource.getRepository(Company);
 const profileRepository = AppDataSource.getRepository(CompanyProfile);
 
 const findAll = async (search?: string, status?: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> => {
-    const query = repository.createQueryBuilder('company')
+    const query = repository
+        .createQueryBuilder('company')
         .leftJoinAndSelect('company.accessPlan', 'accessPlan')
         .leftJoinAndSelect('company.responsible', 'responsible');
 
@@ -38,9 +39,7 @@ const findByIdWithProfile = async (id: number): Promise<{ company: Company | nul
         relations: ['accessPlan', 'responsible', 'matrizCompany'],
     });
 
-    const profile = company
-        ? await profileRepository.findOne({ where: { companyId: id } })
-        : null;
+    const profile = company ? await profileRepository.findOne({ where: { companyId: id } }) : null;
 
     return { company, profile };
 };

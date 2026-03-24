@@ -13,9 +13,7 @@ const seedCompanyData = async (manager: EntityManager, companyId: number): Promi
     await manager.save(companySetting);
 
     const paymentTypeNames = ['Dinheiro', 'PIX', 'Cartão de Débito', 'Cartão de Crédito', 'Boleto'];
-    const paymentTypes = paymentTypeNames.map((name) =>
-        manager.create(PaymentType, { companyId, name }),
-    );
+    const paymentTypes = paymentTypeNames.map((name) => manager.create(PaymentType, { companyId, name }));
     await manager.save(paymentTypes);
 
     const measurementUnitsData = [
@@ -25,7 +23,7 @@ const seedCompanyData = async (manager: EntityManager, companyId: number): Promi
         { abbreviation: 'Serviço', description: 'Serviço' },
     ];
     const measurementUnits = measurementUnitsData.map((unit) =>
-        manager.create(MeasurementUnit, { companyId, abbreviation: unit.abbreviation, description: unit.description }),
+        manager.create(MeasurementUnit, { companyId, abbreviation: unit.abbreviation, description: unit.description })
     );
     await manager.save(measurementUnits);
 

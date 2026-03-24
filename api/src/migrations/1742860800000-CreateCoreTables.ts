@@ -89,17 +89,29 @@ export class CreateCoreTables1742860800000 implements MigrationInterface {
         // ── Foreign Keys (adicionadas após criar todas as tabelas) ──
 
         // roles
-        await queryRunner.query(`ALTER TABLE "roles" ADD CONSTRAINT "FK_roles_company" FOREIGN KEY ("company_id") REFERENCES "companies"("id")`);
-        await queryRunner.query(`ALTER TABLE "roles" ADD CONSTRAINT "FK_roles_created_by" FOREIGN KEY ("created_by") REFERENCES "users"("id")`);
+        await queryRunner.query(
+            `ALTER TABLE "roles" ADD CONSTRAINT "FK_roles_company" FOREIGN KEY ("company_id") REFERENCES "companies"("id")`
+        );
+        await queryRunner.query(
+            `ALTER TABLE "roles" ADD CONSTRAINT "FK_roles_created_by" FOREIGN KEY ("created_by") REFERENCES "users"("id")`
+        );
 
         // companies
-        await queryRunner.query(`ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_access_plan" FOREIGN KEY ("access_plan_id") REFERENCES "access_plans"("id")`);
-        await queryRunner.query(`ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_responsible" FOREIGN KEY ("responsible_id") REFERENCES "users"("id")`);
-        await queryRunner.query(`ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_matriz" FOREIGN KEY ("matriz") REFERENCES "companies"("id")`);
+        await queryRunner.query(
+            `ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_access_plan" FOREIGN KEY ("access_plan_id") REFERENCES "access_plans"("id")`
+        );
+        await queryRunner.query(
+            `ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_responsible" FOREIGN KEY ("responsible_id") REFERENCES "users"("id")`
+        );
+        await queryRunner.query(
+            `ALTER TABLE "companies" ADD CONSTRAINT "FK_companies_matriz" FOREIGN KEY ("matriz") REFERENCES "companies"("id")`
+        );
 
         // users
         await queryRunner.query(`ALTER TABLE "users" ADD CONSTRAINT "FK_users_role" FOREIGN KEY ("role_id") REFERENCES "roles"("id")`);
-        await queryRunner.query(`ALTER TABLE "users" ADD CONSTRAINT "FK_users_company" FOREIGN KEY ("company_id") REFERENCES "companies"("id")`);
+        await queryRunner.query(
+            `ALTER TABLE "users" ADD CONSTRAINT "FK_users_company" FOREIGN KEY ("company_id") REFERENCES "companies"("id")`
+        );
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

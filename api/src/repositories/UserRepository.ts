@@ -10,7 +10,8 @@ const profileRepository = AppDataSource.getRepository(UserProfile);
 const userCompanyRepository = AppDataSource.getRepository(UserCompany);
 
 const findAll = async (search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> => {
-    const query = repository.createQueryBuilder('user')
+    const query = repository
+        .createQueryBuilder('user')
         .leftJoinAndSelect('user.role', 'role')
         .select([
             'user.id',
@@ -56,13 +57,9 @@ const findByIdWithProfile = async (id: number): Promise<{ user: User | null; pro
         select: ['id', 'name', 'email', 'language', 'roleId', 'companyId', 'status', 'createdAt', 'updatedAt'],
     });
 
-    const profile = user
-        ? await profileRepository.findOne({ where: { userId: id } })
-        : null;
+    const profile = user ? await profileRepository.findOne({ where: { userId: id } }) : null;
 
-    const companies = user
-        ? await userCompanyRepository.find({ where: { userId: id }, relations: ['company'] })
-        : [];
+    const companies = user ? await userCompanyRepository.find({ where: { userId: id }, relations: ['company'] }) : [];
 
     return { user, profile, companies };
 };

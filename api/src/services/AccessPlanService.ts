@@ -55,9 +55,7 @@ const update = async (id: number, input: IAccessPlanInput): Promise<AccessPlan> 
 
 const toggleStatus = async (id: number): Promise<AccessPlan> => {
     const accessPlan = await findById(id);
-    const newStatus = accessPlan.status === AccessPlanStatus.ACTIVE
-        ? AccessPlanStatus.INACTIVE
-        : AccessPlanStatus.ACTIVE;
+    const newStatus = accessPlan.status === AccessPlanStatus.ACTIVE ? AccessPlanStatus.INACTIVE : AccessPlanStatus.ACTIVE;
 
     return AppDataSource.transaction(async (manager) => {
         await manager.update(AccessPlan, accessPlan.id, { status: newStatus });

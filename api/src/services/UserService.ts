@@ -77,7 +77,7 @@ const create = async (input: IUserInput, currentUserId: number): Promise<User> =
                     userId: user.id,
                     companyId,
                     createdBy: currentUserId,
-                }),
+                })
             );
 
             await manager.save(userCompanies);
@@ -136,7 +136,7 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
                     userId: user.id,
                     companyId,
                     createdBy: currentUserId,
-                }),
+                })
             );
 
             await manager.save(userCompanies);
@@ -151,9 +151,7 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
 
 const toggleStatus = async (id: number): Promise<User> => {
     const user = await findById(id);
-    const newStatus = user.status === UserStatus.ACTIVE
-        ? UserStatus.INACTIVE
-        : UserStatus.ACTIVE;
+    const newStatus = user.status === UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE;
 
     return AppDataSource.transaction(async (manager) => {
         await manager.update(User, user.id, { status: newStatus });

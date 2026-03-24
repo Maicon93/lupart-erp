@@ -7,12 +7,7 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 const findAll = async (request: Request, response: Response): Promise<void> => {
     try {
         const { search, status, page = '1', limit = '20' } = request.query;
-        const result = await UserService.findAll(
-            search as string,
-            status as string,
-            parseInt(page as string),
-            parseInt(limit as string),
-        );
+        const result = await UserService.findAll(search as string, status as string, parseInt(page as string), parseInt(limit as string));
 
         const apiResponse: IApiResponse = {
             type: 'success',
