@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Edit(/.claude/skills/code-review/**)",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(git status:*)"
     ]
   }
 }
