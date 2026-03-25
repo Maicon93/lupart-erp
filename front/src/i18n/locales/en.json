@@ -164,6 +164,7 @@
         "errors": {
             "INVALID_CREDENTIALS": "Invalid email or password",
             "USER_INACTIVE": "User is inactive",
+            "USER_NO_COMPANY": "User has no linked company. Contact the administrator.",
             "INVALID_REFRESH_TOKEN": "Invalid or expired refresh token"
         }
     },

@@ -115,12 +115,14 @@ export default {
                     return;
                 }
 
+                const enterpriseStore = useEnterpriseStore();
+
                 if (companies.length === 1) {
-                    const enterpriseStore = useEnterpriseStore();
                     enterpriseStore.setCompany(companies[0]);
                     this.$router.push({ name: 'home' });
                 } else {
-                    this.$router.push({ name: 'select-company' });
+                    // TODO: implementar tela de seleção de empresa
+                    this.$router.push({ name: 'home' });
                 }
             } catch {
                 // Errors handled by axios interceptor

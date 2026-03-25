@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from 'cookie-parser';
 import { rateLimit } from 'express-rate-limit';
+import authMiddleware from './middlewares/AuthMiddleware';
 import routes from './routes';
 
 const app = express();
@@ -24,6 +25,7 @@ const generalLimiter = rateLimit({
 });
 
 app.use(generalLimiter);
+app.use(authMiddleware as express.RequestHandler);
 
 app.use('/api', routes);
 

@@ -39,6 +39,7 @@ const messageCodes = buildMessageCodes({
         errors: {
             INVALID_CREDENTIALS: 'E-mail ou senha inválidos',
             USER_INACTIVE: 'Usuário inativo no sistema',
+            USER_NO_COMPANY: 'Usuário sem empresa vinculada',
             INVALID_REFRESH_TOKEN: 'Refresh token inválido ou expirado',
         },
     },

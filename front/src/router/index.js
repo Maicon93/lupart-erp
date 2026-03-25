@@ -67,7 +67,7 @@ const router = createRouter({
 });
 
 const PUBLIC_ROUTES = ['login', 'test'];
-const NO_PERMISSION_ROUTES = ['home', 'admin-access-plans', 'admin-companies', 'admin-users', 'admin-positions', 'admin-permissions'];
+const NO_PERMISSION_ROUTES = ['home'];
 
 router.beforeEach(async (to, from, next) => {
     const token = localStorage.getItem('token');
