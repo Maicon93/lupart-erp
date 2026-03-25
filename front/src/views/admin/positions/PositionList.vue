@@ -37,7 +37,8 @@
             row-key="id"
             flat
             bordered
-            :pagination="pagination"
+            v-model:pagination="pagination"
+            :rows-per-page-options="[20, 50, 100]"
             @request="onRequest"
         >
             <template #body-cell-permissionCount="props">
