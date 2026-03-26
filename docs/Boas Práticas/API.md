@@ -125,7 +125,7 @@ interface IApiResponse<T = any> {
 
 ## Segurança
 - **Rate Limiting** (`express-rate-limit`):
-  - Rotas de auth (login, refresh, reset): **5 requisições/minuto** por IP
+  - Rotas de auth (login, refresh-token): **2 requisições/segundo** por IP
   - Rotas gerais: **200 requisições/minuto** por usuário
   - Retornar **429** com `{ type: 'error', messageCode: 'TOO_MANY_REQUESTS' }`
   - Armazenamento: memória (single-server), migrar para Redis se escalar
@@ -136,6 +136,8 @@ interface IApiResponse<T = any> {
 - Nomes sempre em **UPPER_SNAKE_CASE** (ex: `DB_HOST`, `JWT_SECRET`, `AWS_S3_BUCKET`)
 - Configs sensíveis (senhas, secrets, keys) **devem ser variáveis de ambiente** — nunca hardcoded
 - Sempre que adicionar uma nova env, incluir também no `.env.example` (sem o valor real)
+- Todas as envs obrigatórias são validadas no boot via `src/config/environment.ts` (Zod) — se faltar alguma, o projeto não inicia
+- **Sem fallbacks** por padrão — todas devem vir do `.env`
 
 ## Testes
 

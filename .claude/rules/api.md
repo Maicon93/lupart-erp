@@ -21,4 +21,8 @@
 - CORS: aberto para todas as origens
 - Status HTTP corretos: 200, 201, 400, 401, 403, 404, 429, 500
 - Variáveis de ambiente em `UPPER_SNAKE_CASE` — configs sensíveis nunca hardcoded. Sempre incluir nova env no `.env.example` (sem valor real)
+- Variáveis de ambiente validadas no boot via `src/config/environment.ts` (Zod). Se faltar alguma, o projeto não inicia
+- **Sem fallbacks** em variáveis de ambiente por padrão — todas devem vir do `.env`
+  - Fallbacks são permitidos apenas quando óbvios e inofensivos (ex: `NODE_ENV` defaulting para `'development'`)
+  - Ao identificar um caso onde um fallback pode ser viável, **sugerir ao usuário** e aguardar aprovação antes de incluir
 - Arquivos TS em PascalCase (`ProductService.ts`, `JWTUtil.ts`)

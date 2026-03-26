@@ -8,15 +8,15 @@ import messageCodes from '../i18n/MessageCodes';
 const router = Router();
 
 const authLimiter = rateLimit({
-    windowMs: 60 * 1000,
-    limit: 5,
+    windowMs: 1000,
+    limit: 2,
     standardHeaders: 'draft-8',
     legacyHeaders: false,
     message: { type: 'error', messageCode: messageCodes.common.messages.TOO_MANY_REQUESTS },
 });
 
 router.post('/login', authLimiter, validate(loginSchema), AuthController.login);
-router.post('/refresh', authLimiter, AuthController.refresh);
+router.post('/refresh-token', authLimiter, AuthController.refresh);
 router.post('/logout', AuthController.logout);
 
 export default router;

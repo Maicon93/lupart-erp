@@ -12,7 +12,7 @@ const refreshApi = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
-const AUTH_ROUTES = ['/auth/login', '/auth/register', '/auth/refresh'];
+const AUTH_ROUTES = ['/auth/login', '/auth/register', '/auth/refresh-token'];
 
 let isRefreshing = false;
 let failedQueue = [];
@@ -99,7 +99,7 @@ $api.interceptors.response.use(
             isRefreshing = true;
 
             try {
-                const { data } = await refreshApi.post('/auth/refresh', null, {
+                const { data } = await refreshApi.post('/auth/refresh-token', null, {
                     withCredentials: true,
                 });
 

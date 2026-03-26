@@ -1,14 +1,15 @@
 import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
+import environment from '../config/environment';
 
 interface ITokenPayload {
     userId: number;
     role: string;
 }
 
-const SECRET = process.env.JWT_SECRET || 'lupart-dev-secret';
-const ACCESS_EXPIRES_IN = process.env.JWT_EXPIRES_IN || '15m';
-const REFRESH_EXPIRES_IN = process.env.JWT_REFRESH_EXPIRES_IN || '7d';
+const SECRET = environment.JWT_SECRET;
+const ACCESS_EXPIRES_IN = environment.JWT_EXPIRES_IN;
+const REFRESH_EXPIRES_IN = environment.JWT_REFRESH_EXPIRES_IN;
 
 const generateAccessToken = (payload: ITokenPayload): string => {
     return jwt.sign(payload, SECRET, { expiresIn: ACCESS_EXPIRES_IN });

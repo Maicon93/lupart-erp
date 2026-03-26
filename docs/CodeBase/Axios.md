@@ -25,11 +25,11 @@ Baseado em: `frontend/src/plugins/axios.js`
 
 ## Tratamento de Erros HTTP
 - **401 (Unauthorized)**:
-  - Tenta renovar o token via `/auth/refresh`
+  - Tenta renovar o token via `/auth/refresh-token`
   - Se renovar com sucesso → repete a requisição original
   - Se falhar → executa logout e redireciona para `/login`
   - Requisições simultâneas são enfileiradas durante a renovação (evita múltiplos refresh)
-- **Rotas de auth** (`/auth/login`, `/auth/register`, `/auth/refresh`) são ignoradas pelo fluxo de renovação
+- **Rotas de auth** (`/auth/login`, `/auth/register`, `/auth/refresh-token`) são ignoradas pelo fluxo de renovação
 
 ## Renovação de Token
 - Usa uma instância separada do axios (evita loop com interceptor)
