@@ -47,6 +47,12 @@ const routes = [
                 meta: { screen: 13 },
             },
             {
+                path: 'admin/system-parameters',
+                name: 'admin-system-parameters',
+                component: () => import('../views/admin/system-parameters/SystemParameterList.vue'),
+                meta: { screen: 15 },
+            },
+            {
                 path: 'admin/permissions',
                 name: 'admin-permissions',
                 component: () => import('../views/admin/permissions/PermissionList.vue'),

@@ -62,6 +62,11 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    systemParameters: {
+        errors: {
+            KEY_NOT_FOUND: 'Chave de configuração não encontrada',
+        },
+    },
     positions: {
         errors: {
             HAS_LINKED_USERS: 'Não é possível excluir este cargo pois existem usuários vinculados a ele',

@@ -148,6 +148,24 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "systemParameters": {
+        "TITLE": "Parâmetros do Sistema",
+        "sections": {
+            "TOKENS": "Tokens",
+            "UPLOAD": "Upload"
+        },
+        "fields": {
+            "ACCESS_TOKEN_DURATION": "Duração do access token (min)",
+            "REFRESH_TOKEN_DURATION": "Duração do refresh token (dias)",
+            "MAX_UPLOAD_SIZE": "Tamanho máximo de upload (MB)"
+        },
+        "validations": {
+            "POSITIVE_NUMBER": "Deve ser um número positivo"
+        },
+        "errors": {
+            "KEY_NOT_FOUND": "Chave de configuração não encontrada"
+        }
+    },
     "permissions": {
         "TITLE": "Permissões",
         "fields": {

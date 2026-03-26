@@ -6,6 +6,7 @@ import companyRoutes from './CompanyRoutes';
 import userRoutes from './UserRoutes';
 import permissionRoutes from './PermissionRoutes';
 import positionRoutes from './PositionRoutes';
+import systemConfigurationRoutes from './SystemConfigurationRoutes';
 
 const router = Router();
 
@@ -20,5 +21,6 @@ router.use('/companies', companyRoutes);
 router.use('/users', userRoutes);
 router.use('/permissions', permissionRoutes);
 router.use('/positions', positionRoutes);
+router.use('/system-configurations', systemConfigurationRoutes);
 
 export default router;

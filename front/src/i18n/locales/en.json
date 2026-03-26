@@ -148,6 +148,24 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "systemParameters": {
+        "TITLE": "System Parameters",
+        "sections": {
+            "TOKENS": "Tokens",
+            "UPLOAD": "Upload"
+        },
+        "fields": {
+            "ACCESS_TOKEN_DURATION": "Access token duration (min)",
+            "REFRESH_TOKEN_DURATION": "Refresh token duration (days)",
+            "MAX_UPLOAD_SIZE": "Max upload size (MB)"
+        },
+        "validations": {
+            "POSITIVE_NUMBER": "Must be a positive number"
+        },
+        "errors": {
+            "KEY_NOT_FOUND": "Configuration key not found"
+        }
+    },
     "permissions": {
         "TITLE": "Permissions",
         "fields": {

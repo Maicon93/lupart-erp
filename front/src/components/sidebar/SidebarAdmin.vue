@@ -54,7 +54,7 @@ export default {
                 {
                     label: 'sidebar.admin.sections.SETTINGS',
                     items: [
-                        { icon: 'settings', label: 'sidebar.admin.items.SYSTEM_PARAMETERS', to: '/admin/settings', disabled: true },
+                        { icon: 'settings', label: 'sidebar.admin.items.SYSTEM_PARAMETERS', to: '/admin/system-parameters', disabled: false },
                     ],
                 },
                 {
