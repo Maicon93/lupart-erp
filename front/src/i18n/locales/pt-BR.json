@@ -184,8 +184,12 @@
         "filters": {
             "ALL": "Todos"
         },
+        "messages": {
+            "CONFIRM_DELETE": "Deseja realmente excluir a categoria \"{name}\"?"
+        },
         "errors": {
-            "NAME_ALREADY_EXISTS": "Nome de categoria já cadastrado para esta empresa"
+            "NAME_ALREADY_EXISTS": "Nome de categoria já cadastrado para esta empresa",
+            "HAS_LINKED_PRODUCTS": "Não é possível excluir esta categoria pois existem produtos vinculados"
         }
     },
     "suppliers": {

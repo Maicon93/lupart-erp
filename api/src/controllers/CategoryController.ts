@@ -104,4 +104,24 @@ const toggleStatus = async (request: IAuthRequest, response: Response): Promise<
     }
 };
 
-export default { findAll, findById, create, update, toggleStatus };
+const remove = async (request: IAuthRequest, response: Response): Promise<void> => {
+    try {
+        const id = Number(request.params.id);
+        await CategoryService.remove(id, request.companyId!);
+
+        const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.DELETED };
+        response.status(200).json(apiResponse);
+    } catch (error: unknown) {
+        const typedError = error as { status?: number; messageCode?: string };
+
+        if (typedError.messageCode) {
+            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+            return;
+        }
+
+        logger.error('Failed to delete category', { error });
+        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
+    }
+};
+
+export default { findAll, findById, create, update, toggleStatus, remove };

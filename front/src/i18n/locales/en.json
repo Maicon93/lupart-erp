@@ -184,8 +184,12 @@
         "filters": {
             "ALL": "All"
         },
+        "messages": {
+            "CONFIRM_DELETE": "Are you sure you want to delete the category \"{name}\"?"
+        },
         "errors": {
-            "NAME_ALREADY_EXISTS": "Category name already registered for this company"
+            "NAME_ALREADY_EXISTS": "Category name already registered for this company",
+            "HAS_LINKED_PRODUCTS": "Cannot delete this category because there are linked products"
         }
     },
     "suppliers": {

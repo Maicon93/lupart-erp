@@ -20,6 +20,10 @@ const CategoryService = {
     toggleStatus(id) {
         return $api.patch(`/categories/${id}/toggle-status`);
     },
+
+    remove(id) {
+        return $api.delete(`/categories/${id}`);
+    },
 };
 
 export default CategoryService;

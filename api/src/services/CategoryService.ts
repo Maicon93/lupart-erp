@@ -83,4 +83,22 @@ const toggleStatus = async (id: number, companyId: number) => {
     return category;
 };
 
-export default { findAll, findById, create, update, toggleStatus };
+const remove = async (id: number, companyId: number) => {
+    const category = await CategoryRepository.findById(id, companyId);
+
+    if (!category) {
+        throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
+    }
+
+    // TODO: verificar vínculos com products quando a tabela existir
+    // const linkedProducts = await ProductRepository.countByCategory(id, companyId);
+    // if (linkedProducts > 0) {
+    //     throw { status: 400, messageCode: messageCodes.categories.errors.HAS_LINKED_PRODUCTS };
+    // }
+
+    await AppDataSource.transaction(async (manager) => {
+        await manager.remove(category);
+    });
+};
+
+export default { findAll, findById, create, update, toggleStatus, remove };

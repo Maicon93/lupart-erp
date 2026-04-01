@@ -10,5 +10,6 @@ router.get('/:id', CategoryController.findById as RequestHandler);
 router.post('/', validate(createCategorySchema), CategoryController.create as RequestHandler);
 router.put('/:id', validate(updateCategorySchema), CategoryController.update as RequestHandler);
 router.patch('/:id/toggle-status', CategoryController.toggleStatus as RequestHandler);
+router.delete('/:id', CategoryController.remove as RequestHandler);
 
 export default router;

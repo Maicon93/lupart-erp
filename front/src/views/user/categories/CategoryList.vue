@@ -53,6 +53,9 @@
                     <q-btn flat round icon="edit" size="md" @click="openForm(props.row)">
                         <q-tooltip>{{ $t('common.actions.EDIT') }}</q-tooltip>
                     </q-btn>
+                    <q-btn flat round icon="delete" size="md" color="negative" @click="handleDelete(props.row)">
+                        <q-tooltip>{{ $t('common.actions.DELETE') }}</q-tooltip>
+                    </q-btn>
                 </q-td>
             </template>
 
@@ -144,6 +147,23 @@ export default {
         openForm(category) {
             this.selectedCategory = category;
             this.showForm = true;
+        },
+
+        handleDelete(category) {
+            this.$q.dialog({
+                title: this.$t('common.actions.CONFIRM'),
+                message: this.$t('categories.messages.CONFIRM_DELETE', { name: category.name }),
+                cancel: { label: this.$t('common.actions.CANCEL'), flat: true, noCaps: true },
+                ok: { label: this.$t('common.actions.DELETE'), color: 'negative', noCaps: true },
+                persistent: true,
+            }).onOk(async () => {
+                try {
+                    await CategoryService.remove(category.id);
+                    this.loadData();
+                } catch {
+                    // Handled by axios interceptor
+                }
+            });
         },
     },
 };
