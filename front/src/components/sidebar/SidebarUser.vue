@@ -50,7 +50,7 @@ export default {
                         { icon: 'inventory_2', label: 'sidebar.user.items.PRODUCTS', to: '/products', disabled: true },
                         { icon: 'category', label: 'sidebar.user.items.CATEGORIES', to: '/categories', disabled: false },
                         { icon: 'straighten', label: 'sidebar.user.items.MEASUREMENT_UNITS', to: '/measurement-units', disabled: false },
-                        { icon: 'payment', label: 'sidebar.user.items.PAYMENT_TYPES', to: '/payment-types', disabled: true },
+                        { icon: 'payment', label: 'sidebar.user.items.PAYMENT_TYPES', to: '/payment-types', disabled: false },
                     ],
                 },
                 {

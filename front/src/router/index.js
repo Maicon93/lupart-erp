@@ -85,6 +85,12 @@ const routes = [
                 component: () => import('../views/user/categories/CategoryList.vue'),
                 meta: { screen: 108 },
             },
+            {
+                path: 'payment-types',
+                name: 'payment-types',
+                component: () => import('../views/user/payment-types/PaymentTypeList.vue'),
+                meta: { screen: 109 },
+            },
         ],
     },
     {

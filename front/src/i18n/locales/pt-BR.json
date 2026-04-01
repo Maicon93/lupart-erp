@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "paymentTypes": {
+        "TITLE": "Tipos de Pagamento",
+        "fields": {
+            "NAME": "Nome",
+            "OBSERVATION": "Observação",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Novo Tipo de Pagamento",
+            "EDIT": "Editar Tipo de Pagamento",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "errors": {
+            "NAME_ALREADY_EXISTS": "Nome de tipo de pagamento já cadastrado para esta empresa"
+        }
+    },
     "categories": {
         "TITLE": "Categorias",
         "fields": {

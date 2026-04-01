@@ -13,6 +13,7 @@ import measurementUnitRoutes from './MeasurementUnitRoutes';
 import customerRoutes from './CustomerRoutes';
 import supplierRoutes from './SupplierRoutes';
 import categoryRoutes from './CategoryRoutes';
+import paymentTypeRoutes from './PaymentTypeRoutes';
 
 const router = Router();
 
@@ -35,5 +36,6 @@ router.use('/measurement-units', tenantMiddleware as express.RequestHandler, mea
 router.use('/customers', tenantMiddleware as express.RequestHandler, customerRoutes);
 router.use('/suppliers', tenantMiddleware as express.RequestHandler, supplierRoutes);
 router.use('/categories', tenantMiddleware as express.RequestHandler, categoryRoutes);
+router.use('/payment-types', tenantMiddleware as express.RequestHandler, paymentTypeRoutes);
 
 export default router;

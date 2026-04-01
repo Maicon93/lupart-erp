@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "paymentTypes": {
+        "TITLE": "Payment Types",
+        "fields": {
+            "NAME": "Name",
+            "OBSERVATION": "Observation",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Payment Type",
+            "EDIT": "Edit Payment Type",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "errors": {
+            "NAME_ALREADY_EXISTS": "Payment type name already registered for this company"
+        }
+    },
     "categories": {
         "TITLE": "Categories",
         "fields": {
