@@ -11,6 +11,7 @@ import positionRoutes from './PositionRoutes';
 import systemConfigurationRoutes from './SystemConfigurationRoutes';
 import measurementUnitRoutes from './MeasurementUnitRoutes';
 import customerRoutes from './CustomerRoutes';
+import supplierRoutes from './SupplierRoutes';
 
 const router = Router();
 
@@ -31,5 +32,6 @@ router.use('/system-configurations', systemConfigurationRoutes);
 // Tenant routes (require company_id from user record)
 router.use('/measurement-units', tenantMiddleware as express.RequestHandler, measurementUnitRoutes);
 router.use('/customers', tenantMiddleware as express.RequestHandler, customerRoutes);
+router.use('/suppliers', tenantMiddleware as express.RequestHandler, supplierRoutes);
 
 export default router;

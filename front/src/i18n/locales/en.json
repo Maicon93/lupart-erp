@@ -148,6 +148,38 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "suppliers": {
+        "TITLE": "Suppliers",
+        "fields": {
+            "NAME": "Name",
+            "CPF_CNPJ": "CPF/CNPJ",
+            "PHONE": "Phone",
+            "EMAIL": "Email",
+            "ZIP_CODE": "Zip Code",
+            "STREET": "Street/Avenue",
+            "NUMBER": "Number",
+            "COMPLEMENT": "Complement",
+            "NEIGHBORHOOD": "Neighborhood",
+            "CITY": "City",
+            "STATE": "State",
+            "NOTES": "Notes",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Supplier",
+            "EDIT": "Edit Supplier"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Are you sure you want to delete the supplier \"{name}\"?"
+        },
+        "validations": {
+            "INVALID_CPF_CNPJ": "Invalid CPF/CNPJ"
+        },
+        "errors": {
+            "CPF_CNPJ_ALREADY_EXISTS": "CPF/CNPJ already registered for this company",
+            "HAS_LINKED_RECORDS": "Cannot delete this supplier because there are linked records"
+        }
+    },
     "customers": {
         "TITLE": "Customers",
         "fields": {
