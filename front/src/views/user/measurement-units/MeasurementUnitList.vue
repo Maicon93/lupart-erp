@@ -1,0 +1,150 @@
+<template>
+    <LayoutComponent>
+        <div class="row items-center justify-between q-mb-lg">
+            <div class="text-h5 text-weight-bold" style="color: var(--text-primary)">
+                {{ $t('measurementUnits.TITLE') }}
+            </div>
+            <q-btn color="primary" no-caps icon="add" :label="$t('measurementUnits.actions.CREATE')" @click="openForm(null)" />
+        </div>
+
+        <div class="row q-col-gutter-sm q-mb-md">
+            <div class="col-12 col-sm-4">
+                <q-input v-model="filters.search" :label="$t('common.actions.SEARCH')" outlined dense clearable @update:model-value="loadData">
+                    <template #prepend><q-icon name="search" /></template>
+                </q-input>
+            </div>
+            <div class="col-12 col-sm-3">
+                <q-select
+                    v-model="filters.status"
+                    :options="statusOptions"
+                    :label="$t('common.actions.FILTER')"
+                    outlined
+                    dense
+                    emit-value
+                    map-options
+                    @update:model-value="loadData"
+                />
+            </div>
+        </div>
+
+        <q-table
+            :rows="measurementUnits"
+            :columns="columns"
+            :loading="loading"
+            row-key="id"
+            flat
+            bordered
+            :pagination="pagination"
+            @request="onRequest"
+            :rows-per-page-options="[20, 50, 100]"
+        >
+            <template #body-cell-status="props">
+                <q-td :props="props">
+                    <q-icon
+                        :name="props.row.status === 'active' ? 'check_circle' : 'cancel'"
+                        :color="props.row.status === 'active' ? 'positive' : 'negative'"
+                        size="20px"
+                    />
+                </q-td>
+            </template>
+
+            <template #body-cell-actions="props">
+                <q-td :props="props">
+                    <q-btn flat round icon="edit" size="md" @click="openForm(props.row)">
+                        <q-tooltip>{{ $t('common.actions.EDIT') }}</q-tooltip>
+                    </q-btn>
+                </q-td>
+            </template>
+
+            <template #loading>
+                <q-inner-loading showing>
+                    <q-spinner-dots size="40px" color="primary" />
+                </q-inner-loading>
+            </template>
+
+            <template #no-data>
+                <div class="full-width text-center q-pa-lg text-grey">
+                    {{ $t('common.messages.NOT_FOUND') }}
+                </div>
+            </template>
+        </q-table>
+
+        <MeasurementUnitForm v-model="showForm" :measurement-unit="selectedUnit" @saved="loadData" />
+    </LayoutComponent>
+</template>
+
+<script>
+import LayoutComponent from '../../../components/layout/LayoutComponent.vue';
+import MeasurementUnitForm from './components/MeasurementUnitForm.vue';
+import MeasurementUnitService from '../../../services/MeasurementUnitService';
+
+export default {
+    name: 'MeasurementUnitList',
+
+    components: { LayoutComponent, MeasurementUnitForm },
+
+    data() {
+        return {
+            measurementUnits: [],
+            loading: false,
+            showForm: false,
+            selectedUnit: null,
+            filters: {
+                search: '',
+                status: 'all',
+            },
+            pagination: {
+                page: 1,
+                rowsPerPage: 20,
+                rowsNumber: 0,
+            },
+            columns: [
+                { name: 'abbreviation', label: this.$t('measurementUnits.fields.ABBREVIATION'), field: 'abbreviation', align: 'left', sortable: true },
+                { name: 'description', label: this.$t('measurementUnits.fields.DESCRIPTION'), field: 'description', align: 'left', sortable: true },
+                { name: 'status', label: this.$t('common.status.ACTIVE'), field: 'status', align: 'center' },
+                { name: 'actions', label: this.$t('measurementUnits.fields.ACTIONS'), field: 'actions', align: 'center' },
+            ],
+            statusOptions: [
+                { label: this.$t('measurementUnits.filters.ALL'), value: 'all' },
+                { label: this.$t('common.status.ACTIVE'), value: 'active' },
+                { label: this.$t('common.status.INACTIVE'), value: 'inactive' },
+            ],
+        };
+    },
+
+    created() {
+        this.loadData();
+    },
+
+    methods: {
+        async loadData() {
+            this.loading = true;
+
+            try {
+                const { data } = await MeasurementUnitService.findAll({
+                    search: this.filters.search || undefined,
+                    status: this.filters.status,
+                    page: this.pagination.page,
+                    limit: this.pagination.rowsPerPage,
+                });
+
+                this.measurementUnits = data.data.data;
+                this.pagination.rowsNumber = data.data.total;
+            } finally {
+                this.loading = false;
+            }
+        },
+
+        onRequest(props) {
+            this.pagination.page = props.pagination.page;
+            this.pagination.rowsPerPage = props.pagination.rowsPerPage;
+            this.loadData();
+        },
+
+        openForm(unit) {
+            this.selectedUnit = unit;
+            this.showForm = true;
+        },
+    },
+};
+</script>
