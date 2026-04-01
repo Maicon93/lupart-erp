@@ -390,9 +390,6 @@ export default {
                 }
             },
         },
-    },
-
-    watch: {
         showBranches(value) {
             if (value && this.company?.id) {
                 this.loadBranches();

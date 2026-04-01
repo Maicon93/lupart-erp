@@ -92,8 +92,8 @@ export default {
                 this.$q.dark.set(isDark);
             },
         },
-        'enterpriseStore.companyId'(companyId) {
-            if (this.isAdmin && companyId) {
+        'enterpriseStore.company'(company) {
+            if (this.isAdmin && company) {
                 this.activePanel = 'user';
             }
         },
