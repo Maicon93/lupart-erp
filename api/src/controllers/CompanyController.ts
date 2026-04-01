@@ -11,8 +11,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
         const result = await CompanyService.findAll(
             search as string,
             status as string,
-            parseInt(page as string),
-            parseInt(limit as string)
+            Number(page),
+            Number(limit)
         );
 
         const apiResponse: IApiResponse = {
@@ -29,8 +29,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
 
 const findById = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const company = await CompanyService.findByIdWithProfile(parseInt(id));
+        const id = Number(request.params.id);
+        const company = await CompanyService.findByIdWithProfile(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -77,8 +77,8 @@ const create = async (request: Request, response: Response): Promise<void> => {
 
 const update = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const company = await CompanyService.update(parseInt(id), request.body);
+        const id = Number(request.params.id);
+        const company = await CompanyService.update(id, request.body);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -102,8 +102,8 @@ const update = async (request: Request, response: Response): Promise<void> => {
 
 const toggleStatus = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const company = await CompanyService.toggleStatus(parseInt(id));
+        const id = Number(request.params.id);
+        const company = await CompanyService.toggleStatus(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -143,8 +143,8 @@ const findAllActive = async (_request: Request, response: Response): Promise<voi
 
 const findBranches = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const branches = await CompanyService.findBranches(parseInt(id));
+        const id = Number(request.params.id);
+        const branches = await CompanyService.findBranches(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -167,8 +167,8 @@ const findBranches = async (request: Request, response: Response): Promise<void>
 
 const inspect = async (request: IAuthRequest, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const company = await CompanyService.inspect(parseInt(id), request.userId, request.userRole);
+        const id = Number(request.params.id);
+        const company = await CompanyService.inspect(id, request.userId!, request.userRole!);
 
         const apiResponse: IApiResponse = { type: 'success', data: company };
         response.status(200).json(apiResponse);
@@ -187,7 +187,7 @@ const inspect = async (request: IAuthRequest, response: Response): Promise<void>
 
 const leaveInspection = async (request: IAuthRequest, response: Response): Promise<void> => {
     try {
-        await CompanyService.leaveInspection(request.userId);
+        await CompanyService.leaveInspection(request.userId!);
 
         const apiResponse: IApiResponse = { type: 'success' };
         response.status(200).json(apiResponse);

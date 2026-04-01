@@ -7,7 +7,7 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 const findAll = async (request: Request, response: Response): Promise<void> => {
     try {
         const { search, status, page = '1', limit = '20' } = request.query;
-        const result = await UserService.findAll(search as string, status as string, parseInt(page as string), parseInt(limit as string));
+        const result = await UserService.findAll(search as string, status as string, Number(page), Number(limit));
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -23,8 +23,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
 
 const findById = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const user = await UserService.findByIdWithProfile(parseInt(id));
+        const id = Number(request.params.id);
+        const user = await UserService.findByIdWithProfile(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -73,10 +73,10 @@ const create = async (request: Request, response: Response): Promise<void> => {
 
 const update = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
+        const id = Number(request.params.id);
         // TODO: get from JWT middleware
         const currentUserId = 1;
-        const user = await UserService.update(parseInt(id), request.body, currentUserId);
+        const user = await UserService.update(id, request.body, currentUserId);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -100,8 +100,8 @@ const update = async (request: Request, response: Response): Promise<void> => {
 
 const toggleStatus = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const user = await UserService.toggleStatus(parseInt(id));
+        const id = Number(request.params.id);
+        const user = await UserService.toggleStatus(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',

@@ -16,8 +16,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
         const { search, page = '1', limit = '20' } = request.query;
         const result = await PositionService.findAll(
             search as string,
-            parseInt(page as string),
-            parseInt(limit as string),
+            Number(page),
+            Number(limit),
         );
 
         const apiResponse: IApiResponse = {
@@ -34,8 +34,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
 
 const findById = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const position = await PositionService.findById(parseInt(id));
+        const id = Number(request.params.id);
+        const position = await PositionService.findById(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -83,9 +83,9 @@ const create = async (request: Request, response: Response): Promise<void> => {
 
 const update = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
+        const id = Number(request.params.id);
         const userId = getUserId(request);
-        const position = await PositionService.update(parseInt(id), request.body, userId);
+        const position = await PositionService.update(id, request.body, userId);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -109,8 +109,8 @@ const update = async (request: Request, response: Response): Promise<void> => {
 
 const remove = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        await PositionService.remove(parseInt(id));
+        const id = Number(request.params.id);
+        await PositionService.remove(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',

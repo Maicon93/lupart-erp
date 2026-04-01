@@ -7,12 +7,12 @@ interface ITokenPayload {
     role: string;
 }
 
-const SECRET = environment.JWT_SECRET;
-const ACCESS_EXPIRES_IN = environment.JWT_EXPIRES_IN;
+const SECRET: jwt.Secret = environment.JWT_SECRET;
+const ACCESS_EXPIRES_IN: string = environment.JWT_EXPIRES_IN;
 const REFRESH_EXPIRES_IN = environment.JWT_REFRESH_EXPIRES_IN;
 
 const generateAccessToken = (payload: ITokenPayload): string => {
-    return jwt.sign(payload, SECRET, { expiresIn: ACCESS_EXPIRES_IN });
+    return jwt.sign({ ...payload }, SECRET, { expiresIn: ACCESS_EXPIRES_IN as unknown as number });
 };
 
 const verifyAccessToken = (token: string): ITokenPayload => {

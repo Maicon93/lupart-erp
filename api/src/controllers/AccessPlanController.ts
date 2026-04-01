@@ -7,7 +7,7 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 const findAll = async (request: Request, response: Response): Promise<void> => {
     try {
         const { status, page = '1', limit = '20' } = request.query;
-        const result = await AccessPlanService.findAll(status as string, parseInt(page as string), parseInt(limit as string));
+        const result = await AccessPlanService.findAll(status as string, Number(page), Number(limit));
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -23,8 +23,8 @@ const findAll = async (request: Request, response: Response): Promise<void> => {
 
 const findById = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const accessPlan = await AccessPlanService.findById(parseInt(id));
+        const id = Number(request.params.id);
+        const accessPlan = await AccessPlanService.findById(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -64,8 +64,8 @@ const create = async (request: Request, response: Response): Promise<void> => {
 
 const update = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const accessPlan = await AccessPlanService.update(parseInt(id), request.body);
+        const id = Number(request.params.id);
+        const accessPlan = await AccessPlanService.update(id, request.body);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -89,8 +89,8 @@ const update = async (request: Request, response: Response): Promise<void> => {
 
 const toggleStatus = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const accessPlan = await AccessPlanService.toggleStatus(parseInt(id));
+        const id = Number(request.params.id);
+        const accessPlan = await AccessPlanService.toggleStatus(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',
@@ -114,8 +114,8 @@ const toggleStatus = async (request: Request, response: Response): Promise<void>
 
 const remove = async (request: Request, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        await AccessPlanService.remove(parseInt(id));
+        const id = Number(request.params.id);
+        await AccessPlanService.remove(id);
 
         const apiResponse: IApiResponse = {
             type: 'success',

@@ -36,7 +36,7 @@ const findAll = async (request: Request, response: Response) => {
 const checkPermission = async (request: Request, response: Response) => {
     try {
         const { screen } = request.query;
-        const { userId, userRole } = request as IAuthRequest;
+        const { userId, userRole } = request as IAuthRequest & { userId: number; userRole: string };
 
         if (!screen) {
             const apiResponse: IApiResponse = {

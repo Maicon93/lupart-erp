@@ -12,8 +12,8 @@ const findAll = async (request: IAuthRequest, response: Response): Promise<void>
             request.companyId!,
             search as string,
             status as string,
-            parseInt(page as string),
-            parseInt(limit as string)
+            Number(page),
+            Number(limit)
         );
 
         const apiResponse: IApiResponse = { type: 'success', data: result };
@@ -27,8 +27,8 @@ const findAll = async (request: IAuthRequest, response: Response): Promise<void>
 
 const findById = async (request: IAuthRequest, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const unit = await MeasurementUnitService.findById(parseInt(id), request.companyId!);
+        const id = Number(request.params.id);
+        const unit = await MeasurementUnitService.findById(id, request.companyId!);
 
         const apiResponse: IApiResponse = { type: 'success', data: unit };
         response.status(200).json(apiResponse);
@@ -66,8 +66,8 @@ const create = async (request: IAuthRequest, response: Response): Promise<void> 
 
 const update = async (request: IAuthRequest, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const unit = await MeasurementUnitService.update(parseInt(id), request.companyId!, request.body);
+        const id = Number(request.params.id);
+        const unit = await MeasurementUnitService.update(id, request.companyId!, request.body);
 
         const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: unit };
         response.status(200).json(apiResponse);
@@ -86,8 +86,8 @@ const update = async (request: IAuthRequest, response: Response): Promise<void> 
 
 const toggleStatus = async (request: IAuthRequest, response: Response): Promise<void> => {
     try {
-        const { id } = request.params;
-        const unit = await MeasurementUnitService.toggleStatus(parseInt(id), request.companyId!);
+        const id = Number(request.params.id);
+        const unit = await MeasurementUnitService.toggleStatus(id, request.companyId!);
 
         const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: unit };
         response.status(200).json(apiResponse);
