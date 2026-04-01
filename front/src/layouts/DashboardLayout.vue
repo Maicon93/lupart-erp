@@ -49,6 +49,9 @@
 import { useThemeStore } from '../stores/theme';
 import { useAuthStore } from '../stores/auth';
 import { useEnterpriseStore } from '../stores/enterprise';
+import { toast } from 'vue3-toastify';
+import i18n from '../i18n';
+import { getToastTheme } from '../plugins/toastify';
 import NavbarComponent from '../components/navbar/NavbarComponent.vue';
 import SidebarAdmin from '../components/sidebar/SidebarAdmin.vue';
 import SidebarUser from '../components/sidebar/SidebarUser.vue';
@@ -66,6 +69,7 @@ export default {
         return {
             themeStore: useThemeStore(),
             authStore: useAuthStore(),
+            enterpriseStore: useEnterpriseStore(),
             sidebarOpen: true,
             activePanel: null,
         };
@@ -88,18 +92,25 @@ export default {
                 this.$q.dark.set(isDark);
             },
         },
+        'enterpriseStore.companyId'(companyId) {
+            if (this.isAdmin && companyId) {
+                this.activePanel = 'user';
+            }
+        },
     },
 
     methods: {
         switchPanel(panel) {
+            if (panel === 'user' && !this.enterpriseStore.companyId) {
+                const { t } = i18n.global;
+                toast.warning(t('common.messages.COMPANY_REQUIRED'), { theme: getToastTheme() });
+                return;
+            }
             this.activePanel = panel;
         },
 
         handleLogout() {
-            const enterpriseStore = useEnterpriseStore();
-
             this.authStore.clearAuth();
-            enterpriseStore.clearCompany();
             localStorage.removeItem('token');
 
             this.$router.push({ name: 'login' });

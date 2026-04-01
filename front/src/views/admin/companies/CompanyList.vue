@@ -78,7 +78,7 @@
                     <q-btn flat round icon="edit" size="md" @click="openForm(props.row)">
                         <q-tooltip>{{ $t('common.actions.EDIT') }}</q-tooltip>
                     </q-btn>
-                    <q-btn flat round icon="manage_search" size="md" color="secondary">
+                    <q-btn flat round icon="manage_search" size="md" color="secondary" @click="handleInspect(props.row)">
                         <q-tooltip>{{ $t('companies.actions.INSPECT') }}</q-tooltip>
                     </q-btn>
                 </q-td>
@@ -109,6 +109,7 @@
 import LayoutComponent from '../../../components/layout/LayoutComponent.vue';
 import CompanyForm from './components/CompanyForm.vue';
 import CompanyService from '../../../services/CompanyService';
+import { useEnterpriseStore } from '../../../stores/enterprise';
 
 export default {
     name: 'CompanyList',
@@ -178,6 +179,17 @@ export default {
             this.pagination.page = props.pagination.page;
             this.pagination.rowsPerPage = props.pagination.rowsPerPage;
             this.loadData();
+        },
+
+        async handleInspect(company) {
+            try {
+                const { data } = await CompanyService.inspect(company.id);
+                const enterpriseStore = useEnterpriseStore();
+                enterpriseStore.setCompany(data.data);
+                this.$router.push({ name: 'home' });
+            } catch {
+                // Handled by axios interceptor
+            }
         },
 
         async openForm(company) {

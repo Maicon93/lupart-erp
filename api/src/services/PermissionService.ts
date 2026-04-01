@@ -5,12 +5,12 @@ const findAll = async (filter?: string, page?: number, limit?: number) => {
 };
 
 const checkPermission = async (userId: number, userRole: string, screen: number): Promise<boolean> => {
-    // Admin tem acesso total ao painel admin (telas 10-99)
-    if (userRole === 'admin' && screen >= 10 && screen <= 99) {
+    // Admin tem acesso total a todas as telas
+    if (userRole === 'admin') {
         return true;
     }
 
-    // Para demais casos, verificar via role_permissions
+    // Para usuários comuns, verificar via role_permissions
     return permissionRepository.hasPermissionForScreen(userId, screen);
 };
 

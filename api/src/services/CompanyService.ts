@@ -2,6 +2,7 @@ import { AppDataSource } from '../config/database';
 import CompanyRepository from '../repositories/CompanyRepository';
 import { Company, CompanyStatus } from '../models/Company';
 import { CompanyProfile } from '../models/CompanyProfile';
+import { User } from '../models/User';
 import messageCodes from '../i18n/MessageCodes';
 import seedCompanyData from '../helpers/SeedCompanyData';
 
@@ -166,4 +167,43 @@ const findBranches = async (id: number): Promise<Company[]> => {
     return CompanyRepository.findBranches(id);
 };
 
-export default { findAll, findById, findByIdWithProfile, create, update, toggleStatus, findAllActive, findBranches };
+interface IInspectResult {
+    id: number;
+    name: string;
+    logoUrl: string | null;
+}
+
+const inspect = async (companyId: number, userId: number, userRole: string): Promise<IInspectResult> => {
+    if (userRole !== 'admin') {
+        throw { status: 403, messageCode: messageCodes.common.messages.FORBIDDEN };
+    }
+
+    const company = await findById(companyId);
+
+    if (company.status === CompanyStatus.INACTIVE) {
+        throw { status: 400, messageCode: messageCodes.common.messages.NOT_FOUND };
+    }
+
+    await AppDataSource.transaction(async (manager) => {
+        await manager.update(User, userId, { companyId: company.id });
+    });
+
+    return {
+        id: company.id,
+        name: company.name,
+        logoUrl: company.logoUrl ?? null,
+    };
+};
+
+const leaveInspection = async (userId: number): Promise<void> => {
+    await AppDataSource.transaction(async (manager) => {
+        await manager
+            .createQueryBuilder()
+            .update(User)
+            .set({ companyId: () => 'NULL' })
+            .where('id = :id', { id: userId })
+            .execute();
+    });
+};
+
+export default { findAll, findById, findByIdWithProfile, create, update, toggleStatus, findAllActive, findBranches, inspect, leaveInspection };

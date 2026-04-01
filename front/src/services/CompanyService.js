@@ -28,6 +28,14 @@ const CompanyService = {
     findBranches(id) {
         return $api.get(`/companies/${id}/branches`);
     },
+
+    inspect(id) {
+        return $api.post(`/companies/${id}/inspect`);
+    },
+
+    leaveInspection() {
+        return $api.post('/companies/leave-inspection');
+    },
 };
 
 export default CompanyService;

@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "measurementUnits": {
+        "TITLE": "Measurement Units",
+        "fields": {
+            "ABBREVIATION": "Abbreviation",
+            "DESCRIPTION": "Description",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Unit",
+            "EDIT": "Edit Unit",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "errors": {
+            "ABBREVIATION_ALREADY_EXISTS": "Abbreviation already registered for this company"
+        }
+    },
     "systemParameters": {
         "TITLE": "System Parameters",
         "sections": {
@@ -320,6 +340,7 @@
             "NOT_FOUND": "Record not found",
             "UNAUTHORIZED": "Session expired, please log in again",
             "FORBIDDEN": "You do not have permission to access this resource",
+            "COMPANY_REQUIRED": "You must select a company first",
             "TOO_MANY_REQUESTS": "Too many requests, please try again shortly"
         },
         "status": {

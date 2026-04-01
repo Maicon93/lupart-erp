@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "measurementUnits": {
+        "TITLE": "Unidades de Medida",
+        "fields": {
+            "ABBREVIATION": "Sigla",
+            "DESCRIPTION": "Descrição",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Nova Unidade",
+            "EDIT": "Editar Unidade",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "errors": {
+            "ABBREVIATION_ALREADY_EXISTS": "Sigla já cadastrada para esta empresa"
+        }
+    },
     "systemParameters": {
         "TITLE": "Parâmetros do Sistema",
         "sections": {
@@ -320,6 +340,7 @@
             "NOT_FOUND": "Registro não encontrado",
             "UNAUTHORIZED": "Sessão expirada, faça login novamente",
             "FORBIDDEN": "Você não tem permissão para acessar este recurso",
+            "COMPANY_REQUIRED": "É necessário selecionar uma empresa",
             "TOO_MANY_REQUESTS": "Muitas requisições, tente novamente em instantes"
         },
         "status": {

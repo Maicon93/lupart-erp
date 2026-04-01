@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { IAuthRequest } from '../interfaces/IAuthRequest';
 import CompanyService from '../services/CompanyService';
 import messageCodes from '../i18n/MessageCodes';
 import logger from '../helpers/Logger';
@@ -164,4 +165,36 @@ const findBranches = async (request: Request, response: Response): Promise<void>
     }
 };
 
-export default { findAll, findById, create, update, toggleStatus, findAllActive, findBranches };
+const inspect = async (request: IAuthRequest, response: Response): Promise<void> => {
+    try {
+        const { id } = request.params;
+        const company = await CompanyService.inspect(parseInt(id), request.userId, request.userRole);
+
+        const apiResponse: IApiResponse = { type: 'success', data: company };
+        response.status(200).json(apiResponse);
+    } catch (error: unknown) {
+        const typedError = error as { status?: number; messageCode?: string };
+
+        if (typedError.messageCode) {
+            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+            return;
+        }
+
+        logger.error('Failed to inspect company', { error });
+        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
+    }
+};
+
+const leaveInspection = async (request: IAuthRequest, response: Response): Promise<void> => {
+    try {
+        await CompanyService.leaveInspection(request.userId);
+
+        const apiResponse: IApiResponse = { type: 'success' };
+        response.status(200).json(apiResponse);
+    } catch (error: unknown) {
+        logger.error('Failed to leave inspection', { error });
+        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
+    }
+};
+
+export default { findAll, findById, create, update, toggleStatus, findAllActive, findBranches, inspect, leaveInspection };

@@ -115,6 +115,12 @@ export default {
                     return;
                 }
 
+                if (!companies || companies.length === 0) {
+                    localStorage.removeItem('token');
+                    authStore.clearAuth();
+                    return;
+                }
+
                 const enterpriseStore = useEnterpriseStore();
 
                 if (companies.length === 1) {
@@ -122,6 +128,7 @@ export default {
                     this.$router.push({ name: 'home' });
                 } else {
                     // TODO: implementar tela de seleção de empresa
+                    enterpriseStore.setCompany(companies[0]);
                     this.$router.push({ name: 'home' });
                 }
             } catch {

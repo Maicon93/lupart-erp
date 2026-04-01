@@ -62,6 +62,11 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    measurementUnits: {
+        errors: {
+            ABBREVIATION_ALREADY_EXISTS: 'Sigla já cadastrada para esta empresa',
+        },
+    },
     systemParameters: {
         errors: {
             KEY_NOT_FOUND: 'Chave de configuração não encontrada',
@@ -83,6 +88,7 @@ const messageCodes = buildMessageCodes({
             NOT_FOUND: 'Registro não encontrado',
             UNAUTHORIZED: 'Sessão expirada ou token inválido',
             FORBIDDEN: 'Usuário sem permissão para o recurso',
+            COMPANY_REQUIRED: 'É necessário selecionar uma empresa',
             TOO_MANY_REQUESTS: 'Rate limit atingido',
         },
         validations: {

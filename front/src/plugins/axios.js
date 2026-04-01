@@ -3,6 +3,7 @@ import { toast } from 'vue3-toastify';
 import i18n from '../i18n';
 import { useAuthStore } from '../stores/auth';
 import { useEnterpriseStore } from '../stores/enterprise';
+import { getToastTheme } from './toastify';
 
 const $api = axios.create({
     baseURL: import.meta.env.VITE_API_BASE_URL,
@@ -58,7 +59,7 @@ $api.interceptors.response.use(
         if (messageCode) {
             const message = t(messageCode);
             const toastMethod = toast[type] || toast.info;
-            toastMethod(message);
+            toastMethod(message, { theme: getToastTheme() });
         }
 
         return response;
@@ -73,7 +74,7 @@ $api.interceptors.response.use(
         if (messageCode && status !== 401) {
             const message = t(messageCode);
             const toastMethod = toast[type] || toast.error;
-            toastMethod(message);
+            toastMethod(message, { theme: getToastTheme() });
         }
 
         // 401 — Refresh token flow

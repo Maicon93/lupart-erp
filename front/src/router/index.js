@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { $api } from '../plugins/axios';
+import { useEnterpriseStore } from '../stores/enterprise';
 
 const routes = [
     {
@@ -22,6 +23,7 @@ const routes = [
                 name: 'home',
                 component: () => import('../views/home/HomeView.vue'),
             },
+            // Admin routes (screens 10-99)
             {
                 path: 'admin/access-plans',
                 name: 'admin-access-plans',
@@ -58,6 +60,13 @@ const routes = [
                 component: () => import('../views/admin/permissions/PermissionList.vue'),
                 meta: { screen: 14 },
             },
+            // User routes (screens 100+, require company)
+            {
+                path: 'measurement-units',
+                name: 'measurement-units',
+                component: () => import('../views/user/measurement-units/MeasurementUnitList.vue'),
+                meta: { screen: 104 },
+            },
         ],
     },
     {
@@ -93,6 +102,15 @@ router.beforeEach(async (to, from, next) => {
     // Rotas públicas ou sem permissão → acesso livre
     if (isPublicRoute || !requiresPermission) {
         return next();
+    }
+
+    // Telas de usuário (100+) exigem empresa selecionada
+    const screen = to.meta.screen;
+    if (screen >= 100) {
+        const enterpriseStore = useEnterpriseStore();
+        if (!enterpriseStore.companyId) {
+            return next({ name: 'home' });
+        }
     }
 
     // Verificar permissão via API
