@@ -48,7 +48,7 @@ export default {
                         { icon: 'people', label: 'sidebar.user.items.CUSTOMERS', to: '/customers', disabled: false },
                         { icon: 'local_shipping', label: 'sidebar.user.items.SUPPLIERS', to: '/suppliers', disabled: false },
                         { icon: 'inventory_2', label: 'sidebar.user.items.PRODUCTS', to: '/products', disabled: true },
-                        { icon: 'category', label: 'sidebar.user.items.CATEGORIES', to: '/categories', disabled: true },
+                        { icon: 'category', label: 'sidebar.user.items.CATEGORIES', to: '/categories', disabled: false },
                         { icon: 'straighten', label: 'sidebar.user.items.MEASUREMENT_UNITS', to: '/measurement-units', disabled: false },
                         { icon: 'payment', label: 'sidebar.user.items.PAYMENT_TYPES', to: '/payment-types', disabled: true },
                     ],

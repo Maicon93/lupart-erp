@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "categories": {
+        "TITLE": "Categories",
+        "fields": {
+            "NAME": "Name",
+            "OBSERVATION": "Observation",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Category",
+            "EDIT": "Edit Category",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "errors": {
+            "NAME_ALREADY_EXISTS": "Category name already registered for this company"
+        }
+    },
     "suppliers": {
         "TITLE": "Suppliers",
         "fields": {

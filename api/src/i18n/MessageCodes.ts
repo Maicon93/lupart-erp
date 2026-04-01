@@ -62,6 +62,16 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    categories: {
+        errors: {
+            NAME_ALREADY_EXISTS: 'Nome de categoria já cadastrado para esta empresa',
+        },
+    },
+    paymentTypes: {
+        errors: {
+            NAME_ALREADY_EXISTS: 'Nome de tipo de pagamento já cadastrado para esta empresa',
+        },
+    },
     suppliers: {
         errors: {
             CPF_CNPJ_ALREADY_EXISTS: 'CPF/CNPJ já cadastrado para esta empresa',

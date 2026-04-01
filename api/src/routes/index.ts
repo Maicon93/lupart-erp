@@ -12,6 +12,7 @@ import systemConfigurationRoutes from './SystemConfigurationRoutes';
 import measurementUnitRoutes from './MeasurementUnitRoutes';
 import customerRoutes from './CustomerRoutes';
 import supplierRoutes from './SupplierRoutes';
+import categoryRoutes from './CategoryRoutes';
 
 const router = Router();
 
@@ -33,5 +34,6 @@ router.use('/system-configurations', systemConfigurationRoutes);
 router.use('/measurement-units', tenantMiddleware as express.RequestHandler, measurementUnitRoutes);
 router.use('/customers', tenantMiddleware as express.RequestHandler, customerRoutes);
 router.use('/suppliers', tenantMiddleware as express.RequestHandler, supplierRoutes);
+router.use('/categories', tenantMiddleware as express.RequestHandler, categoryRoutes);
 
 export default router;

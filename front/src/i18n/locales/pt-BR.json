@@ -148,6 +148,26 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "categories": {
+        "TITLE": "Categorias",
+        "fields": {
+            "NAME": "Nome",
+            "OBSERVATION": "Observação",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Nova Categoria",
+            "EDIT": "Editar Categoria",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "errors": {
+            "NAME_ALREADY_EXISTS": "Nome de categoria já cadastrado para esta empresa"
+        }
+    },
     "suppliers": {
         "TITLE": "Fornecedores",
         "fields": {

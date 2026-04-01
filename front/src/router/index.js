@@ -79,6 +79,12 @@ const routes = [
                 component: () => import('../views/user/suppliers/SupplierList.vue'),
                 meta: { screen: 106 },
             },
+            {
+                path: 'categories',
+                name: 'categories',
+                component: () => import('../views/user/categories/CategoryList.vue'),
+                meta: { screen: 108 },
+            },
         ],
     },
     {
