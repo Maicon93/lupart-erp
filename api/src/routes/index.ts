@@ -10,6 +10,7 @@ import permissionRoutes from './PermissionRoutes';
 import positionRoutes from './PositionRoutes';
 import systemConfigurationRoutes from './SystemConfigurationRoutes';
 import measurementUnitRoutes from './MeasurementUnitRoutes';
+import customerRoutes from './CustomerRoutes';
 
 const router = Router();
 
@@ -27,7 +28,8 @@ router.use('/permissions', permissionRoutes);
 router.use('/positions', positionRoutes);
 router.use('/system-configurations', systemConfigurationRoutes);
 
-// Tenant routes (require X-Company-ID header)
+// Tenant routes (require company_id from user record)
 router.use('/measurement-units', tenantMiddleware as express.RequestHandler, measurementUnitRoutes);
+router.use('/customers', tenantMiddleware as express.RequestHandler, customerRoutes);
 
 export default router;

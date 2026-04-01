@@ -148,6 +148,38 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "customers": {
+        "TITLE": "Clientes",
+        "fields": {
+            "NAME": "Nome",
+            "CPF_CNPJ": "CPF/CNPJ",
+            "PHONE": "Contato",
+            "EMAIL": "E-mail",
+            "ZIP_CODE": "CEP",
+            "STREET": "Rua/Avenida",
+            "NUMBER": "Número",
+            "COMPLEMENT": "Complemento",
+            "NEIGHBORHOOD": "Bairro",
+            "CITY": "Cidade",
+            "STATE": "Estado",
+            "NOTES": "Observações",
+            "ACTIONS": "Ações"
+        },
+        "actions": {
+            "CREATE": "Novo Cliente",
+            "EDIT": "Editar Cliente"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Deseja realmente excluir o cliente \"{name}\"?"
+        },
+        "validations": {
+            "INVALID_CPF_CNPJ": "CPF/CNPJ inválido"
+        },
+        "errors": {
+            "CPF_CNPJ_ALREADY_EXISTS": "CPF/CNPJ já cadastrado para esta empresa",
+            "HAS_LINKED_RECORDS": "Não é possível excluir este cliente pois existem registros vinculados"
+        }
+    },
     "measurementUnits": {
         "TITLE": "Unidades de Medida",
         "fields": {

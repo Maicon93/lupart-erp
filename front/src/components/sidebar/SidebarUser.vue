@@ -45,7 +45,7 @@ export default {
                 {
                     label: 'sidebar.user.sections.REGISTRATIONS',
                     items: [
-                        { icon: 'people', label: 'sidebar.user.items.CUSTOMERS', to: '/customers', disabled: true },
+                        { icon: 'people', label: 'sidebar.user.items.CUSTOMERS', to: '/customers', disabled: false },
                         { icon: 'local_shipping', label: 'sidebar.user.items.SUPPLIERS', to: '/suppliers', disabled: true },
                         { icon: 'inventory_2', label: 'sidebar.user.items.PRODUCTS', to: '/products', disabled: true },
                         { icon: 'category', label: 'sidebar.user.items.CATEGORIES', to: '/categories', disabled: true },

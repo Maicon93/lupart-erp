@@ -15,6 +15,7 @@
     "@quasar/extras": "^1.17.0",
     "@quasar/vite-plugin": "^1.11.0",
     "axios": "^1.13.6",
+    "cpf-cnpj-validator": "^1.0.3",
     "pdfmake": "^0.3.7",
     "pinia": "^3.0.4",
     "pinia-plugin-persistedstate": "^4.7.1",

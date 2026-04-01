@@ -148,6 +148,38 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "customers": {
+        "TITLE": "Customers",
+        "fields": {
+            "NAME": "Name",
+            "CPF_CNPJ": "CPF/CNPJ",
+            "PHONE": "Phone",
+            "EMAIL": "Email",
+            "ZIP_CODE": "Zip Code",
+            "STREET": "Street/Avenue",
+            "NUMBER": "Number",
+            "COMPLEMENT": "Complement",
+            "NEIGHBORHOOD": "Neighborhood",
+            "CITY": "City",
+            "STATE": "State",
+            "NOTES": "Notes",
+            "ACTIONS": "Actions"
+        },
+        "actions": {
+            "CREATE": "New Customer",
+            "EDIT": "Edit Customer"
+        },
+        "messages": {
+            "CONFIRM_DELETE": "Are you sure you want to delete the customer \"{name}\"?"
+        },
+        "validations": {
+            "INVALID_CPF_CNPJ": "Invalid CPF/CNPJ"
+        },
+        "errors": {
+            "CPF_CNPJ_ALREADY_EXISTS": "CPF/CNPJ already registered for this company",
+            "HAS_LINKED_RECORDS": "Cannot delete this customer because there are linked records"
+        }
+    },
     "measurementUnits": {
         "TITLE": "Measurement Units",
         "fields": {

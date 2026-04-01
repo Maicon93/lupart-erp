@@ -62,6 +62,12 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    customers: {
+        errors: {
+            CPF_CNPJ_ALREADY_EXISTS: 'CPF/CNPJ já cadastrado para esta empresa',
+            HAS_LINKED_RECORDS: 'Não é possível excluir este cliente pois existem registros vinculados',
+        },
+    },
     measurementUnits: {
         errors: {
             ABBREVIATION_ALREADY_EXISTS: 'Sigla já cadastrada para esta empresa',

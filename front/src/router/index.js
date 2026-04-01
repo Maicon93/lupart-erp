@@ -67,6 +67,12 @@ const routes = [
                 component: () => import('../views/user/measurement-units/MeasurementUnitList.vue'),
                 meta: { screen: 104 },
             },
+            {
+                path: 'customers',
+                name: 'customers',
+                component: () => import('../views/user/customers/CustomerList.vue'),
+                meta: { screen: 105 },
+            },
         ],
     },
     {
