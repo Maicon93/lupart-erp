@@ -35,7 +35,6 @@ const login = async (request: Request, response: Response): Promise<void> => {
 
         const apiResponse: IApiResponse = {
             type: 'success',
-            messageCode: messageCodes.auth.messages.LOGIN_SUCCESS,
             data: {
                 token: result.token,
                 user: result.user,
