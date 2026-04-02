@@ -1,11 +1,13 @@
 <template>
-    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" persistent>
+    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)">
         <q-card style="width: 450px; max-width: 90vw">
             <q-card-section>
                 <div class="text-h6" style="color: var(--text-primary)">
                     {{ isEditing ? $t('paymentTypes.actions.EDIT') : $t('paymentTypes.actions.CREATE') }}
                 </div>
             </q-card-section>
+
+            <q-separator />
 
             <q-card-section>
                 <q-form @submit.prevent greedy>
@@ -30,18 +32,17 @@
                         class="q-mb-sm"
                     />
 
-                    <div v-if="isEditing" class="q-mb-md">
+                    <div class="row items-center q-mt-md">
                         <q-btn
-                            flat
+                            v-if="isEditing"
+                            outline
                             no-caps
                             :label="paymentType?.status === 'active' ? $t('paymentTypes.actions.INACTIVATE') : $t('paymentTypes.actions.ACTIVATE')"
                             :color="paymentType?.status === 'active' ? 'negative' : 'positive'"
                             :loading="togglingStatus"
                             @click="toggleStatus"
                         />
-                    </div>
-
-                    <div class="row justify-end q-gutter-sm">
+                        <q-space />
                         <q-btn flat no-caps :label="$t('common.actions.CANCEL')" @click="close" />
                         <q-btn color="primary" no-caps :label="$t('common.actions.SAVE')" :loading="saving" @click="save" />
                     </div>

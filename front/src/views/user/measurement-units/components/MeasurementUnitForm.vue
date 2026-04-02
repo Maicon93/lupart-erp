@@ -1,5 +1,5 @@
 <template>
-    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" persistent>
+    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)">
         <q-card style="min-width: 450px">
             <q-card-section>
                 <div class="text-h6" style="color: var(--text-primary)">
@@ -7,8 +7,10 @@
                 </div>
             </q-card-section>
 
+            <q-separator />
+
             <q-card-section>
-                <q-form @submit.prevent="save">
+                <q-form @submit.prevent greedy>
                     <q-input
                         v-model="form.abbreviation"
                         :label="$t('measurementUnits.fields.ABBREVIATION') + ' *'"
@@ -30,20 +32,19 @@
                         :error-message="errors.description ? $t(errors.description) : ''"
                     />
 
-                    <div v-if="isEditing" class="q-mb-md">
+                    <div class="row items-center q-mt-md">
                         <q-btn
-                            flat
+                            v-if="isEditing"
+                            outline
                             no-caps
                             :label="measurementUnit?.status === 'active' ? $t('measurementUnits.actions.INACTIVATE') : $t('measurementUnits.actions.ACTIVATE')"
                             :color="measurementUnit?.status === 'active' ? 'negative' : 'positive'"
                             :loading="togglingStatus"
                             @click="toggleStatus"
                         />
-                    </div>
-
-                    <div class="row justify-end q-gutter-sm">
+                        <q-space />
                         <q-btn flat no-caps :label="$t('common.actions.CANCEL')" @click="close" />
-                        <q-btn type="submit" color="primary" no-caps :label="$t('common.actions.SAVE')" :loading="saving" />
+                        <q-btn color="primary" no-caps :label="$t('common.actions.SAVE')" :loading="saving" @click="save" />
                     </div>
                 </q-form>
             </q-card-section>

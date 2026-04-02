@@ -1,11 +1,13 @@
 <template>
-    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)" persistent>
+    <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)">
         <q-card style="width: 550px; max-width: 90vw">
             <q-card-section>
                 <div class="text-h6" style="color: var(--text-primary)">
                     {{ isEditing ? $t('suppliers.actions.EDIT') : $t('suppliers.actions.CREATE') }}
                 </div>
             </q-card-section>
+
+            <q-separator />
 
             <q-card-section>
                 <q-form @submit.prevent greedy>

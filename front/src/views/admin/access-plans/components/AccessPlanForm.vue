@@ -12,7 +12,7 @@
             <q-separator />
 
             <q-card-section>
-                <q-form @submit.prevent="handleSubmit" class="q-gutter-sm">
+                <q-form @submit.prevent greedy class="q-gutter-sm">
                     <q-input
                         v-model="form.title"
                         :label="$t('accessPlans.fields.TITLE') + ' *'"
@@ -57,11 +57,9 @@
                     <div class="row items-center q-mt-md">
                         <q-btn
                             v-if="isEditing"
-                            flat
+                            outline
                             no-caps
-                            dense
                             :color="plan?.status === 'active' ? 'negative' : 'positive'"
-                            :icon="plan?.status === 'active' ? 'block' : 'check_circle'"
                             :label="plan?.status === 'active' ? $t('accessPlans.actions.INACTIVATE') : $t('accessPlans.actions.ACTIVATE')"
                             :loading="statusLoading"
                             @click="handleToggleStatus"
@@ -76,7 +74,7 @@
                             @click="close"
                         />
                         <q-btn
-                            type="submit"
+                            @click="handleSubmit"
                             color="primary"
                             no-caps
                             :label="$t('common.actions.SAVE')"

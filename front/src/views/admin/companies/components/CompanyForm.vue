@@ -12,7 +12,7 @@
             <q-separator />
 
             <q-card-section>
-                <q-form @submit.prevent="handleSubmit" class="q-gutter-sm">
+                <q-form @submit.prevent greedy class="q-gutter-sm">
                     <div class="row q-col-gutter-sm">
                         <div class="col-12">
                             <q-input
@@ -213,11 +213,9 @@
                     <div class="row items-center q-mt-md">
                         <q-btn
                             v-if="isEditing"
-                            flat
+                            outline
                             no-caps
-                            dense
                             :color="company?.status === 'active' ? 'negative' : 'positive'"
-                            :icon="company?.status === 'active' ? 'block' : 'check_circle'"
                             :label="company?.status === 'active' ? $t('companies.actions.INACTIVATE') : $t('companies.actions.ACTIVATE')"
                             :loading="statusLoading"
                             @click="handleToggleStatus"
@@ -243,11 +241,11 @@
                             @click="close"
                         />
                         <q-btn
-                            type="submit"
                             color="primary"
                             no-caps
                             :label="$t('common.actions.SAVE')"
                             :loading="loading"
+                            @click="handleSubmit"
                         />
                     </div>
                 </q-form>
