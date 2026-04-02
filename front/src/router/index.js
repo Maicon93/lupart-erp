@@ -23,73 +23,73 @@ const routes = [
                 name: 'home',
                 component: () => import('../views/home/HomeView.vue'),
             },
-            // Admin routes (screens 10-99)
+            // Admin routes
             {
                 path: 'admin/access-plans',
                 name: 'admin-access-plans',
                 component: () => import('../views/admin/access-plans/AccessPlanList.vue'),
-                meta: { permission: '10_access_plans' },
+                meta: { permission: '10_access_plans', panel: 'admin' },
             },
             {
                 path: 'admin/companies',
                 name: 'admin-companies',
                 component: () => import('../views/admin/companies/CompanyList.vue'),
-                meta: { permission: '12_companies' },
+                meta: { permission: '12_companies', panel: 'admin' },
             },
             {
                 path: 'admin/users',
                 name: 'admin-users',
                 component: () => import('../views/admin/users/UserList.vue'),
-                meta: { permission: '11_users' },
+                meta: { permission: '11_users', panel: 'admin' },
             },
             {
                 path: 'admin/positions',
                 name: 'admin-positions',
                 component: () => import('../views/admin/positions/PositionList.vue'),
-                meta: { permission: '13_positions' },
+                meta: { permission: '13_positions', panel: 'admin' },
             },
             {
                 path: 'admin/system-parameters',
                 name: 'admin-system-parameters',
                 component: () => import('../views/admin/system-parameters/SystemParameterList.vue'),
-                meta: { permission: '15_system_parameters' },
+                meta: { permission: '15_system_parameters', panel: 'admin' },
             },
             {
                 path: 'admin/permissions',
                 name: 'admin-permissions',
                 component: () => import('../views/admin/permissions/PermissionList.vue'),
-                meta: { permission: '14_permissions' },
+                meta: { permission: '14_permissions', panel: 'admin' },
             },
-            // User routes (screens 100+, require company)
+            // User routes
             {
                 path: 'measurement-units',
                 name: 'measurement-units',
                 component: () => import('../views/user/measurement-units/MeasurementUnitList.vue'),
-                meta: { permission: '104_measurement_units' },
+                meta: { permission: '104_measurement_units', panel: 'user' },
             },
             {
                 path: 'customers',
                 name: 'customers',
                 component: () => import('../views/user/customers/CustomerList.vue'),
-                meta: { permission: '105_customers' },
+                meta: { permission: '105_customers', panel: 'user' },
             },
             {
                 path: 'suppliers',
                 name: 'suppliers',
                 component: () => import('../views/user/suppliers/SupplierList.vue'),
-                meta: { permission: '106_suppliers' },
+                meta: { permission: '106_suppliers', panel: 'user' },
             },
             {
                 path: 'categories',
                 name: 'categories',
                 component: () => import('../views/user/categories/CategoryList.vue'),
-                meta: { permission: '108_categories' },
+                meta: { permission: '108_categories', panel: 'user' },
             },
             {
                 path: 'payment-types',
                 name: 'payment-types',
                 component: () => import('../views/user/payment-types/PaymentTypeList.vue'),
-                meta: { permission: '109_payment_types' },
+                meta: { permission: '109_payment_types', panel: 'user' },
             },
         ],
     },
@@ -128,9 +128,8 @@ router.beforeEach(async (to, from, next) => {
         return next();
     }
 
-    // Telas de usuário (prefixo >= 100) exigem empresa selecionada
-    const permission = to.meta.permission;
-    if (permission && Number(permission.split('_')[0]) >= 100) {
+    // Telas de usuário exigem empresa selecionada
+    if (to.meta.panel === 'user') {
         const enterpriseStore = useEnterpriseStore();
         if (!enterpriseStore.companyId) {
             return next({ name: 'home' });
