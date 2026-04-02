@@ -62,6 +62,12 @@ const routes = [
             },
             // User routes
             {
+                path: 'products',
+                name: 'products',
+                component: () => import('../views/user/products/ProductList.vue'),
+                meta: { permission: '107_products', panel: 'user' },
+            },
+            {
                 path: 'measurement-units',
                 name: 'measurement-units',
                 component: () => import('../views/user/measurement-units/MeasurementUnitList.vue'),

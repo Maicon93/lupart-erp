@@ -148,6 +148,43 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "products": {
+        "TITLE": "Produtos",
+        "fields": {
+            "TYPE": "Tipo",
+            "NAME": "Nome",
+            "CODE": "Código",
+            "BARCODE": "Código de Barras",
+            "DESCRIPTION": "Descrição",
+            "CATEGORY": "Categoria",
+            "MEASUREMENT_UNIT": "Un. Medida",
+            "SALE_PRICE": "Preço de Venda",
+            "AVERAGE_COST": "Preço de Custo",
+            "STOCK": "Estoque",
+            "MINIMUM_STOCK": "Estoque Mínimo",
+            "NOTES": "Observações",
+            "ACTIONS": "Ações"
+        },
+        "types": {
+            "PRODUCT": "Produto",
+            "SERVICE": "Serviço"
+        },
+        "actions": {
+            "CREATE": "Novo Produto",
+            "EDIT": "Editar Produto",
+            "INACTIVATE": "Inativar",
+            "ACTIVATE": "Ativar"
+        },
+        "filters": {
+            "ALL": "Todos"
+        },
+        "validations": {
+            "POSITIVE_PRICE": "O preço deve ser maior que zero"
+        },
+        "errors": {
+            "CODE_ALREADY_EXISTS": "Código interno já cadastrado para esta empresa"
+        }
+    },
     "paymentTypes": {
         "TITLE": "Tipos de Pagamento",
         "fields": {

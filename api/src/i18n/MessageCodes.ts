@@ -62,6 +62,11 @@ const messageCodes = buildMessageCodes({
             PASSWORDS_DONT_MATCH: 'As senhas não conferem',
         },
     },
+    products: {
+        errors: {
+            CODE_ALREADY_EXISTS: 'Código interno já cadastrado para esta empresa',
+        },
+    },
     categories: {
         errors: {
             NAME_ALREADY_EXISTS: 'Nome de categoria já cadastrado para esta empresa',

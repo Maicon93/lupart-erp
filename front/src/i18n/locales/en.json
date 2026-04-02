@@ -148,6 +148,43 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "products": {
+        "TITLE": "Products",
+        "fields": {
+            "TYPE": "Type",
+            "NAME": "Name",
+            "CODE": "Code",
+            "BARCODE": "Barcode",
+            "DESCRIPTION": "Description",
+            "CATEGORY": "Category",
+            "MEASUREMENT_UNIT": "Unit",
+            "SALE_PRICE": "Sale Price",
+            "AVERAGE_COST": "Cost Price",
+            "STOCK": "Stock",
+            "MINIMUM_STOCK": "Minimum Stock",
+            "NOTES": "Notes",
+            "ACTIONS": "Actions"
+        },
+        "types": {
+            "PRODUCT": "Product",
+            "SERVICE": "Service"
+        },
+        "actions": {
+            "CREATE": "New Product",
+            "EDIT": "Edit Product",
+            "INACTIVATE": "Inactivate",
+            "ACTIVATE": "Activate"
+        },
+        "filters": {
+            "ALL": "All"
+        },
+        "validations": {
+            "POSITIVE_PRICE": "Price must be greater than zero"
+        },
+        "errors": {
+            "CODE_ALREADY_EXISTS": "Code already registered for this company"
+        }
+    },
     "paymentTypes": {
         "TITLE": "Payment Types",
         "fields": {
