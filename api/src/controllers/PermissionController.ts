@@ -35,10 +35,10 @@ const findAll = async (request: Request, response: Response) => {
 
 const checkPermission = async (request: Request, response: Response) => {
     try {
-        const { screen } = request.query;
+        const { permission } = request.query;
         const { userId, userRole } = request as IAuthRequest & { userId: number; userRole: string };
 
-        if (!screen) {
+        if (!permission) {
             const apiResponse: IApiResponse = {
                 type: 'error',
                 messageCode: messageCodes.common.validations.REQUIRED_FIELD,
@@ -49,7 +49,7 @@ const checkPermission = async (request: Request, response: Response) => {
         const hasPermission = await permissionService.checkPermission(
             userId,
             userRole,
-            Number(screen),
+            permission as string,
         );
 
         const apiResponse: IApiResponse = {

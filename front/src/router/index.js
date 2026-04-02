@@ -28,68 +28,68 @@ const routes = [
                 path: 'admin/access-plans',
                 name: 'admin-access-plans',
                 component: () => import('../views/admin/access-plans/AccessPlanList.vue'),
-                meta: { screen: 10 },
+                meta: { permission: '10_access_plans' },
             },
             {
                 path: 'admin/companies',
                 name: 'admin-companies',
                 component: () => import('../views/admin/companies/CompanyList.vue'),
-                meta: { screen: 12 },
+                meta: { permission: '12_companies' },
             },
             {
                 path: 'admin/users',
                 name: 'admin-users',
                 component: () => import('../views/admin/users/UserList.vue'),
-                meta: { screen: 11 },
+                meta: { permission: '11_users' },
             },
             {
                 path: 'admin/positions',
                 name: 'admin-positions',
                 component: () => import('../views/admin/positions/PositionList.vue'),
-                meta: { screen: 13 },
+                meta: { permission: '13_positions' },
             },
             {
                 path: 'admin/system-parameters',
                 name: 'admin-system-parameters',
                 component: () => import('../views/admin/system-parameters/SystemParameterList.vue'),
-                meta: { screen: 15 },
+                meta: { permission: '15_system_parameters' },
             },
             {
                 path: 'admin/permissions',
                 name: 'admin-permissions',
                 component: () => import('../views/admin/permissions/PermissionList.vue'),
-                meta: { screen: 14 },
+                meta: { permission: '14_permissions' },
             },
             // User routes (screens 100+, require company)
             {
                 path: 'measurement-units',
                 name: 'measurement-units',
                 component: () => import('../views/user/measurement-units/MeasurementUnitList.vue'),
-                meta: { screen: 104 },
+                meta: { permission: '104_measurement_units' },
             },
             {
                 path: 'customers',
                 name: 'customers',
                 component: () => import('../views/user/customers/CustomerList.vue'),
-                meta: { screen: 105 },
+                meta: { permission: '105_customers' },
             },
             {
                 path: 'suppliers',
                 name: 'suppliers',
                 component: () => import('../views/user/suppliers/SupplierList.vue'),
-                meta: { screen: 106 },
+                meta: { permission: '106_suppliers' },
             },
             {
                 path: 'categories',
                 name: 'categories',
                 component: () => import('../views/user/categories/CategoryList.vue'),
-                meta: { screen: 108 },
+                meta: { permission: '108_categories' },
             },
             {
                 path: 'payment-types',
                 name: 'payment-types',
                 component: () => import('../views/user/payment-types/PaymentTypeList.vue'),
-                meta: { screen: 109 },
+                meta: { permission: '109_payment_types' },
             },
         ],
     },
@@ -128,9 +128,9 @@ router.beforeEach(async (to, from, next) => {
         return next();
     }
 
-    // Telas de usuário (100+) exigem empresa selecionada
-    const screen = to.meta.screen;
-    if (screen >= 100) {
+    // Telas de usuário (prefixo >= 100) exigem empresa selecionada
+    const permission = to.meta.permission;
+    if (permission && Number(permission.split('_')[0]) >= 100) {
         const enterpriseStore = useEnterpriseStore();
         if (!enterpriseStore.companyId) {
             return next({ name: 'home' });
@@ -140,7 +140,7 @@ router.beforeEach(async (to, from, next) => {
     // Verificar permissão via API
     try {
         const { data } = await $api.get('/permissions/check', {
-            params: { screen: to.meta.screen },
+            params: { permission: to.meta.permission },
         });
 
         if (data.data?.hasPermission) {

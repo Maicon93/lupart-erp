@@ -25,16 +25,16 @@ const findAll = async (filter?: string, page = 1, limit = 20) => {
     return { data, total };
 };
 
-const hasPermissionForScreen = async (userId: number, screen: number): Promise<boolean> => {
+const hasPermission = async (userId: number, permission: string): Promise<boolean> => {
     const count = await rolePermissionRepository
         .createQueryBuilder('rolePermission')
         .innerJoin(UserRole, 'userRole', 'userRole.role_id = rolePermission.role_id')
         .innerJoin(Permission, 'permission', 'permission.id = rolePermission.permission_id')
         .where('userRole.user_id = :userId', { userId })
-        .andWhere('permission.name LIKE :screen', { screen: `${screen}_%` })
+        .andWhere('permission.name = :permission', { permission })
         .getCount();
 
     return count > 0;
 };
 
-export default { findAll, hasPermissionForScreen };
+export default { findAll, hasPermission };

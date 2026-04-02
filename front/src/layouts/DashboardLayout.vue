@@ -82,7 +82,14 @@ export default {
     },
 
     created() {
-        this.activePanel = this.isAdmin ? 'admin' : 'user';
+        const permission = this.$route.meta.permission;
+        const isUserScreen = permission && Number(permission.split('_')[0]) >= 100;
+
+        if (this.isAdmin && isUserScreen) {
+            this.activePanel = 'user';
+        } else {
+            this.activePanel = this.isAdmin ? 'admin' : 'user';
+        }
     },
 
     watch: {
