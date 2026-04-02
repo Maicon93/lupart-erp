@@ -163,6 +163,7 @@
             "STOCK": "Stock",
             "MINIMUM_STOCK": "Minimum Stock",
             "NOTES": "Notes",
+            "STATUS": "Status",
             "ACTIONS": "Actions"
         },
         "types": {

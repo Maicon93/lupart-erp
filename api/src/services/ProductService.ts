@@ -12,7 +12,7 @@ interface IProductInput {
     categoryId: number;
     measurementUnitId?: number;
     salePrice: number;
-    averageCost?: number;
+    averageCost?: number | null;
     minimumStock?: number;
     notes?: string;
 }
@@ -61,9 +61,9 @@ const create = async (companyId: number, input: IProductInput) => {
             categoryId: input.categoryId,
             measurementUnitId: isService ? undefined : input.measurementUnitId || undefined,
             salePrice: input.salePrice,
-            averageCost: isService ? 0 : input.averageCost || 0,
+            averageCost: isService ? 0 : input.averageCost ?? 0,
             stock: 0,
-            minimumStock: isService ? undefined : input.minimumStock || undefined,
+            minimumStock: isService ? undefined : input.minimumStock ?? undefined,
             notes: input.notes || undefined,
             status: ProductStatus.ACTIVE,
         });
@@ -101,7 +101,7 @@ const update = async (id: number, companyId: number, input: IProductInput) => {
         product.measurementUnitId = isService ? null as unknown as number : input.measurementUnitId || null as unknown as number;
         product.salePrice = input.salePrice;
         product.averageCost = isService ? 0 : input.averageCost ?? product.averageCost;
-        product.minimumStock = isService ? null as unknown as number : input.minimumStock || null as unknown as number;
+        product.minimumStock = isService ? null as unknown as number : input.minimumStock ?? null as unknown as number;
         product.notes = input.notes || null as unknown as string;
         await manager.save(product);
     });

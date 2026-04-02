@@ -160,7 +160,7 @@ export default {
                 { name: 'salePrice', label: this.$t('products.fields.SALE_PRICE'), field: 'salePrice', align: 'right' },
                 { name: 'averageCost', label: this.$t('products.fields.AVERAGE_COST'), field: 'averageCost', align: 'right' },
                 { name: 'stock', label: this.$t('products.fields.STOCK'), field: 'stock', align: 'right' },
-                { name: 'status', label: 'Status', field: 'status', align: 'center' },
+                { name: 'status', label: this.$t('products.fields.STATUS'), field: 'status', align: 'center' },
                 { name: 'actions', label: this.$t('products.fields.ACTIONS'), field: 'actions', align: 'center' },
             ],
             typeOptions: [
