@@ -147,23 +147,20 @@
                         </div>
                     </div>
 
-                    <div v-if="isUserRole" class="row q-col-gutter-sm">
+                    <div class="row q-col-gutter-sm">
                         <div class="col-12">
                             <q-select
-                                v-model="form.companyIds"
+                                v-model="form.companyId"
                                 :options="companies"
-                                :label="$t('users.fields.COMPANIES')"
+                                :label="$t('users.fields.COMPANY') + ' *'"
                                 outlined
-                                multiple
-                                use-chips
                                 emit-value
                                 map-options
                                 option-value="id"
                                 option-label="name"
-                                :hint="$t('users.hints.COMPANIES_OPTIONAL')"
-                                :error="!!errors.companyIds"
-                                :error-message="errors.companyIds ? $t(errors.companyIds) : ''"
-                                @update:model-value="clearError('companyIds')"
+                                :error="!!errors.companyId"
+                                :error-message="errors.companyId ? $t(errors.companyId) : ''"
+                                @update:model-value="clearError('companyId')"
                             />
                         </div>
                     </div>
@@ -227,7 +224,7 @@ export default {
                 country: '',
                 language: '',
                 roleId: null,
-                companyIds: [],
+                companyId: null,
             },
             errors: {
                 name: null,
@@ -238,7 +235,7 @@ export default {
                 country: null,
                 language: null,
                 roleId: null,
-                companyIds: null,
+                companyId: null,
             },
             loading: false,
             statusLoading: false,
@@ -265,11 +262,6 @@ export default {
             return !!this.user;
         },
 
-        isUserRole() {
-            if (!this.form.roleId || this.roles.length === 0) return false;
-            const selectedRole = this.roles.find((role) => role.id === this.form.roleId);
-            return selectedRole?.name === 'user';
-        },
     },
 
     watch: {
@@ -286,7 +278,7 @@ export default {
                         country: value.country || '',
                         language: value.language || '',
                         roleId: value.roleId || value.role?.id || null,
-                        companyIds: value.companyIds || [],
+                        companyId: value.companyId ?? null,
                     };
                     this.showPasswordFields = false;
                 } else {
@@ -334,7 +326,7 @@ export default {
                 country: '',
                 language: '',
                 roleId: null,
-                companyIds: [],
+                companyId: null,
             };
             this.errors = {
                 name: null,
@@ -345,7 +337,7 @@ export default {
                 country: null,
                 language: null,
                 roleId: null,
-                companyIds: null,
+                companyId: null,
             };
             this.showPasswordFields = false;
             this.showPassword = false;
@@ -365,7 +357,7 @@ export default {
                 country: null,
                 language: null,
                 roleId: null,
-                companyIds: null,
+                companyId: null,
             };
 
             if (result.success) {

@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "typeorm": "typeorm-ts-node-commonjs",
     "migration:run": "typeorm-ts-node-commonjs migration:run -d src/config/database.ts",
-    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/config/database.ts"
+    "migration:revert": "typeorm-ts-node-commonjs migration:revert -d src/config/database.ts",
+    "db:reset": "node -r dotenv/config node_modules/typeorm/cli-ts-node-commonjs.js schema:drop -d src/config/database.ts && node -r dotenv/config node_modules/typeorm/cli-ts-node-commonjs.js migration:run -d src/config/database.ts"
   },
   "keywords": [],
   "author": "",

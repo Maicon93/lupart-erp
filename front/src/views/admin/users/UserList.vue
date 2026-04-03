@@ -181,7 +181,7 @@ export default {
                         ...fullUser,
                         phone: fullUser.profile?.phone || '',
                         country: fullUser.profile?.country || '',
-                        companyIds: fullUser.companies?.map((c) => c.companyId) || [],
+                        companyId: fullUser.companyId ?? null,
                     };
                 } catch {
                     return;

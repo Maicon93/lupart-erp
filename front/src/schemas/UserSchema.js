@@ -10,7 +10,7 @@ export const createUserSchema = z
         country: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         language: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         roleId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
-        companyIds: z.array(z.number()).optional().default([]),
+        companyId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
     })
     .refine((data) => data.password === data.confirmPassword, {
         path: ['confirmPassword'],
@@ -31,7 +31,7 @@ export const updateUserSchema = z
         country: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         language: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         roleId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
-        companyIds: z.array(z.number()).optional().default([]),
+        companyId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
     })
     .refine(
         (data) => {

@@ -15,7 +15,7 @@ interface IUserInput {
     country: string;
     language: string;
     roleId: number;
-    companyIds?: number[];
+    companyId: number;
 }
 
 const findAll = async (search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> => {
@@ -58,6 +58,7 @@ const create = async (input: IUserInput, currentUserId: number): Promise<User> =
             password: hashedPassword,
             language: input.language,
             roleId: input.roleId,
+            companyId: input.companyId,
             status: UserStatus.ACTIVE,
         });
 
@@ -71,17 +72,13 @@ const create = async (input: IUserInput, currentUserId: number): Promise<User> =
 
         await manager.save(profile);
 
-        if (input.companyIds && input.companyIds.length > 0) {
-            const userCompanies = input.companyIds.map((companyId) =>
-                manager.create(UserCompany, {
-                    userId: user.id,
-                    companyId,
-                    createdBy: currentUserId,
-                })
-            );
+        const userCompany = manager.create(UserCompany, {
+            userId: user.id,
+            companyId: input.companyId,
+            createdBy: currentUserId,
+        });
 
-            await manager.save(userCompanies);
-        }
+        await manager.save(userCompany);
 
         const { password: _, ...userWithoutPassword } = user;
         return userWithoutPassword as User;
@@ -103,6 +100,7 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
             email: input.email,
             language: input.language,
             roleId: input.roleId,
+            companyId: input.companyId,
         };
 
         if (input.password && input.password !== '') {
@@ -130,17 +128,13 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
 
         await manager.delete(UserCompany, { userId: user.id });
 
-        if (input.companyIds && input.companyIds.length > 0) {
-            const userCompanies = input.companyIds.map((companyId) =>
-                manager.create(UserCompany, {
-                    userId: user.id,
-                    companyId,
-                    createdBy: currentUserId,
-                })
-            );
+        const userCompany = manager.create(UserCompany, {
+            userId: user.id,
+            companyId: input.companyId,
+            createdBy: currentUserId,
+        });
 
-            await manager.save(userCompanies);
-        }
+        await manager.save(userCompany);
 
         return manager.findOneOrFail(User, {
             where: { id: user.id },

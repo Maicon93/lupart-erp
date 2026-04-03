@@ -85,6 +85,7 @@
             "COUNTRY": "Country",
             "LANGUAGE": "Language",
             "ROLE": "Role",
+            "COMPANY": "Company",
             "COMPANIES": "Companies",
             "STATUS": "Status",
             "ACTIONS": "Actions"
@@ -146,6 +147,45 @@
             "HAS_LINKED_USERS": "Cannot delete this position because there are linked users",
             "CANNOT_DELETE_GLOBAL": "Cannot delete global system positions",
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
+        }
+    },
+    "stockEntries": {
+        "TITLE": "Stock Entry",
+        "fields": {
+            "ENTRY_NUMBER": "Entry #",
+            "DATE": "Date",
+            "DATE_START": "Start date",
+            "DATE_END": "End date",
+            "INVOICE_NUMBER": "Invoice Number",
+            "SUPPLIER": "Supplier",
+            "OBSERVATION": "Observation",
+            "ITEM_COUNT": "Items",
+            "TOTAL_VALUE": "Total Value",
+            "PRODUCT": "Product",
+            "MEASUREMENT_UNIT": "Unit",
+            "QUANTITY": "Quantity",
+            "UNIT_PRICE": "Unit Price",
+            "SUBTOTAL": "Subtotal",
+            "RESPONSIBLE": "Responsible",
+            "ACTIONS": "Actions"
+        },
+        "sections": {
+            "ITEMS": "Entry Items",
+            "REVIEW": "Entry Review"
+        },
+        "actions": {
+            "CREATE": "New Entry",
+            "DETAILS": "Details",
+            "ADD_ITEM": "Add Item",
+            "REVIEW": "Review Entry"
+        },
+        "validations": {
+            "POSITIVE_QUANTITY": "Quantity must be greater than zero",
+            "AT_LEAST_ONE_ITEM": "Add at least one item",
+            "INCOMPLETE_ITEMS": "Fill in the product and quantity for all items"
+        },
+        "errors": {
+            "PRODUCT_NOT_FOUND": "Product not found"
         }
     },
     "products": {

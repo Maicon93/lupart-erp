@@ -85,6 +85,7 @@
             "COUNTRY": "País",
             "LANGUAGE": "Idioma",
             "ROLE": "Cargo",
+            "COMPANY": "Empresa",
             "COMPANIES": "Empresas",
             "STATUS": "Status",
             "ACTIONS": "Ações"
@@ -146,6 +147,45 @@
             "HAS_LINKED_USERS": "Não é possível excluir este cargo pois existem usuários vinculados a ele",
             "CANNOT_DELETE_GLOBAL": "Não é possível excluir cargos globais do sistema",
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
+        }
+    },
+    "stockEntries": {
+        "TITLE": "Entrada de Estoque",
+        "fields": {
+            "ENTRY_NUMBER": "Nº Moviment.",
+            "DATE": "Data",
+            "DATE_START": "Data início",
+            "DATE_END": "Data fim",
+            "INVOICE_NUMBER": "Nota Fiscal",
+            "SUPPLIER": "Fornecedor",
+            "OBSERVATION": "Observação",
+            "ITEM_COUNT": "Qtd. Itens",
+            "TOTAL_VALUE": "Valor Total",
+            "PRODUCT": "Produto",
+            "MEASUREMENT_UNIT": "Un. Medida",
+            "QUANTITY": "Quantidade",
+            "UNIT_PRICE": "Preço Unit.",
+            "SUBTOTAL": "Subtotal",
+            "RESPONSIBLE": "Responsável",
+            "ACTIONS": "Ações"
+        },
+        "sections": {
+            "ITEMS": "Itens da Entrada",
+            "REVIEW": "Revisão da Entrada"
+        },
+        "actions": {
+            "CREATE": "Nova Entrada",
+            "DETAILS": "Detalhes",
+            "ADD_ITEM": "Adicionar Item",
+            "REVIEW": "Revisar Entrada"
+        },
+        "validations": {
+            "POSITIVE_QUANTITY": "Quantidade deve ser maior que zero",
+            "AT_LEAST_ONE_ITEM": "Adicione pelo menos um item",
+            "INCOMPLETE_ITEMS": "Preencha o produto e a quantidade de todos os itens"
+        },
+        "errors": {
+            "PRODUCT_NOT_FOUND": "Produto não encontrado"
         }
     },
     "products": {

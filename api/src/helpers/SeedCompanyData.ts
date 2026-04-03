@@ -4,6 +4,7 @@ import { PaymentType } from '../models/PaymentType';
 import { MeasurementUnit } from '../models/MeasurementUnit';
 import { Category } from '../models/Category';
 import { Customer } from '../models/Customer';
+import { Supplier } from '../models/Supplier';
 
 const seedCompanyData = async (manager: EntityManager, companyId: number): Promise<void> => {
     const companySetting = manager.create(CompanySetting, {
@@ -20,6 +21,7 @@ const seedCompanyData = async (manager: EntityManager, companyId: number): Promi
         { abbreviation: 'Kg', description: 'Quilo' },
         { abbreviation: 'Un', description: 'Unidade' },
         { abbreviation: 'L', description: 'Litro' },
+        { abbreviation: 'Hora', description: 'Hora' },
         { abbreviation: 'Serviço', description: 'Serviço' },
     ];
     const measurementUnits = measurementUnitsData.map((unit) =>
@@ -42,6 +44,15 @@ const seedCompanyData = async (manager: EntityManager, companyId: number): Promi
         notes: 'Cliente padrão',
     });
     await manager.save(customer);
+
+    const supplier = manager.create(Supplier, {
+        companyId,
+        name: 'Fornecedor Genérico',
+        cpfCnpj: '000.000.000-00',
+        phone: '(99) 99999-9999',
+        notes: 'Fornecedor padrão',
+    });
+    await manager.save(supplier);
 };
 
 export default seedCompanyData;

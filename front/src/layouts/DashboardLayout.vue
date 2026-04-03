@@ -111,6 +111,7 @@ export default {
                 return;
             }
             this.activePanel = panel;
+            this.$router.push(panel === 'admin' ? '/admin/companies' : '/');
         },
 
         handleLogout() {

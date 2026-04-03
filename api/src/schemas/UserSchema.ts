@@ -10,7 +10,7 @@ export const createUserSchema = z
         country: z.string().nonempty(),
         language: z.string().nonempty(),
         roleId: z.number().int().positive(),
-        companyIds: z.array(z.number().int().positive()).optional().default([]),
+        companyId: z.number().int().positive(),
     })
     .refine((data) => data.password === data.confirmPassword, {
         path: ['confirmPassword'],
@@ -27,7 +27,7 @@ export const updateUserSchema = z
         country: z.string().nonempty(),
         language: z.string().nonempty(),
         roleId: z.number().int().positive(),
-        companyIds: z.array(z.number().int().positive()).optional().default([]),
+        companyId: z.number().int().positive(),
     })
     .refine(
         (data) => {
