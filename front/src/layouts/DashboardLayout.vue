@@ -115,7 +115,7 @@ export default {
 
         handleLogout() {
             this.authStore.clearAuth();
-            localStorage.removeItem('token');
+            localStorage.clear();
 
             this.$router.push({ name: 'login' });
         },

@@ -86,7 +86,7 @@ export default {
 
     computed: {
         companyName() {
-            return this.enterpriseStore.company?.name || 'Lupart';
+            return this.enterpriseStore.company?.name || this.$t('navbar.ADMIN_LABEL');
         },
 
         userName() {

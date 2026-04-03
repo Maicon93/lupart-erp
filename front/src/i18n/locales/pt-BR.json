@@ -367,7 +367,8 @@
         "USER_PANEL": "Painel Usuário",
         "BACK_TO_ADMIN": "Voltar ao Painel Administrador",
         "DARK_MODE": "Modo escuro",
-        "LIGHT_MODE": "Modo claro"
+        "LIGHT_MODE": "Modo claro",
+        "ADMIN_LABEL": "Administrador"
     },
     "sidebar": {
         "admin": {

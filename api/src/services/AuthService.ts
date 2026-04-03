@@ -47,7 +47,7 @@ const login = async (email: string, password: string): Promise<ILoginResult> => 
         logoUrl: userCompany.company.logoUrl,
     }));
 
-    if (roleName !== 'admin' && companies.length === 0) {
+    if (roleName !== 'admin' && !user.companyId) {
         throw { status: 403, messageCode: messageCodes.auth.errors.USER_NO_COMPANY };
     }
 
