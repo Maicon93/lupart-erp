@@ -1,17 +1,18 @@
-import permissionRepository from '../repositories/PermissionRepository';
+import PermissionRepository from '../repositories/PermissionRepository';
 
-const findAll = async (filter?: string, page?: number, limit?: number) => {
-    return permissionRepository.findAll(filter, page, limit);
-};
-
-const checkPermission = async (userId: number, userRole: string, permission: string): Promise<boolean> => {
-    // Admin tem acesso total a todas as telas
-    if (userRole === 'admin') {
-        return true;
+export default class PermissionService {
+    static async findAll(filter?: string, page?: number, limit?: number) {
+        return PermissionRepository.findAll(filter, page, limit);
     }
 
-    // Para usuários comuns, verificar via role_permissions
-    return permissionRepository.hasPermission(userId, permission);
-};
+    static async checkPermission(userId: number, userRole: string, permission: string): Promise<boolean> {
+        // Admin tem acesso total a todas as telas
+        if (userRole === 'admin') {
+            return true;
+        }
 
-export default { findAll, checkPermission };
+        // Para usuários comuns, verificar via role_permissions
+        return PermissionRepository.hasPermission(userId, permission);
+    }
+}
+

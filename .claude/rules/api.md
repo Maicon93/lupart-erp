@@ -7,9 +7,7 @@
   - **Repository**: apenas acesso ao banco, sem lógica de negócio
 - **IApiResponse**: `{ type: 'success'|'error'|'info'|'warning', messageCode?: string, data?: T }`
   - API **nunca** retorna texto, apenas códigos (`messageCode`) para i18n
-- Interfaces na pasta `interfaces/` com prefixo **I** (ex: `IUser`, `IProduct`)
-  - Types locais (usados só no arquivo) ficam dentro do arquivo, sem `export`
-- Nunca retornar o model completo na resposta — usar interfaces para definir o que a API expõe
+- Interfaces e types: ver `rules/interfaces.md`
 - Models (TypeORM): PascalCase singular (`Product`), tabela snake_case plural (`products`), colunas em snake_case (`company_id`, `created_at`)
 - Rotas: RESTful, kebab-case plural (`/api/customers`, `/api/stock-entries`)
 - Validação: **Zod** via middleware — schemas na pasta `schemas/`. Sanitizar strings — nunca confiar em input do usuário
@@ -26,3 +24,4 @@
   - Fallbacks são permitidos apenas quando óbvios e inofensivos (ex: `NODE_ENV` defaulting para `'development'`)
   - Ao identificar um caso onde um fallback pode ser viável, **sugerir ao usuário** e aguardar aprovação antes de incluir
 - Arquivos TS em PascalCase (`ProductService.ts`, `JWTUtil.ts`)
+- **Controllers, Services, Repositories, Helpers, Middlewares**: usar `export default class NomeClasse {` com métodos `static` — a classe funciona como namespace, sem necessidade de instanciar

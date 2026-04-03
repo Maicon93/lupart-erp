@@ -7,42 +7,38 @@ interface ITokenPayload {
     role: string;
 }
 
-const SECRET: jwt.Secret = environment.JWT_SECRET;
-const ACCESS_EXPIRES_IN: string = environment.JWT_EXPIRES_IN;
-const REFRESH_EXPIRES_IN = environment.JWT_REFRESH_EXPIRES_IN;
+export default class JWTUtil {
+    private static readonly secret: jwt.Secret = environment.JWT_SECRET;
+    private static readonly accessExpiresIn: string = environment.JWT_EXPIRES_IN;
+    private static readonly refreshExpiresIn: string = environment.JWT_REFRESH_EXPIRES_IN;
 
-const generateAccessToken = (payload: ITokenPayload): string => {
-    return jwt.sign({ ...payload }, SECRET, { expiresIn: ACCESS_EXPIRES_IN as unknown as number });
-};
+    static generateAccessToken(payload: ITokenPayload): string {
+        return jwt.sign({ ...payload }, this.secret, { expiresIn: this.accessExpiresIn as unknown as number });
+    }
 
-const verifyAccessToken = (token: string): ITokenPayload => {
-    return jwt.verify(token, SECRET) as ITokenPayload;
-};
+    static verifyAccessToken(token: string): ITokenPayload {
+        return jwt.verify(token, this.secret) as ITokenPayload;
+    }
 
-const generateRefreshToken = (): string => {
-    return crypto.randomBytes(40).toString('hex');
-};
+    static generateRefreshToken(): string {
+        return crypto.randomBytes(40).toString('hex');
+    }
 
-const getRefreshExpiresAt = (): Date => {
-    const match = REFRESH_EXPIRES_IN.match(/^(\d+)([dhms])$/);
-    if (!match) return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+    static getRefreshExpiresAt(): Date {
+        const match = this.refreshExpiresIn.match(/^(\d+)([dhms])$/);
+        if (!match) return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-    const value = parseInt(match[1]);
-    const unit = match[2];
+        const value = parseInt(match[1]);
+        const unit = match[2];
 
-    const multipliers: Record<string, number> = {
-        s: 1000,
-        m: 60 * 1000,
-        h: 60 * 60 * 1000,
-        d: 24 * 60 * 60 * 1000,
-    };
+        const multipliers: Record<string, number> = {
+            s: 1000,
+            m: 60 * 1000,
+            h: 60 * 60 * 1000,
+            d: 24 * 60 * 60 * 1000,
+        };
 
-    return new Date(Date.now() + value * multipliers[unit]);
-};
+        return new Date(Date.now() + value * multipliers[unit]);
+    }
+}
 
-export default {
-    generateAccessToken,
-    verifyAccessToken,
-    generateRefreshToken,
-    getRefreshExpiresAt,
-};

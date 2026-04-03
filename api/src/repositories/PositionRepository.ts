@@ -3,52 +3,53 @@ import { Role } from '../models/Role';
 import { RolePermission } from '../models/RolePermission';
 import { UserRole } from '../models/UserRole';
 
-const repository = AppDataSource.getRepository(Role);
-const rolePermissionRepository = AppDataSource.getRepository(RolePermission);
-const userRoleRepository = AppDataSource.getRepository(UserRole);
+export default class PositionRepository {
+    private static repository = AppDataSource.getRepository(Role);
+    private static rolePermissionRepository = AppDataSource.getRepository(RolePermission);
+    private static userRoleRepository = AppDataSource.getRepository(UserRole);
 
-const findAll = async (search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> => {
-    const query = repository
-        .createQueryBuilder('role')
-        .loadRelationCountAndMap('role.permissionCount', 'role.rolePermissions');
+    static async findAll(search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> {
+        const query = this.repository
+            .createQueryBuilder('role')
+            .loadRelationCountAndMap('role.permissionCount', 'role.rolePermissions');
 
-    if (search) {
-        query.where('role.name ILIKE :search', { search: `%${search}%` });
+        if (search) {
+            query.where('role.name ILIKE :search', { search: `%${search}%` });
+        }
+
+        query.orderBy('role.id', 'ASC');
+        query.skip((page - 1) * limit).take(limit);
+
+        const [data, total] = await query.getManyAndCount();
+        return { data, total };
     }
 
-    query.orderBy('role.id', 'ASC');
-    query.skip((page - 1) * limit).take(limit);
+    static async findById(id: number): Promise<Role | null> {
+        return this.repository.findOne({ where: { id } });
+    }
 
-    const [data, total] = await query.getManyAndCount();
-    return { data, total };
-};
+    static async findByIdWithPermissions(id: number): Promise<Role | null> {
+        return this.repository
+            .createQueryBuilder('role')
+            .leftJoinAndSelect('role.rolePermissions', 'rolePermissions')
+            .leftJoinAndSelect('rolePermissions.permission', 'permission')
+            .where('role.id = :id', { id })
+            .getOne();
+    }
 
-const findById = async (id: number): Promise<Role | null> => {
-    return repository.findOne({ where: { id } });
-};
+    static async findByName(name: string): Promise<Role | null> {
+        return this.repository.findOne({ where: { name } });
+    }
 
-const findByIdWithPermissions = async (id: number): Promise<Role | null> => {
-    return repository
-        .createQueryBuilder('role')
-        .leftJoinAndSelect('role.rolePermissions', 'rolePermissions')
-        .leftJoinAndSelect('rolePermissions.permission', 'permission')
-        .where('role.id = :id', { id })
-        .getOne();
-};
+    static async findPermissionsByRoleId(roleId: number): Promise<RolePermission[]> {
+        return this.rolePermissionRepository.find({
+            where: { roleId },
+            relations: ['permission'],
+        });
+    }
 
-const findByName = async (name: string): Promise<Role | null> => {
-    return repository.findOne({ where: { name } });
-};
+    static async countLinkedUsers(roleId: number): Promise<number> {
+        return this.userRoleRepository.count({ where: { roleId } });
+    }
+}
 
-const findPermissionsByRoleId = async (roleId: number): Promise<RolePermission[]> => {
-    return rolePermissionRepository.find({
-        where: { roleId },
-        relations: ['permission'],
-    });
-};
-
-const countLinkedUsers = async (roleId: number): Promise<number> => {
-    return userRoleRepository.count({ where: { roleId } });
-};
-
-export default { findAll, findById, findByIdWithPermissions, findByName, findPermissionsByRoleId, countLinkedUsers };

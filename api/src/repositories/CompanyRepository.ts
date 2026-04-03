@@ -2,68 +2,69 @@ import { AppDataSource } from '../config/database';
 import { Company } from '../models/Company';
 import { CompanyProfile } from '../models/CompanyProfile';
 
-const repository = AppDataSource.getRepository(Company);
-const profileRepository = AppDataSource.getRepository(CompanyProfile);
+export default class CompanyRepository {
+    private static repository = AppDataSource.getRepository(Company);
+    private static profileRepository = AppDataSource.getRepository(CompanyProfile);
 
-const findAll = async (search?: string, status?: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> => {
-    const query = repository
-        .createQueryBuilder('company')
-        .leftJoinAndSelect('company.accessPlan', 'accessPlan')
-        .leftJoinAndSelect('company.responsible', 'responsible');
+    static async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> {
+        const query = this.repository
+            .createQueryBuilder('company')
+            .leftJoinAndSelect('company.accessPlan', 'accessPlan')
+            .leftJoinAndSelect('company.responsible', 'responsible');
 
-    if (search) {
-        query.where('(company.name ILIKE :search OR company.cnpj ILIKE :search)', { search: `%${search}%` });
+        if (search) {
+            query.where('(company.name ILIKE :search OR company.cnpj ILIKE :search)', { search: `%${search}%` });
+        }
+
+        if (status && status !== 'all') {
+            query.andWhere('company.status = :status', { status });
+        }
+
+        query.orderBy('company.id', 'ASC');
+        query.skip((page - 1) * limit).take(limit);
+
+        const [data, total] = await query.getManyAndCount();
+        return { data, total };
     }
 
-    if (status && status !== 'all') {
-        query.andWhere('company.status = :status', { status });
+    static async findById(id: number): Promise<Company | null> {
+        return this.repository.findOne({
+            where: { id },
+            relations: ['accessPlan', 'responsible', 'matrizCompany'],
+        });
     }
 
-    query.orderBy('company.id', 'ASC');
-    query.skip((page - 1) * limit).take(limit);
+    static async findByIdWithProfile(id: number): Promise<{ company: Company | null; profile: CompanyProfile | null }> {
+        const company = await this.repository.findOne({
+            where: { id },
+            relations: ['accessPlan', 'responsible', 'matrizCompany'],
+        });
 
-    const [data, total] = await query.getManyAndCount();
-    return { data, total };
-};
+        const profile = company ? await this.profileRepository.findOne({ where: { companyId: id } }) : null;
 
-const findById = async (id: number): Promise<Company | null> => {
-    return repository.findOne({
-        where: { id },
-        relations: ['accessPlan', 'responsible', 'matrizCompany'],
-    });
-};
+        return { company, profile };
+    }
 
-const findByIdWithProfile = async (id: number): Promise<{ company: Company | null; profile: CompanyProfile | null }> => {
-    const company = await repository.findOne({
-        where: { id },
-        relations: ['accessPlan', 'responsible', 'matrizCompany'],
-    });
+    static async findByCnpj(cnpj: string): Promise<Company | null> {
+        return this.repository.findOne({ where: { cnpj } });
+    }
 
-    const profile = company ? await profileRepository.findOne({ where: { companyId: id } }) : null;
+    static async countBranches(matrizId: number): Promise<number> {
+        return this.repository.count({ where: { matriz: matrizId } });
+    }
 
-    return { company, profile };
-};
+    static async findAllActive(): Promise<Company[]> {
+        return this.repository.find({
+            where: { status: 'active' as Company['status'] },
+            select: ['id', 'name'],
+        });
+    }
 
-const findByCnpj = async (cnpj: string): Promise<Company | null> => {
-    return repository.findOne({ where: { cnpj } });
-};
+    static async findBranches(matrizId: number): Promise<Company[]> {
+        return this.repository.find({
+            where: { matriz: matrizId },
+            select: ['id', 'name', 'cnpj', 'status'],
+        });
+    }
+}
 
-const countBranches = async (matrizId: number): Promise<number> => {
-    return repository.count({ where: { matriz: matrizId } });
-};
-
-const findAllActive = async (): Promise<Company[]> => {
-    return repository.find({
-        where: { status: 'active' as Company['status'] },
-        select: ['id', 'name'],
-    });
-};
-
-const findBranches = async (matrizId: number): Promise<Company[]> => {
-    return repository.find({
-        where: { matriz: matrizId },
-        select: ['id', 'name', 'cnpj', 'status'],
-    });
-};
-
-export default { findAll, findById, findByIdWithProfile, findByCnpj, countBranches, findAllActive, findBranches };

@@ -67,10 +67,7 @@ interface IApiResponse<T = any> {
 - Nunca confiar em dados vindos do frontend
 
 ## Interfaces e Types
-- **Todas** as interfaces ficam na pasta `interfaces/` com prefixo **I** (ex: `IUser`, `IProduct`, `IMarkToDelete`)
-- Types genéricos (usados em mais de um arquivo) → pasta `interfaces/`, com prefixo **I**
-- Types locais (usados apenas no próprio arquivo) → ficam **dentro do arquivo .ts**, **sem** `export`
-- Nunca retornar o model completo na resposta — usar interfaces para definir o que a API expõe
+- Ver `.claude/rules/interfaces.md` para as regras completas de interfaces e types
 
 ## Exclusão e Inativação
 - Registros nunca são excluídos fisicamente do banco de dados
@@ -178,6 +175,20 @@ interface IApiResponse<T = any> {
 - CRUDs simples (Categorias, Unidades de Medida, Tipos de Pagamento, Fornecedores)
 - Controllers (passthrough para services)
 - Frontend
+
+## Estrutura de Classes
+
+- Controllers, Services, Repositories, Helpers e Middlewares são sempre **classes** com métodos `static`
+- Exportar a classe diretamente: `export default class NomeClasse {`
+- A classe funciona como **namespace** — agrupa métodos relacionados sem precisar instanciar
+- Não usar `export default new NomeClasse()` nem `export default { fn1, fn2 }`
+- Exemplo:
+  ```typescript
+  export default class ProductService {
+      static async findAll(companyId: number) { ... }
+      static async create(input: IProductInput) { ... }
+  }
+  ```
 
 ## Geral
 - Não commitar `console.log` — usar logger estruturado

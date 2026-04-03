@@ -3,7 +3,39 @@
     "allow": [
       "Edit(/.claude/skills/code-review/**)",
       "Bash(git push:*)",
-      "Bash(git status:*)"
+      "Bash(git status:*)",
+      "Bash(find \"/home/maicon/Documentos/Maicon''''s Brains/Lupart/Arquitetura/\" -type f -name *.md)",
+      "Bash(find \"/home/maicon/Documentos/Maicon''''s Brains/Lupart/Boas Práticas/\" -type f -name *.md)",
+      "Bash(find \"/home/maicon/Documentos/Maicon''''s Brains/Lupart/CodeBase/\" -type f -name *.md)",
+      "Bash(find /home/maicon/Documentos/projects/pessoais/lupart/docs/Arquitetura/ -type f -name *.md)",
+      "Bash(find '/home/maicon/Documentos/projects/pessoais/lupart/docs/Boas Práticas/' -type f -name *.md)",
+      "Bash(find /home/maicon/Documentos/projects/pessoais/lupart/docs/CodeBase/ -type f -name *.md)",
+      "Bash(grep -E \"\\\\.ts$\")",
+      "Bash(grep -r \"inspect\\\\|Inspect\" /home/maicon/Documentos/projects/pessoais/lupart --include=*.ts --include=*.js --include=*.vue)",
+      "mcp__context7__resolve-library-id",
+      "Bash(ls /home/maicon/Documentos/projects/pessoais/lupart/docker-compose*)",
+      "Bash(docker compose:*)",
+      "Bash(npx ts-node:*)",
+      "Bash(curl -s http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@lupart.com.br\",\"password\":\"123456\"}')",
+      "Bash(curl -s http://localhost:8001/api/companies/1 -H \"Authorization: Bearer $\\(curl -s http://localhost:8001/api/auth/login -H 'Content-Type: application/json' -d '{\"email\":\"admin@lupart.com.br\",\"password\":\"123456\"}')",
+      "Bash(npm update:*)",
+      "Bash(npm run:*)",
+      "Bash(ls /home/maicon/Documentos/projects/pessoais/lupart/api/node_modules/typeorm/cli*.js)",
+      "Bash(grep -i \"var\\\\|rgba\\\\|\\\\$\")",
+      "Bash(python3 -c \"import json; data=json.load\\(open\\('front/src/i18n/locales/en.json'\\)\\); print\\('\\\\n'.join\\(sorted\\(data.keys\\(\\)\\)\\)\\)\")",
+      "Bash(head -3 controllers/*.ts)",
+      "Bash(head -3 services/*.ts)",
+      "Bash(head -3 repositories/*.ts)",
+      "Bash(head -3 helpers/*.ts)",
+      "Bash(ls controllers/*.ts)",
+      "Bash(ls services/*.ts)",
+      "Bash(ls repositories/*.ts)",
+      "Bash(ls helpers/*.ts)",
+      "Bash(ls controllers/*.ts services/*.ts repositories/*.ts helpers/*.ts)",
+      "Read(//home/maico/Documentos/projects/pessoais/lupart/api/src/interfaces/**)"
+    ],
+    "additionalDirectories": [
+      "/home/maicon/Documentos/projects/pessoais/lupart/api/src/routes"
     ]
   }
 }

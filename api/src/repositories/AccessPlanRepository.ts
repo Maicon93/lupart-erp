@@ -2,42 +2,30 @@ import { AppDataSource } from '../config/database';
 import { AccessPlan } from '../models/AccessPlan';
 import { Company } from '../models/Company';
 
-const repository = AppDataSource.getRepository(AccessPlan);
-const companyRepository = AppDataSource.getRepository(Company);
+export default class AccessPlanRepository {
+    private static repository = AppDataSource.getRepository(AccessPlan);
+    private static companyRepository = AppDataSource.getRepository(Company);
 
-const findAll = async (status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> => {
-    const query = repository.createQueryBuilder('accessPlan');
+    static async findAll(status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> {
+        const query = this.repository.createQueryBuilder('accessPlan');
 
-    if (status && status !== 'all') {
-        query.where('accessPlan.status = :status', { status });
+        if (status && status !== 'all') {
+            query.where('accessPlan.status = :status', { status });
+        }
+
+        query.orderBy('accessPlan.id', 'ASC');
+        query.skip((page - 1) * limit).take(limit);
+
+        const [data, total] = await query.getManyAndCount();
+        return { data, total };
     }
 
-    query.orderBy('accessPlan.id', 'ASC');
-    query.skip((page - 1) * limit).take(limit);
+    static async findById(id: number): Promise<AccessPlan | null> {
+        return this.repository.findOne({ where: { id } });
+    }
 
-    const [data, total] = await query.getManyAndCount();
-    return { data, total };
-};
+    static async countLinkedCompanies(accessPlanId: number): Promise<number> {
+        return this.companyRepository.count({ where: { accessPlanId } });
+    }
+}
 
-const findById = async (id: number): Promise<AccessPlan | null> => {
-    return repository.findOne({ where: { id } });
-};
-
-const save = async (accessPlan: Partial<AccessPlan>): Promise<AccessPlan> => {
-    const entity = repository.create(accessPlan);
-    return repository.save(entity);
-};
-
-const update = async (id: number, data: Partial<AccessPlan>): Promise<void> => {
-    await repository.update(id, data);
-};
-
-const countLinkedCompanies = async (accessPlanId: number): Promise<number> => {
-    return companyRepository.count({ where: { accessPlanId } });
-};
-
-const remove = async (id: number): Promise<void> => {
-    await repository.delete(id);
-};
-
-export default { findAll, findById, save, update, countLinkedCompanies, remove };

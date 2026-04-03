@@ -42,6 +42,8 @@
         >
             <q-tooltip>{{ $t('navbar.BACK_TO_ADMIN') }}</q-tooltip>
         </q-btn>
+
+        <QuickNavigator v-model="showQuickNavigator" />
     </q-layout>
 </template>
 
@@ -55,6 +57,7 @@ import { getToastTheme } from '../plugins/toastify';
 import NavbarComponent from '../components/navbar/NavbarComponent.vue';
 import SidebarAdmin from '../components/sidebar/SidebarAdmin.vue';
 import SidebarUser from '../components/sidebar/SidebarUser.vue';
+import QuickNavigator from '../components/QuickNavigator.vue';
 
 export default {
     name: 'DashboardLayout',
@@ -63,6 +66,7 @@ export default {
         NavbarComponent,
         SidebarAdmin,
         SidebarUser,
+        QuickNavigator,
     },
 
     data() {
@@ -72,6 +76,8 @@ export default {
             enterpriseStore: useEnterpriseStore(),
             sidebarOpen: true,
             activePanel: null,
+            showQuickNavigator: false,
+            boundHandleKeydown: null,
         };
     },
 
@@ -89,6 +95,13 @@ export default {
         }
 
         this.themeStore.setDark(this.authStore.user?.theme === 'dark');
+
+        this.boundHandleKeydown = this.handleKeydown.bind(this);
+        window.addEventListener('keydown', this.boundHandleKeydown);
+    },
+
+    beforeUnmount() {
+        window.removeEventListener('keydown', this.boundHandleKeydown);
     },
 
     watch: {
@@ -106,6 +119,13 @@ export default {
     },
 
     methods: {
+        handleKeydown(event) {
+            if (event.key === 'F6') {
+                event.preventDefault();
+                this.showQuickNavigator = true;
+            }
+        },
+
         switchPanel(panel) {
             if (panel === 'user' && !this.enterpriseStore.companyId) {
                 const { t } = i18n.global;

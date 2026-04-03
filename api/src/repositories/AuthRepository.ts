@@ -4,70 +4,61 @@ import { UserProfile } from '../models/UserProfile';
 import { RefreshToken } from '../models/RefreshToken';
 import { UserCompany } from '../models/UserCompany';
 
-const userRepository = AppDataSource.getRepository(User);
-const userProfileRepository = AppDataSource.getRepository(UserProfile);
-const refreshTokenRepository = AppDataSource.getRepository(RefreshToken);
-const userCompanyRepository = AppDataSource.getRepository(UserCompany);
+export default class AuthRepository {
+    private static userRepository = AppDataSource.getRepository(User);
+    private static userProfileRepository = AppDataSource.getRepository(UserProfile);
+    private static refreshTokenRepository = AppDataSource.getRepository(RefreshToken);
+    private static userCompanyRepository = AppDataSource.getRepository(UserCompany);
 
-const findUserByEmail = async (email: string): Promise<User | null> => {
-    return userRepository.findOne({
-        where: { email },
-        relations: ['role'],
-    });
-};
+    static async findUserByEmail(email: string): Promise<User | null> {
+        return this.userRepository.findOne({
+            where: { email },
+            relations: ['role'],
+        });
+    }
 
-const findUserById = async (id: number): Promise<User | null> => {
-    return userRepository.findOne({
-        where: { id },
-        relations: ['role'],
-    });
-};
+    static async findUserById(id: number): Promise<User | null> {
+        return this.userRepository.findOne({
+            where: { id },
+            relations: ['role'],
+        });
+    }
 
-const findUserProfile = async (userId: number): Promise<UserProfile | null> => {
-    return userProfileRepository.findOne({
-        where: { userId },
-    });
-};
+    static async findUserProfile(userId: number): Promise<UserProfile | null> {
+        return this.userProfileRepository.findOne({
+            where: { userId },
+        });
+    }
 
-const findUserCompanies = async (userId: number): Promise<UserCompany[]> => {
-    return userCompanyRepository.find({
-        where: { userId },
-        relations: ['company'],
-    });
-};
+    static async findUserCompanies(userId: number): Promise<UserCompany[]> {
+        return this.userCompanyRepository.find({
+            where: { userId },
+            relations: ['company'],
+        });
+    }
 
-const saveRefreshToken = async (userId: number, token: string, expiresAt: Date): Promise<RefreshToken> => {
-    const refreshToken = refreshTokenRepository.create({ userId, token, expiresAt });
-    return refreshTokenRepository.save(refreshToken);
-};
+    static async saveRefreshToken(userId: number, token: string, expiresAt: Date): Promise<RefreshToken> {
+        const refreshToken = this.refreshTokenRepository.create({ userId, token, expiresAt });
+        return this.refreshTokenRepository.save(refreshToken);
+    }
 
-const findRefreshToken = async (token: string): Promise<RefreshToken | null> => {
-    return refreshTokenRepository.findOne({
-        where: { token },
-        relations: ['user', 'user.role'],
-    });
-};
+    static async findRefreshToken(token: string): Promise<RefreshToken | null> {
+        return this.refreshTokenRepository.findOne({
+            where: { token },
+            relations: ['user', 'user.role'],
+        });
+    }
 
-const deleteRefreshToken = async (token: string): Promise<void> => {
-    await refreshTokenRepository.delete({ token });
-};
+    static async deleteRefreshToken(token: string): Promise<void> {
+        await this.refreshTokenRepository.delete({ token });
+    }
 
-const updateUserProfile = async (profileId: number, data: Partial<{ theme: string; language: string }>): Promise<void> => {
-    await userProfileRepository.update(profileId, data);
-};
+    static async updateUserProfile(profileId: number, data: Partial<{ theme: string; language: string }>): Promise<void> {
+        await this.userProfileRepository.update(profileId, data);
+    }
 
-const deleteUserRefreshTokens = async (userId: number): Promise<void> => {
-    await refreshTokenRepository.delete({ userId });
-};
+    static async deleteUserRefreshTokens(userId: number): Promise<void> {
+        await this.refreshTokenRepository.delete({ userId });
+    }
+}
 
-export default {
-    findUserByEmail,
-    findUserById,
-    findUserProfile,
-    updateUserProfile,
-    findUserCompanies,
-    saveRefreshToken,
-    findRefreshToken,
-    deleteRefreshToken,
-    deleteUserRefreshTokens,
-};

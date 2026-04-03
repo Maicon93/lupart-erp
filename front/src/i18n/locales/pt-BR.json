@@ -421,6 +421,11 @@
         "LIGHT_MODE": "Modo claro",
         "ADMIN_LABEL": "Administrador"
     },
+    "quickNavigator": {
+        "TITLE": "Ir para tela",
+        "PLACEHOLDER": "Digite o número da tela",
+        "NOT_FOUND": "Tela não encontrada"
+    },
     "sidebar": {
         "admin": {
             "sections": {

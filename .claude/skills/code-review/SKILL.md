@@ -46,6 +46,9 @@ Para cada arquivo alterado, leia o conteúdo e verifique:
 - [ ] Strings sanitizadas
 - [ ] Transactions em operações de escrita (create, update, delete)
 - [ ] Interfaces com prefixo I, nunca retorna model completo
+- [ ] Interfaces compartilhadas em `interfaces/`, locais sem `export`
+- [ ] Verificar se interface local duplica uma compartilhada existente (ver `rules/interfaces.md`)
+- [ ] Controllers, Services, Repositories, Helpers e Middlewares usam `export default class NomeClasse {` com métodos `static` — nunca `export default new NomeClasse()` ou `export default { fn1, fn2 }`
 - [ ] Status HTTP corretos
 - [ ] MessageCodes em vez de texto direto
 - [ ] Nomes em inglês, camelCase/PascalCase conforme convenção

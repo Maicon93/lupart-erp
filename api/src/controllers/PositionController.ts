@@ -11,124 +11,125 @@ const getUserId = (request: Request): number => {
     return payload.userId;
 };
 
-const findAll = async (request: Request, response: Response): Promise<void> => {
-    try {
-        const { search, page = '1', limit = '20' } = request.query;
-        const result = await PositionService.findAll(
-            search as string,
-            Number(page),
-            Number(limit),
-        );
+export default class PositionController {
+    static async findAll(request: Request, response: Response): Promise<void> {
+        try {
+            const { search, page = '1', limit = '20' } = request.query;
+            const result = await PositionService.findAll(
+                search as string,
+                Number(page),
+                Number(limit),
+            );
 
-        const apiResponse: IApiResponse = {
-            type: 'success',
-            data: result,
-        };
+            const apiResponse: IApiResponse = {
+                type: 'success',
+                data: result,
+            };
 
-        response.status(200).json(apiResponse);
-    } catch (error: unknown) {
-        logger.error('Failed to list positions', { error });
-        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
-    }
-};
-
-const findById = async (request: Request, response: Response): Promise<void> => {
-    try {
-        const id = Number(request.params.id);
-        const position = await PositionService.findById(id);
-
-        const apiResponse: IApiResponse = {
-            type: 'success',
-            data: position,
-        };
-
-        response.status(200).json(apiResponse);
-    } catch (error: unknown) {
-        const typedError = error as { status?: number; messageCode?: string };
-
-        if (typedError.messageCode) {
-            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
-            return;
+            response.status(200).json(apiResponse);
+        } catch (error: unknown) {
+            logger.error('Failed to list positions', { error });
+            response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
         }
-
-        logger.error('Failed to find position', { error });
-        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
     }
-};
 
-const create = async (request: Request, response: Response): Promise<void> => {
-    try {
-        const userId = getUserId(request);
-        const position = await PositionService.create(request.body, userId);
+    static async findById(request: Request, response: Response): Promise<void> {
+        try {
+            const id = Number(request.params.id);
+            const position = await PositionService.findById(id);
 
-        const apiResponse: IApiResponse = {
-            type: 'success',
-            messageCode: messageCodes.common.messages.CREATED,
-            data: position,
-        };
+            const apiResponse: IApiResponse = {
+                type: 'success',
+                data: position,
+            };
 
-        response.status(201).json(apiResponse);
-    } catch (error: unknown) {
-        const typedError = error as { status?: number; messageCode?: string };
+            response.status(200).json(apiResponse);
+        } catch (error: unknown) {
+            const typedError = error as { status?: number; messageCode?: string };
 
-        if (typedError.messageCode) {
-            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
-            return;
+            if (typedError.messageCode) {
+                response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+                return;
+            }
+
+            logger.error('Failed to find position', { error });
+            response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
         }
-
-        logger.error('Failed to create position', { error });
-        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
     }
-};
 
-const update = async (request: Request, response: Response): Promise<void> => {
-    try {
-        const id = Number(request.params.id);
-        const userId = getUserId(request);
-        const position = await PositionService.update(id, request.body, userId);
+    static async create(request: Request, response: Response): Promise<void> {
+        try {
+            const userId = getUserId(request);
+            const position = await PositionService.create(request.body, userId);
 
-        const apiResponse: IApiResponse = {
-            type: 'success',
-            messageCode: messageCodes.common.messages.UPDATED,
-            data: position,
-        };
+            const apiResponse: IApiResponse = {
+                type: 'success',
+                messageCode: messageCodes.common.messages.CREATED,
+                data: position,
+            };
 
-        response.status(200).json(apiResponse);
-    } catch (error: unknown) {
-        const typedError = error as { status?: number; messageCode?: string };
+            response.status(201).json(apiResponse);
+        } catch (error: unknown) {
+            const typedError = error as { status?: number; messageCode?: string };
 
-        if (typedError.messageCode) {
-            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
-            return;
+            if (typedError.messageCode) {
+                response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+                return;
+            }
+
+            logger.error('Failed to create position', { error });
+            response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
         }
-
-        logger.error('Failed to update position', { error });
-        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
     }
-};
 
-const remove = async (request: Request, response: Response): Promise<void> => {
-    try {
-        const id = Number(request.params.id);
-        await PositionService.remove(id);
+    static async update(request: Request, response: Response): Promise<void> {
+        try {
+            const id = Number(request.params.id);
+            const userId = getUserId(request);
+            const position = await PositionService.update(id, request.body, userId);
 
-        const apiResponse: IApiResponse = {
-            type: 'success',
-            messageCode: messageCodes.common.messages.DELETED,
-        };
+            const apiResponse: IApiResponse = {
+                type: 'success',
+                messageCode: messageCodes.common.messages.UPDATED,
+                data: position,
+            };
 
-        response.status(200).json(apiResponse);
-    } catch (error: unknown) {
-        const typedError = error as { status?: number; messageCode?: string };
+            response.status(200).json(apiResponse);
+        } catch (error: unknown) {
+            const typedError = error as { status?: number; messageCode?: string };
 
-        if (typedError.messageCode) {
-            response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
-            return;
+            if (typedError.messageCode) {
+                response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+                return;
+            }
+
+            logger.error('Failed to update position', { error });
+            response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
         }
-
-        logger.error('Failed to delete position', { error });
-        response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
     }
-};
 
-export default { findAll, findById, create, update, remove };
+    static async remove(request: Request, response: Response): Promise<void> {
+        try {
+            const id = Number(request.params.id);
+            await PositionService.remove(id);
+
+            const apiResponse: IApiResponse = {
+                type: 'success',
+                messageCode: messageCodes.common.messages.DELETED,
+            };
+
+            response.status(200).json(apiResponse);
+        } catch (error: unknown) {
+            const typedError = error as { status?: number; messageCode?: string };
+
+            if (typedError.messageCode) {
+                response.status(typedError.status || 400).json({ type: 'error', messageCode: typedError.messageCode });
+                return;
+            }
+
+            logger.error('Failed to delete position', { error });
+            response.status(500).json({ type: 'error', messageCode: messageCodes.common.messages.ERROR });
+        }
+    }
+}
+

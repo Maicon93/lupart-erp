@@ -421,6 +421,11 @@
         "LIGHT_MODE": "Light mode",
         "ADMIN_LABEL": "Administrator"
     },
+    "quickNavigator": {
+        "TITLE": "Go to screen",
+        "PLACEHOLDER": "Enter screen number",
+        "NOT_FOUND": "Screen not found"
+    },
     "sidebar": {
         "admin": {
             "sections": {
