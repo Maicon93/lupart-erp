@@ -31,8 +31,17 @@ input:-webkit-autofill:focus {
     --bg-header: #141414;
     --bg-sidebar: #141414;
 
-    --border-color: #333333;
+    --border-color: #2a2a2a;
 
     --text-primary: #e0e0e0;
     --text-secondary: #888888;
+}
+
+/* ── Dark Mode: Quasar outlined inputs ── */
+.body--dark .q-field--outlined .q-field__control:before {
+    border-color: #575555;
+}
+
+.body--dark .q-field--outlined .q-field__control:hover:before {
+    border-color: #505050;
 }
