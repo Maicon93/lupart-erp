@@ -59,7 +59,7 @@ const create = async (companyId: number, input: IProductInput) => {
             barcode: isService ? undefined : input.barcode || undefined,
             description: input.description || undefined,
             categoryId: input.categoryId,
-            measurementUnitId: isService ? undefined : input.measurementUnitId || undefined,
+            measurementUnitId: input.measurementUnitId,
             salePrice: input.salePrice,
             averageCost: isService ? 0 : input.averageCost ?? 0,
             stock: 0,
@@ -98,7 +98,7 @@ const update = async (id: number, companyId: number, input: IProductInput) => {
         product.barcode = isService ? null as unknown as string : input.barcode || null as unknown as string;
         product.description = input.description || null as unknown as string;
         product.categoryId = input.categoryId;
-        product.measurementUnitId = isService ? null as unknown as number : input.measurementUnitId || null as unknown as number;
+        product.measurementUnitId = input.measurementUnitId!;
         product.salePrice = input.salePrice;
         product.averageCost = isService ? 0 : input.averageCost ?? product.averageCost;
         product.minimumStock = isService ? null as unknown as number : input.minimumStock ?? null as unknown as number;

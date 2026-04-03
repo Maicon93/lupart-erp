@@ -73,7 +73,7 @@
                         </div>
 
                         <!-- Category + Measurement Unit -->
-                        <div :class="isProduct ? 'col-12 col-sm-6' : 'col-12'">
+                        <div class="col-12 col-sm-6">
                             <q-select
                                 v-model="form.categoryId"
                                 :options="categories"
@@ -88,7 +88,7 @@
                             />
                         </div>
 
-                        <div v-if="isProduct" class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-6">
                             <q-select
                                 v-model="form.measurementUnitId"
                                 :options="measurementUnits"
@@ -314,7 +314,6 @@ export default {
 
             if (payload.type === 'service') {
                 payload.barcode = '';
-                payload.measurementUnitId = null;
                 payload.averageCost = 0;
                 payload.minimumStock = null;
             }
