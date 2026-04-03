@@ -20,12 +20,14 @@ interface IUserInput {
 }
 
 export default class UserService {
-    static async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> {
-        return UserRepository.findAll(search, status, page, limit);
+    private userRepository = new UserRepository();
+
+    async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> {
+        return this.userRepository.findAll(search, status, page, limit);
     }
 
-    static async findById(id: number): Promise<User> {
-        const user = await UserRepository.findById(id);
+    async findById(id: number): Promise<User> {
+        const user = await this.userRepository.findById(id);
 
         if (!user) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -34,8 +36,8 @@ export default class UserService {
         return user;
     }
 
-    static async findByIdWithProfile(id: number): Promise<User & { profile: UserProfile | null; companies: UserCompany[] }> {
-        const { user, profile, companies } = await UserRepository.findByIdWithProfile(id);
+    async findByIdWithProfile(id: number): Promise<User & { profile: UserProfile | null; companies: UserCompany[] }> {
+        const { user, profile, companies } = await this.userRepository.findByIdWithProfile(id);
 
         if (!user) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -44,8 +46,8 @@ export default class UserService {
         return { ...user, profile, companies };
     }
 
-    static async create(input: IUserInput, currentUserId: number): Promise<User> {
-        const existingUser = await UserRepository.findByEmail(input.email);
+    async create(input: IUserInput, currentUserId: number): Promise<User> {
+        const existingUser = await this.userRepository.findByEmail(input.email);
 
         if (existingUser) {
             throw { status: 400, messageCode: messageCodes.users.errors.EMAIL_ALREADY_EXISTS };
@@ -88,10 +90,10 @@ export default class UserService {
         });
     }
 
-    static async update(id: number, input: IUserInput, currentUserId: number): Promise<User> {
+    async update(id: number, input: IUserInput, currentUserId: number): Promise<User> {
         const user = await this.findById(id);
 
-        const existingUser = await UserRepository.findByEmail(input.email);
+        const existingUser = await this.userRepository.findByEmail(input.email);
 
         if (existingUser && existingUser.id !== id) {
             throw { status: 400, messageCode: messageCodes.users.errors.EMAIL_ALREADY_EXISTS };
@@ -149,7 +151,7 @@ export default class UserService {
         });
     }
 
-    static async toggleStatus(id: number): Promise<User> {
+    async toggleStatus(id: number): Promise<User> {
         const user = await this.findById(id);
         const newStatus = user.status === UserStatus.ACTIVE ? UserStatus.INACTIVE : UserStatus.ACTIVE;
 
@@ -162,12 +164,12 @@ export default class UserService {
         });
     }
 
-    static async findAllActive(): Promise<User[]> {
-        return UserRepository.findAllActive();
+    async findAllActive(): Promise<User[]> {
+        return this.userRepository.findAllActive();
     }
 
-    static async findGlobalRoles() {
-        return UserRepository.findGlobalRoles();
+    async findGlobalRoles() {
+        return this.userRepository.findGlobalRoles();
     }
 }
 

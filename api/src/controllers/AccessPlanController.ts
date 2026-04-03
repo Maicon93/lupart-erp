@@ -5,10 +5,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class AccessPlanController {
-    static async findAll(request: Request, response: Response): Promise<void> {
+    private accessPlanService = new AccessPlanService();
+
+    async findAll(request: Request, response: Response): Promise<void> {
         try {
             const { status, page = '1', limit = '20' } = request.query;
-            const result = await AccessPlanService.findAll(status as string, Number(page), Number(limit));
+            const result = await this.accessPlanService.findAll(status as string, Number(page), Number(limit));
 
             const apiResponse: IApiResponse = { type: 'success', data: result };
             response.status(200).json(apiResponse);
@@ -18,10 +20,10 @@ export default class AccessPlanController {
         }
     }
 
-    static async findById(request: Request, response: Response): Promise<void> {
+    async findById(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const accessPlan = await AccessPlanService.findById(id);
+            const accessPlan = await this.accessPlanService.findById(id);
 
             const apiResponse: IApiResponse = { type: 'success', data: accessPlan };
             response.status(200).json(apiResponse);
@@ -38,9 +40,9 @@ export default class AccessPlanController {
         }
     }
 
-    static async create(request: Request, response: Response): Promise<void> {
+    async create(request: Request, response: Response): Promise<void> {
         try {
-            const accessPlan = await AccessPlanService.create(request.body);
+            const accessPlan = await this.accessPlanService.create(request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: accessPlan };
             response.status(201).json(apiResponse);
@@ -50,10 +52,10 @@ export default class AccessPlanController {
         }
     }
 
-    static async update(request: Request, response: Response): Promise<void> {
+    async update(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const accessPlan = await AccessPlanService.update(id, request.body);
+            const accessPlan = await this.accessPlanService.update(id, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: accessPlan };
             response.status(200).json(apiResponse);
@@ -70,10 +72,10 @@ export default class AccessPlanController {
         }
     }
 
-    static async toggleStatus(request: Request, response: Response): Promise<void> {
+    async toggleStatus(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const accessPlan = await AccessPlanService.toggleStatus(id);
+            const accessPlan = await this.accessPlanService.toggleStatus(id);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: accessPlan };
             response.status(200).json(apiResponse);
@@ -90,10 +92,10 @@ export default class AccessPlanController {
         }
     }
 
-    static async remove(request: Request, response: Response): Promise<void> {
+    async remove(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            await AccessPlanService.remove(id);
+            await this.accessPlanService.remove(id);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.DELETED };
             response.status(200).json(apiResponse);
@@ -110,4 +112,3 @@ export default class AccessPlanController {
         }
     }
 }
-

@@ -18,7 +18,9 @@ interface IProductInput {
 }
 
 export default class ProductService {
-    static async findAll(
+    private productRepository = new ProductRepository();
+
+    async findAll(
         companyId: number,
         search?: string,
         type?: string,
@@ -27,11 +29,11 @@ export default class ProductService {
         page = 1,
         limit = 20
     ) {
-        return ProductRepository.findAll(companyId, search, type, categoryId, status, page, limit);
+        return this.productRepository.findAll(companyId, search, type, categoryId, status, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const product = await ProductRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const product = await this.productRepository.findById(id, companyId);
 
         if (!product) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -40,9 +42,9 @@ export default class ProductService {
         return product;
     }
 
-    static async create(companyId: number, input: IProductInput) {
+    async create(companyId: number, input: IProductInput) {
         if (input.code) {
-            const existing = await ProductRepository.findByCode(input.code, companyId);
+            const existing = await this.productRepository.findByCode(input.code, companyId);
 
             if (existing) {
                 throw { status: 400, messageCode: messageCodes.products.errors.CODE_ALREADY_EXISTS };
@@ -75,15 +77,15 @@ export default class ProductService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IProductInput) {
-        const product = await ProductRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IProductInput) {
+        const product = await this.productRepository.findById(id, companyId);
 
         if (!product) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
         if (input.code) {
-            const existing = await ProductRepository.findByCode(input.code, companyId);
+            const existing = await this.productRepository.findByCode(input.code, companyId);
 
             if (existing && existing.id !== id) {
                 throw { status: 400, messageCode: messageCodes.products.errors.CODE_ALREADY_EXISTS };
@@ -110,8 +112,8 @@ export default class ProductService {
         return product;
     }
 
-    static async toggleStatus(id: number, companyId: number) {
-        const product = await ProductRepository.findById(id, companyId);
+    async toggleStatus(id: number, companyId: number) {
+        const product = await this.productRepository.findById(id, companyId);
 
         if (!product) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

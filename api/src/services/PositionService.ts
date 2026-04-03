@@ -10,12 +10,14 @@ interface IPositionInput {
 }
 
 export default class PositionService {
-    static async findAll(search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> {
-        return PositionRepository.findAll(search, page, limit);
+    private positionRepository = new PositionRepository();
+
+    async findAll(search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> {
+        return this.positionRepository.findAll(search, page, limit);
     }
 
-    static async findById(id: number): Promise<Role> {
-        const position = await PositionRepository.findByIdWithPermissions(id);
+    async findById(id: number): Promise<Role> {
+        const position = await this.positionRepository.findByIdWithPermissions(id);
 
         if (!position) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -24,7 +26,7 @@ export default class PositionService {
         return position;
     }
 
-    static async create(input: IPositionInput, userId: number): Promise<Role> {
+    async create(input: IPositionInput, userId: number): Promise<Role> {
         return AppDataSource.transaction(async (manager) => {
             const entity = manager.create(Role, {
                 name: input.name,
@@ -48,7 +50,7 @@ export default class PositionService {
         });
     }
 
-    static async update(id: number, input: IPositionInput, userId: number): Promise<Role> {
+    async update(id: number, input: IPositionInput, userId: number): Promise<Role> {
         const position = await this.findById(id);
 
         if (!position.companyId && (position.name === 'admin' || position.name === 'user')) {
@@ -76,14 +78,14 @@ export default class PositionService {
         });
     }
 
-    static async remove(id: number): Promise<void> {
+    async remove(id: number): Promise<void> {
         const position = await this.findById(id);
 
         if (!position.companyId && (position.name === 'admin' || position.name === 'user')) {
             throw { status: 400, messageCode: messageCodes.positions.errors.CANNOT_DELETE_GLOBAL };
         }
 
-        const linkedUsers = await PositionRepository.countLinkedUsers(id);
+        const linkedUsers = await this.positionRepository.countLinkedUsers(id);
 
         if (linkedUsers > 0) {
             throw { status: 400, messageCode: messageCodes.positions.errors.HAS_LINKED_USERS };

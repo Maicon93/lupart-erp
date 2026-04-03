@@ -1,16 +1,17 @@
 import { Router } from 'express';
 import UserController from '../controllers/UserController';
-import ValidationMiddleware from '../middlewares/validationMiddleware';
+import { validate } from '../middlewares/validationMiddleware';
 import { createUserSchema, updateUserSchema } from '../schemas/UserSchema';
 
 const router = Router();
+const controller = new UserController();
 
-router.get('/', UserController.findAll);
-router.get('/active', UserController.findAllActive);
-router.get('/roles', UserController.findGlobalRoles);
-router.get('/:id', UserController.findById);
-router.post('/', ValidationMiddleware.validate(createUserSchema), UserController.create);
-router.put('/:id', ValidationMiddleware.validate(updateUserSchema), UserController.update);
-router.patch('/:id/toggle-status', UserController.toggleStatus);
+router.get('/', (req, res) => controller.findAll(req, res));
+router.get('/active', (req, res) => controller.findAllActive(req, res));
+router.get('/roles', (req, res) => controller.findGlobalRoles(req, res));
+router.get('/:id', (req, res) => controller.findById(req, res));
+router.post('/', validate(createUserSchema), (req, res) => controller.create(req, res));
+router.put('/:id', validate(updateUserSchema), (req, res) => controller.update(req, res));
+router.patch('/:id/toggle-status', (req, res) => controller.toggleStatus(req, res));
 
 export default router;

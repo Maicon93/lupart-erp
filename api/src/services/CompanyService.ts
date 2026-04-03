@@ -24,12 +24,14 @@ interface InspectResult {
 }
 
 export default class CompanyService {
-    static async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> {
-        return CompanyRepository.findAll(search, status, page, limit);
+    private companyRepository = new CompanyRepository();
+
+    async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: Company[]; total: number }> {
+        return this.companyRepository.findAll(search, status, page, limit);
     }
 
-    static async findById(id: number): Promise<Company> {
-        const company = await CompanyRepository.findById(id);
+    async findById(id: number): Promise<Company> {
+        const company = await this.companyRepository.findById(id);
 
         if (!company) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -38,8 +40,8 @@ export default class CompanyService {
         return company;
     }
 
-    static async findByIdWithProfile(id: number): Promise<Company & { profile: CompanyProfile | null }> {
-        const { company, profile } = await CompanyRepository.findByIdWithProfile(id);
+    async findByIdWithProfile(id: number): Promise<Company & { profile: CompanyProfile | null }> {
+        const { company, profile } = await this.companyRepository.findByIdWithProfile(id);
 
         if (!company) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -48,8 +50,8 @@ export default class CompanyService {
         return { ...company, profile };
     }
 
-    static async create(input: ICompanyInput): Promise<Company> {
-        const existingCompany = await CompanyRepository.findByCnpj(input.cnpj);
+    async create(input: ICompanyInput): Promise<Company> {
+        const existingCompany = await this.companyRepository.findByCnpj(input.cnpj);
 
         if (existingCompany) {
             throw { status: 400, messageCode: messageCodes.companies.errors.CNPJ_ALREADY_EXISTS };
@@ -88,10 +90,10 @@ export default class CompanyService {
         });
     }
 
-    static async update(id: number, input: ICompanyInput): Promise<Company> {
+    async update(id: number, input: ICompanyInput): Promise<Company> {
         const company = await this.findById(id);
 
-        const existingCompany = await CompanyRepository.findByCnpj(input.cnpj);
+        const existingCompany = await this.companyRepository.findByCnpj(input.cnpj);
 
         if (existingCompany && existingCompany.id !== id) {
             throw { status: 400, messageCode: messageCodes.companies.errors.CNPJ_ALREADY_EXISTS };
@@ -141,12 +143,12 @@ export default class CompanyService {
         });
     }
 
-    static async toggleStatus(id: number): Promise<Company> {
+    async toggleStatus(id: number): Promise<Company> {
         const company = await this.findById(id);
         const newStatus = company.status === CompanyStatus.ACTIVE ? CompanyStatus.INACTIVE : CompanyStatus.ACTIVE;
 
         if (newStatus === CompanyStatus.INACTIVE) {
-            const branchCount = await CompanyRepository.countBranches(id);
+            const branchCount = await this.companyRepository.countBranches(id);
 
             if (branchCount > 0) {
                 throw { status: 400, messageCode: messageCodes.companies.errors.HAS_ACTIVE_BRANCHES };
@@ -159,16 +161,16 @@ export default class CompanyService {
         });
     }
 
-    static async findAllActive(): Promise<Company[]> {
-        return CompanyRepository.findAllActive();
+    async findAllActive(): Promise<Company[]> {
+        return this.companyRepository.findAllActive();
     }
 
-    static async findBranches(id: number): Promise<Company[]> {
+    async findBranches(id: number): Promise<Company[]> {
         await this.findById(id);
-        return CompanyRepository.findBranches(id);
+        return this.companyRepository.findBranches(id);
     }
 
-    static async inspect(companyId: number, userId: number, userRole: string): Promise<InspectResult> {
+    async inspect(companyId: number, userId: number, userRole: string): Promise<InspectResult> {
         if (userRole !== 'admin') {
             throw { status: 403, messageCode: messageCodes.common.messages.FORBIDDEN };
         }
@@ -190,7 +192,7 @@ export default class CompanyService {
         };
     }
 
-    static async leaveInspection(userId: number): Promise<void> {
+    async leaveInspection(userId: number): Promise<void> {
         await AppDataSource.transaction(async (manager) => {
             await manager
                 .createQueryBuilder()

@@ -1,15 +1,16 @@
 import { Router } from 'express';
 import AccessPlanController from '../controllers/AccessPlanController';
-import ValidationMiddleware from '../middlewares/validationMiddleware';
+import { validate } from '../middlewares/validationMiddleware';
 import { createAccessPlanSchema, updateAccessPlanSchema } from '../schemas/AccessPlanSchema';
 
 const router = Router();
+const controller = new AccessPlanController();
 
-router.get('/', AccessPlanController.findAll);
-router.get('/:id', AccessPlanController.findById);
-router.post('/', ValidationMiddleware.validate(createAccessPlanSchema), AccessPlanController.create);
-router.put('/:id', ValidationMiddleware.validate(updateAccessPlanSchema), AccessPlanController.update);
-router.patch('/:id/toggle-status', AccessPlanController.toggleStatus);
-router.delete('/:id', AccessPlanController.remove);
+router.get('/', (req, res) => controller.findAll(req, res));
+router.get('/:id', (req, res) => controller.findById(req, res));
+router.post('/', validate(createAccessPlanSchema), (req, res) => controller.create(req, res));
+router.put('/:id', validate(updateAccessPlanSchema), (req, res) => controller.update(req, res));
+router.patch('/:id/toggle-status', (req, res) => controller.toggleStatus(req, res));
+router.delete('/:id', (req, res) => controller.remove(req, res));
 
 export default router;

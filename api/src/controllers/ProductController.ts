@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class ProductController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private productService = new ProductService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, type, categoryId, status, page = '1', limit = '20' } = request.query;
-            const result = await ProductService.findAll(
+            const result = await this.productService.findAll(
                 request.companyId!,
                 search as string,
                 type as string,
@@ -28,10 +30,10 @@ export default class ProductController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const product = await ProductService.findById(id, request.companyId!);
+            const product = await this.productService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: product };
             response.status(200).json(apiResponse);
@@ -48,9 +50,9 @@ export default class ProductController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const product = await ProductService.create(request.companyId!, request.body);
+            const product = await this.productService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: product };
             response.status(201).json(apiResponse);
@@ -67,10 +69,10 @@ export default class ProductController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const product = await ProductService.update(id, request.companyId!, request.body);
+            const product = await this.productService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: product };
             response.status(200).json(apiResponse);
@@ -87,10 +89,10 @@ export default class ProductController {
         }
     }
 
-    static async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
+    async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const product = await ProductService.toggleStatus(id, request.companyId!);
+            const product = await this.productService.toggleStatus(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: product };
             response.status(200).json(apiResponse);
@@ -107,4 +109,3 @@ export default class ProductController {
         }
     }
 }
-

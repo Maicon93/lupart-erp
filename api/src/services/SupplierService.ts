@@ -5,12 +5,14 @@ import messageCodes from '../i18n/MessageCodes';
 import { IPersonInput } from '../interfaces/IPersonInput';
 
 export default class SupplierService {
-    static async findAll(companyId: number, search?: string, page = 1, limit = 20) {
-        return SupplierRepository.findAll(companyId, search, page, limit);
+    private supplierRepository = new SupplierRepository();
+
+    async findAll(companyId: number, search?: string, page = 1, limit = 20) {
+        return this.supplierRepository.findAll(companyId, search, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const supplier = await SupplierRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const supplier = await this.supplierRepository.findById(id, companyId);
 
         if (!supplier) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -19,8 +21,8 @@ export default class SupplierService {
         return supplier;
     }
 
-    static async create(companyId: number, input: IPersonInput) {
-        const existing = await SupplierRepository.findByCpfCnpj(input.cpfCnpj, companyId);
+    async create(companyId: number, input: IPersonInput) {
+        const existing = await this.supplierRepository.findByCpfCnpj(input.cpfCnpj, companyId);
 
         if (existing) {
             throw { status: 400, messageCode: messageCodes.suppliers.errors.CPF_CNPJ_ALREADY_EXISTS };
@@ -49,14 +51,14 @@ export default class SupplierService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IPersonInput) {
-        const supplier = await SupplierRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IPersonInput) {
+        const supplier = await this.supplierRepository.findById(id, companyId);
 
         if (!supplier) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const existing = await SupplierRepository.findByCpfCnpj(input.cpfCnpj, companyId);
+        const existing = await this.supplierRepository.findByCpfCnpj(input.cpfCnpj, companyId);
 
         if (existing && existing.id !== id) {
             throw { status: 400, messageCode: messageCodes.suppliers.errors.CPF_CNPJ_ALREADY_EXISTS };
@@ -81,8 +83,8 @@ export default class SupplierService {
         return supplier;
     }
 
-    static async remove(id: number, companyId: number) {
-        const supplier = await SupplierRepository.findById(id, companyId);
+    async remove(id: number, companyId: number) {
+        const supplier = await this.supplierRepository.findById(id, companyId);
 
         if (!supplier) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

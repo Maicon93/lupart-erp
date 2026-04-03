@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class SupplierController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private supplierService = new SupplierService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, page = '1', limit = '20' } = request.query;
-            const result = await SupplierService.findAll(
+            const result = await this.supplierService.findAll(
                 request.companyId!,
                 search as string,
                 Number(page),
@@ -25,10 +27,10 @@ export default class SupplierController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const supplier = await SupplierService.findById(id, request.companyId!);
+            const supplier = await this.supplierService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: supplier };
             response.status(200).json(apiResponse);
@@ -45,9 +47,9 @@ export default class SupplierController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const supplier = await SupplierService.create(request.companyId!, request.body);
+            const supplier = await this.supplierService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: supplier };
             response.status(201).json(apiResponse);
@@ -64,10 +66,10 @@ export default class SupplierController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const supplier = await SupplierService.update(id, request.companyId!, request.body);
+            const supplier = await this.supplierService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: supplier };
             response.status(200).json(apiResponse);
@@ -84,10 +86,10 @@ export default class SupplierController {
         }
     }
 
-    static async remove(request: IAuthRequest, response: Response): Promise<void> {
+    async remove(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            await SupplierService.remove(id, request.companyId!);
+            await this.supplierService.remove(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.DELETED };
             response.status(200).json(apiResponse);
@@ -104,4 +106,3 @@ export default class SupplierController {
         }
     }
 }
-

@@ -2,9 +2,9 @@ import { AppDataSource } from '../config/database';
 import { Product } from '../models/Product';
 
 export default class ProductRepository {
-    private static repository = AppDataSource.getRepository(Product);
+    private repository = AppDataSource.getRepository(Product);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         type?: string,
@@ -45,14 +45,14 @@ export default class ProductRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<Product | null> {
+    async findById(id: number, companyId: number): Promise<Product | null> {
         return this.repository.findOne({
             where: { id, companyId },
             relations: ['category', 'measurementUnit'],
         });
     }
 
-    static async findByCode(code: string, companyId: number): Promise<Product | null> {
+    async findByCode(code: string, companyId: number): Promise<Product | null> {
         return this.repository.findOne({ where: { code, companyId } });
     }
 }

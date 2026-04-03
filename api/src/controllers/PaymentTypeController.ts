@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class PaymentTypeController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private paymentTypeService = new PaymentTypeService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, status, page = '1', limit = '20' } = request.query;
-            const result = await PaymentTypeService.findAll(
+            const result = await this.paymentTypeService.findAll(
                 request.companyId!,
                 search as string,
                 status as string,
@@ -26,10 +28,10 @@ export default class PaymentTypeController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const paymentType = await PaymentTypeService.findById(id, request.companyId!);
+            const paymentType = await this.paymentTypeService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: paymentType };
             response.status(200).json(apiResponse);
@@ -46,9 +48,9 @@ export default class PaymentTypeController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const paymentType = await PaymentTypeService.create(request.companyId!, request.body);
+            const paymentType = await this.paymentTypeService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: paymentType };
             response.status(201).json(apiResponse);
@@ -65,10 +67,10 @@ export default class PaymentTypeController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const paymentType = await PaymentTypeService.update(id, request.companyId!, request.body);
+            const paymentType = await this.paymentTypeService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: paymentType };
             response.status(200).json(apiResponse);
@@ -85,10 +87,10 @@ export default class PaymentTypeController {
         }
     }
 
-    static async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
+    async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const paymentType = await PaymentTypeService.toggleStatus(id, request.companyId!);
+            const paymentType = await this.paymentTypeService.toggleStatus(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: paymentType };
             response.status(200).json(apiResponse);
@@ -105,4 +107,3 @@ export default class PaymentTypeController {
         }
     }
 }
-

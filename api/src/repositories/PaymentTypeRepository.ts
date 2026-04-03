@@ -2,9 +2,9 @@ import { AppDataSource } from '../config/database';
 import { PaymentType } from '../models/PaymentType';
 
 export default class PaymentTypeRepository {
-    private static repository = AppDataSource.getRepository(PaymentType);
+    private repository = AppDataSource.getRepository(PaymentType);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         status?: string,
@@ -30,11 +30,11 @@ export default class PaymentTypeRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<PaymentType | null> {
+    async findById(id: number, companyId: number): Promise<PaymentType | null> {
         return this.repository.findOne({ where: { id, companyId } });
     }
 
-    static async findByName(name: string, companyId: number): Promise<PaymentType | null> {
+    async findByName(name: string, companyId: number): Promise<PaymentType | null> {
         return this.repository.findOne({ where: { name, companyId } });
     }
 }

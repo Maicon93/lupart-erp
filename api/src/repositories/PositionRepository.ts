@@ -4,11 +4,11 @@ import { RolePermission } from '../models/RolePermission';
 import { UserRole } from '../models/UserRole';
 
 export default class PositionRepository {
-    private static repository = AppDataSource.getRepository(Role);
-    private static rolePermissionRepository = AppDataSource.getRepository(RolePermission);
-    private static userRoleRepository = AppDataSource.getRepository(UserRole);
+    private repository = AppDataSource.getRepository(Role);
+    private rolePermissionRepository = AppDataSource.getRepository(RolePermission);
+    private userRoleRepository = AppDataSource.getRepository(UserRole);
 
-    static async findAll(search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> {
+    async findAll(search?: string, page = 1, limit = 20): Promise<{ data: Role[]; total: number }> {
         const query = this.repository
             .createQueryBuilder('role')
             .loadRelationCountAndMap('role.permissionCount', 'role.rolePermissions');
@@ -24,11 +24,11 @@ export default class PositionRepository {
         return { data, total };
     }
 
-    static async findById(id: number): Promise<Role | null> {
+    async findById(id: number): Promise<Role | null> {
         return this.repository.findOne({ where: { id } });
     }
 
-    static async findByIdWithPermissions(id: number): Promise<Role | null> {
+    async findByIdWithPermissions(id: number): Promise<Role | null> {
         return this.repository
             .createQueryBuilder('role')
             .leftJoinAndSelect('role.rolePermissions', 'rolePermissions')
@@ -37,18 +37,18 @@ export default class PositionRepository {
             .getOne();
     }
 
-    static async findByName(name: string): Promise<Role | null> {
+    async findByName(name: string): Promise<Role | null> {
         return this.repository.findOne({ where: { name } });
     }
 
-    static async findPermissionsByRoleId(roleId: number): Promise<RolePermission[]> {
+    async findPermissionsByRoleId(roleId: number): Promise<RolePermission[]> {
         return this.rolePermissionRepository.find({
             where: { roleId },
             relations: ['permission'],
         });
     }
 
-    static async countLinkedUsers(roleId: number): Promise<number> {
+    async countLinkedUsers(roleId: number): Promise<number> {
         return this.userRoleRepository.count({ where: { roleId } });
     }
 }

@@ -1,15 +1,16 @@
-import { Router, RequestHandler } from 'express';
+import { Router } from 'express';
 import CategoryController from '../controllers/CategoryController';
-import ValidationMiddleware from '../middlewares/validationMiddleware';
+import { validate } from '../middlewares/validationMiddleware';
 import { createCategorySchema, updateCategorySchema } from '../schemas/CategorySchema';
 
 const router = Router();
+const controller = new CategoryController();
 
-router.get('/', CategoryController.findAll as RequestHandler);
-router.get('/:id', CategoryController.findById as RequestHandler);
-router.post('/', ValidationMiddleware.validate(createCategorySchema), CategoryController.create as RequestHandler);
-router.put('/:id', ValidationMiddleware.validate(updateCategorySchema), CategoryController.update as RequestHandler);
-router.patch('/:id/toggle-status', CategoryController.toggleStatus as RequestHandler);
-router.delete('/:id', CategoryController.remove as RequestHandler);
+router.get('/', (req, res) => controller.findAll(req as any, res));
+router.get('/:id', (req, res) => controller.findById(req as any, res));
+router.post('/', validate(createCategorySchema), (req, res) => controller.create(req as any, res));
+router.put('/:id', validate(updateCategorySchema), (req, res) => controller.update(req as any, res));
+router.patch('/:id/toggle-status', (req, res) => controller.toggleStatus(req as any, res));
+router.delete('/:id', (req, res) => controller.remove(req as any, res));
 
 export default router;

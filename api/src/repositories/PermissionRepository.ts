@@ -4,10 +4,10 @@ import { RolePermission } from '../models/RolePermission';
 import { UserRole } from '../models/UserRole';
 
 export default class PermissionRepository {
-    private static repository = AppDataSource.getRepository(Permission);
-    private static rolePermissionRepository = AppDataSource.getRepository(RolePermission);
+    private repository = AppDataSource.getRepository(Permission);
+    private rolePermissionRepository = AppDataSource.getRepository(RolePermission);
 
-    static async findAll(filter?: string, page = 1, limit = 20) {
+    async findAll(filter?: string, page = 1, limit = 20) {
         const query = this.repository.createQueryBuilder('permission');
 
         if (filter) {
@@ -25,7 +25,7 @@ export default class PermissionRepository {
         return { data, total };
     }
 
-    static async hasPermission(userId: number, permission: string): Promise<boolean> {
+    async hasPermission(userId: number, permission: string): Promise<boolean> {
         const count = await this.rolePermissionRepository
             .createQueryBuilder('rolePermission')
             .innerJoin(UserRole, 'userRole', 'userRole.role_id = rolePermission.role_id')

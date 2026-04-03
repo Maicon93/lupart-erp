@@ -3,9 +3,9 @@ import { Customer } from '../models/Customer';
 import { IsNull } from 'typeorm';
 
 export default class CustomerRepository {
-    private static repository = AppDataSource.getRepository(Customer);
+    private repository = AppDataSource.getRepository(Customer);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         page = 1,
@@ -30,11 +30,11 @@ export default class CustomerRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<Customer | null> {
+    async findById(id: number, companyId: number): Promise<Customer | null> {
         return this.repository.findOne({ where: { id, companyId, deletedAt: IsNull() } });
     }
 
-    static async findByCpfCnpj(cpfCnpj: string, companyId: number): Promise<Customer | null> {
+    async findByCpfCnpj(cpfCnpj: string, companyId: number): Promise<Customer | null> {
         return this.repository.findOne({ where: { cpfCnpj, companyId, deletedAt: IsNull() } });
     }
 }

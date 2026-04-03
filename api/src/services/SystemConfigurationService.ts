@@ -6,8 +6,10 @@ interface IConfigurationMap {
 }
 
 export default class SystemConfigurationService {
-    static async findAll(): Promise<IConfigurationMap> {
-        const configurations = await SystemConfigurationRepository.findAll();
+    private systemConfigurationRepository = new SystemConfigurationRepository();
+
+    async findAll(): Promise<IConfigurationMap> {
+        const configurations = await this.systemConfigurationRepository.findAll();
         const configurationMap: IConfigurationMap = {};
 
         for (const configuration of configurations) {
@@ -17,15 +19,15 @@ export default class SystemConfigurationService {
         return configurationMap;
     }
 
-    static async updateSection(configurations: IConfigurationMap): Promise<void> {
+    async updateSection(configurations: IConfigurationMap): Promise<void> {
         for (const [key, value] of Object.entries(configurations)) {
-            const existing = await SystemConfigurationRepository.findByKey(key);
+            const existing = await this.systemConfigurationRepository.findByKey(key);
 
             if (!existing) {
                 throw { status: 404, messageCode: messageCodes.systemParameters.errors.KEY_NOT_FOUND };
             }
 
-            await SystemConfigurationRepository.updateByKey(key, String(value));
+            await this.systemConfigurationRepository.updateByKey(key, String(value));
         }
     }
 }

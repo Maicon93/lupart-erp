@@ -6,11 +6,13 @@ import { IApiResponse } from '../interfaces/IApiResponse';
 import { IAuthRequest } from '../interfaces/IAuthRequest';
 
 export default class PermissionController {
-    static async findAll(request: Request, response: Response) {
+    private permissionService = new PermissionService();
+
+    async findAll(request: Request, response: Response) {
         try {
             const { filter, page, limit } = request.query;
 
-            const result = await PermissionService.findAll(
+            const result = await this.permissionService.findAll(
                 filter as string,
                 page ? Number(page) : undefined,
                 limit ? Number(limit) : undefined,
@@ -34,7 +36,7 @@ export default class PermissionController {
         }
     }
 
-    static async checkPermission(request: Request, response: Response) {
+    async checkPermission(request: Request, response: Response) {
         try {
             const { permission } = request.query;
             const { userId, userRole } = request as IAuthRequest & { userId: number; userRole: string };
@@ -47,7 +49,7 @@ export default class PermissionController {
                 return response.status(400).json(apiResponse);
             }
 
-            const hasPermission = await PermissionService.checkPermission(
+            const hasPermission = await this.permissionService.checkPermission(
                 userId,
                 userRole,
                 permission as string,
@@ -71,4 +73,3 @@ export default class PermissionController {
         }
     }
 }
-

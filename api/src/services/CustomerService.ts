@@ -5,12 +5,14 @@ import messageCodes from '../i18n/MessageCodes';
 import { IPersonInput } from '../interfaces/IPersonInput';
 
 export default class CustomerService {
-    static async findAll(companyId: number, search?: string, page = 1, limit = 20) {
-        return CustomerRepository.findAll(companyId, search, page, limit);
+    private customerRepository = new CustomerRepository();
+
+    async findAll(companyId: number, search?: string, page = 1, limit = 20) {
+        return this.customerRepository.findAll(companyId, search, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const customer = await CustomerRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const customer = await this.customerRepository.findById(id, companyId);
 
         if (!customer) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -19,8 +21,8 @@ export default class CustomerService {
         return customer;
     }
 
-    static async create(companyId: number, input: IPersonInput) {
-        const existing = await CustomerRepository.findByCpfCnpj(input.cpfCnpj, companyId);
+    async create(companyId: number, input: IPersonInput) {
+        const existing = await this.customerRepository.findByCpfCnpj(input.cpfCnpj, companyId);
 
         if (existing) {
             throw { status: 400, messageCode: messageCodes.customers.errors.CPF_CNPJ_ALREADY_EXISTS };
@@ -49,14 +51,14 @@ export default class CustomerService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IPersonInput) {
-        const customer = await CustomerRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IPersonInput) {
+        const customer = await this.customerRepository.findById(id, companyId);
 
         if (!customer) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const existing = await CustomerRepository.findByCpfCnpj(input.cpfCnpj, companyId);
+        const existing = await this.customerRepository.findByCpfCnpj(input.cpfCnpj, companyId);
 
         if (existing && existing.id !== id) {
             throw { status: 400, messageCode: messageCodes.customers.errors.CPF_CNPJ_ALREADY_EXISTS };
@@ -81,8 +83,8 @@ export default class CustomerService {
         return customer;
     }
 
-    static async remove(id: number, companyId: number) {
-        const customer = await CustomerRepository.findById(id, companyId);
+    async remove(id: number, companyId: number) {
+        const customer = await this.customerRepository.findById(id, companyId);
 
         if (!customer) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

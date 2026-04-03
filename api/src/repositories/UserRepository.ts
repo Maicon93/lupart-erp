@@ -6,11 +6,11 @@ import { UserCompany } from '../models/UserCompany';
 import { Role } from '../models/Role';
 
 export default class UserRepository {
-    private static repository = AppDataSource.getRepository(User);
-    private static profileRepository = AppDataSource.getRepository(UserProfile);
-    private static userCompanyRepository = AppDataSource.getRepository(UserCompany);
+    private repository = AppDataSource.getRepository(User);
+    private profileRepository = AppDataSource.getRepository(UserProfile);
+    private userCompanyRepository = AppDataSource.getRepository(UserCompany);
 
-    static async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> {
+    async findAll(search?: string, status?: string, page = 1, limit = 20): Promise<{ data: User[]; total: number }> {
         const query = this.repository
             .createQueryBuilder('user')
             .leftJoinAndSelect('user.role', 'role')
@@ -18,7 +18,6 @@ export default class UserRepository {
                 'user.id',
                 'user.name',
                 'user.email',
-                'user.language',
                 'user.roleId',
                 'user.companyId',
                 'user.status',
@@ -43,7 +42,7 @@ export default class UserRepository {
         return { data, total };
     }
 
-    static async findById(id: number): Promise<User | null> {
+    async findById(id: number): Promise<User | null> {
         return this.repository.findOne({
             where: { id },
             relations: ['role'],
@@ -51,7 +50,7 @@ export default class UserRepository {
         });
     }
 
-    static async findByIdWithProfile(id: number): Promise<{ user: User | null; profile: UserProfile | null; companies: UserCompany[] }> {
+    async findByIdWithProfile(id: number): Promise<{ user: User | null; profile: UserProfile | null; companies: UserCompany[] }> {
         const user = await this.repository.findOne({
             where: { id },
             relations: ['role'],
@@ -64,18 +63,18 @@ export default class UserRepository {
         return { user, profile, companies };
     }
 
-    static async findByEmail(email: string): Promise<User | null> {
+    async findByEmail(email: string): Promise<User | null> {
         return this.repository.findOne({ where: { email } });
     }
 
-    static async findAllActive(): Promise<User[]> {
+    async findAllActive(): Promise<User[]> {
         return this.repository.find({
             where: { status: 'active' as User['status'] },
             select: ['id', 'name', 'email'],
         });
     }
 
-    static async findGlobalRoles(): Promise<Role[]> {
+    async findGlobalRoles(): Promise<Role[]> {
         const roleRepository = AppDataSource.getRepository(Role);
         return roleRepository.find({
             where: { companyId: IsNull() },

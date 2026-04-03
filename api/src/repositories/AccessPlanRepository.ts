@@ -3,10 +3,10 @@ import { AccessPlan } from '../models/AccessPlan';
 import { Company } from '../models/Company';
 
 export default class AccessPlanRepository {
-    private static repository = AppDataSource.getRepository(AccessPlan);
-    private static companyRepository = AppDataSource.getRepository(Company);
+    private repository = AppDataSource.getRepository(AccessPlan);
+    private companyRepository = AppDataSource.getRepository(Company);
 
-    static async findAll(status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> {
+    async findAll(status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> {
         const query = this.repository.createQueryBuilder('accessPlan');
 
         if (status && status !== 'all') {
@@ -20,11 +20,11 @@ export default class AccessPlanRepository {
         return { data, total };
     }
 
-    static async findById(id: number): Promise<AccessPlan | null> {
+    async findById(id: number): Promise<AccessPlan | null> {
         return this.repository.findOne({ where: { id } });
     }
 
-    static async countLinkedCompanies(accessPlanId: number): Promise<number> {
+    async countLinkedCompanies(accessPlanId: number): Promise<number> {
         return this.companyRepository.count({ where: { accessPlanId } });
     }
 }

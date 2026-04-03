@@ -5,9 +5,11 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class SystemConfigurationController {
-    static async findAll(_request: Request, response: Response): Promise<void> {
+    private systemConfigurationService = new SystemConfigurationService();
+
+    async findAll(_request: Request, response: Response): Promise<void> {
         try {
-            const configurations = await SystemConfigurationService.findAll();
+            const configurations = await this.systemConfigurationService.findAll();
             const apiResponse: IApiResponse = { type: 'success', data: configurations };
             response.status(200).json(apiResponse);
         } catch (error: unknown) {
@@ -17,9 +19,9 @@ export default class SystemConfigurationController {
         }
     }
 
-    static async updateSection(request: Request, response: Response): Promise<void> {
+    async updateSection(request: Request, response: Response): Promise<void> {
         try {
-            await SystemConfigurationService.updateSection(request.body);
+            await this.systemConfigurationService.updateSection(request.body);
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED };
             response.status(200).json(apiResponse);
         } catch (error: unknown) {
@@ -37,4 +39,3 @@ export default class SystemConfigurationController {
         }
     }
 }
-

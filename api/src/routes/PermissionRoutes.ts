@@ -1,9 +1,10 @@
 import { Router } from 'express';
-import permissionController from '../controllers/PermissionController';
+import PermissionController from '../controllers/PermissionController';
 
 const router = Router();
+const controller = new PermissionController();
 
-router.get('/check', permissionController.checkPermission);
-router.get('/', permissionController.findAll);
+router.get('/check', (req, res) => controller.checkPermission(req as any, res));
+router.get('/', (req, res) => controller.findAll(req as any, res));
 
 export default router;

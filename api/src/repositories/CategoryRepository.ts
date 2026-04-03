@@ -2,9 +2,9 @@ import { AppDataSource } from '../config/database';
 import { Category } from '../models/Category';
 
 export default class CategoryRepository {
-    private static repository = AppDataSource.getRepository(Category);
+    private repository = AppDataSource.getRepository(Category);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         status?: string,
@@ -30,11 +30,11 @@ export default class CategoryRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<Category | null> {
+    async findById(id: number, companyId: number): Promise<Category | null> {
         return this.repository.findOne({ where: { id, companyId } });
     }
 
-    static async findByName(name: string, companyId: number): Promise<Category | null> {
+    async findByName(name: string, companyId: number): Promise<Category | null> {
         return this.repository.findOne({ where: { name, companyId } });
     }
 }

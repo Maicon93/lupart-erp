@@ -176,19 +176,56 @@ interface IApiResponse<T = any> {
 - Controllers (passthrough para services)
 - Frontend
 
-## Estrutura de Classes
+## Estrutura por Camada
 
-- Controllers, Services, Repositories, Helpers e Middlewares são sempre **classes** com métodos `static`
-- Exportar a classe diretamente: `export default class NomeClasse {`
-- A classe funciona como **namespace** — agrupa métodos relacionados sem precisar instanciar
-- Não usar `export default new NomeClasse()` nem `export default { fn1, fn2 }`
-- Exemplo:
-  ```typescript
-  export default class ProductService {
-      static async findAll(companyId: number) { ... }
-      static async create(input: IProductInput) { ... }
-  }
-  ```
+Cada camada tem um padrão de estrutura diferente. Nenhuma usa `static`.
+
+### Repository — classe com instância
+```typescript
+export default class ProductRepository {
+    private repository = AppDataSource.getRepository(Product);
+
+    async findAll(companyId: number) { ... }
+    async findById(id: number, companyId: number) { ... }
+}
+```
+
+### Service — classe com instância, injeta repository
+```typescript
+export default class ProductService {
+    private productRepository = new ProductRepository();
+
+    async findAll(companyId: number) {
+        return this.productRepository.findAll(companyId);
+    }
+}
+```
+
+### Controller — classe com instância, injeta service; instanciado na rota
+```typescript
+export default class ProductController {
+    private productService = new ProductService();
+
+    async findAll(request: IAuthRequest, response: Response) { ... }
+}
+
+// Na rota:
+const controller = new ProductController();
+router.get('/', (req, res) => controller.findAll(req as any, res));
+```
+
+### Middleware — função exportada (sem classe)
+```typescript
+export function tenantMiddleware(request: IAuthRequest, response: Response, next: NextFunction) {
+    ...
+}
+```
+
+### Helper/Util — funções exportadas (sem classe)
+```typescript
+export function generateAccessToken(payload: ITokenPayload): string { ... }
+export function verifyAccessToken(token: string): ITokenPayload { ... }
+```
 
 ## Geral
 - Não commitar `console.log` — usar logger estruturado

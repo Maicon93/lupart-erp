@@ -3,9 +3,9 @@ import { StockEntry } from '../models/StockEntry';
 import { StockEntryItem } from '../models/StockEntryItem';
 
 export default class StockEntryRepository {
-    private static repository = AppDataSource.getRepository(StockEntry);
+    private repository = AppDataSource.getRepository(StockEntry);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         supplierId?: number,
@@ -52,14 +52,14 @@ export default class StockEntryRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<StockEntry | null> {
+    async findById(id: number, companyId: number): Promise<StockEntry | null> {
         return this.repository.findOne({
             where: { id, companyId },
             relations: ['supplier', 'creator'],
         });
     }
 
-    static async findItemsByEntryId(stockEntryId: number): Promise<StockEntryItem[]> {
+    async findItemsByEntryId(stockEntryId: number): Promise<StockEntryItem[]> {
         return AppDataSource.getRepository(StockEntryItem).find({
             where: { stockEntryId },
             relations: ['product', 'product.measurementUnit'],

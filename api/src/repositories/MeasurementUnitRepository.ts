@@ -2,9 +2,9 @@ import { AppDataSource } from '../config/database';
 import { MeasurementUnit } from '../models/MeasurementUnit';
 
 export default class MeasurementUnitRepository {
-    private static repository = AppDataSource.getRepository(MeasurementUnit);
+    private repository = AppDataSource.getRepository(MeasurementUnit);
 
-    static async findAll(
+    async findAll(
         companyId: number,
         search?: string,
         status?: string,
@@ -33,11 +33,11 @@ export default class MeasurementUnitRepository {
         return { data, total };
     }
 
-    static async findById(id: number, companyId: number): Promise<MeasurementUnit | null> {
+    async findById(id: number, companyId: number): Promise<MeasurementUnit | null> {
         return this.repository.findOne({ where: { id, companyId } });
     }
 
-    static async findByAbbreviation(abbreviation: string, companyId: number): Promise<MeasurementUnit | null> {
+    async findByAbbreviation(abbreviation: string, companyId: number): Promise<MeasurementUnit | null> {
         return this.repository.findOne({ where: { abbreviation, companyId } });
     }
 }

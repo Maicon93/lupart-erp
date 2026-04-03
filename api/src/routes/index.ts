@@ -1,7 +1,6 @@
 import { Router } from 'express';
-import express from 'express';
 import logger from '../helpers/Logger';
-import TenantMiddleware from '../middlewares/TenantMiddleware';
+import { tenantMiddleware } from '../middlewares/TenantMiddleware';
 import authRoutes from './AuthRoutes';
 import accessPlanRoutes from './AccessPlanRoutes';
 import companyRoutes from './CompanyRoutes';
@@ -34,12 +33,12 @@ router.use('/positions', positionRoutes);
 router.use('/system-configurations', systemConfigurationRoutes);
 
 // Tenant routes (require company_id from user record)
-router.use('/measurement-units', TenantMiddleware.handle as express.RequestHandler, measurementUnitRoutes);
-router.use('/customers', TenantMiddleware.handle as express.RequestHandler, customerRoutes);
-router.use('/suppliers', TenantMiddleware.handle as express.RequestHandler, supplierRoutes);
-router.use('/categories', TenantMiddleware.handle as express.RequestHandler, categoryRoutes);
-router.use('/payment-types', TenantMiddleware.handle as express.RequestHandler, paymentTypeRoutes);
-router.use('/products', TenantMiddleware.handle as express.RequestHandler, productRoutes);
-router.use('/stock-entries', TenantMiddleware.handle as express.RequestHandler, stockEntryRoutes);
+router.use('/measurement-units', tenantMiddleware, measurementUnitRoutes);
+router.use('/customers', tenantMiddleware, customerRoutes);
+router.use('/suppliers', tenantMiddleware, supplierRoutes);
+router.use('/categories', tenantMiddleware, categoryRoutes);
+router.use('/payment-types', tenantMiddleware, paymentTypeRoutes);
+router.use('/products', tenantMiddleware, productRoutes);
+router.use('/stock-entries', tenantMiddleware, stockEntryRoutes);
 
 export default router;

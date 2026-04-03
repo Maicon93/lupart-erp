@@ -11,12 +11,14 @@ interface IAccessPlanInput {
 }
 
 export default class AccessPlanService {
-    static async findAll(status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> {
-        return AccessPlanRepository.findAll(status, page, limit);
+    private accessPlanRepository = new AccessPlanRepository();
+
+    async findAll(status?: string, page = 1, limit = 20): Promise<{ data: AccessPlan[]; total: number }> {
+        return this.accessPlanRepository.findAll(status, page, limit);
     }
 
-    static async findById(id: number): Promise<AccessPlan> {
-        const accessPlan = await AccessPlanRepository.findById(id);
+    async findById(id: number): Promise<AccessPlan> {
+        const accessPlan = await this.accessPlanRepository.findById(id);
 
         if (!accessPlan) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -25,7 +27,7 @@ export default class AccessPlanService {
         return accessPlan;
     }
 
-    static async create(input: IAccessPlanInput): Promise<AccessPlan> {
+    async create(input: IAccessPlanInput): Promise<AccessPlan> {
         return AppDataSource.transaction(async (manager) => {
             const entity = manager.create(AccessPlan, {
                 title: input.title,
@@ -39,7 +41,7 @@ export default class AccessPlanService {
         });
     }
 
-    static async update(id: number, input: IAccessPlanInput): Promise<AccessPlan> {
+    async update(id: number, input: IAccessPlanInput): Promise<AccessPlan> {
         const accessPlan = await this.findById(id);
 
         return AppDataSource.transaction(async (manager) => {
@@ -54,7 +56,7 @@ export default class AccessPlanService {
         });
     }
 
-    static async toggleStatus(id: number): Promise<AccessPlan> {
+    async toggleStatus(id: number): Promise<AccessPlan> {
         const accessPlan = await this.findById(id);
         const newStatus = accessPlan.status === AccessPlanStatus.ACTIVE ? AccessPlanStatus.INACTIVE : AccessPlanStatus.ACTIVE;
 
@@ -64,10 +66,10 @@ export default class AccessPlanService {
         });
     }
 
-    static async remove(id: number): Promise<void> {
+    async remove(id: number): Promise<void> {
         await this.findById(id);
 
-        const linkedCompanies = await AccessPlanRepository.countLinkedCompanies(id);
+        const linkedCompanies = await this.accessPlanRepository.countLinkedCompanies(id);
 
         if (linkedCompanies > 0) {
             throw { status: 400, messageCode: messageCodes.accessPlans.errors.HAS_LINKED_COMPANIES };

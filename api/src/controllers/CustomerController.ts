@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class CustomerController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private customerService = new CustomerService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, page = '1', limit = '20' } = request.query;
-            const result = await CustomerService.findAll(
+            const result = await this.customerService.findAll(
                 request.companyId!,
                 search as string,
                 Number(page),
@@ -25,10 +27,10 @@ export default class CustomerController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const customer = await CustomerService.findById(id, request.companyId!);
+            const customer = await this.customerService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: customer };
             response.status(200).json(apiResponse);
@@ -45,9 +47,9 @@ export default class CustomerController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const customer = await CustomerService.create(request.companyId!, request.body);
+            const customer = await this.customerService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: customer };
             response.status(201).json(apiResponse);
@@ -64,10 +66,10 @@ export default class CustomerController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const customer = await CustomerService.update(id, request.companyId!, request.body);
+            const customer = await this.customerService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: customer };
             response.status(200).json(apiResponse);
@@ -84,10 +86,10 @@ export default class CustomerController {
         }
     }
 
-    static async remove(request: IAuthRequest, response: Response): Promise<void> {
+    async remove(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            await CustomerService.remove(id, request.companyId!);
+            await this.customerService.remove(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.DELETED };
             response.status(200).json(apiResponse);
@@ -104,4 +106,3 @@ export default class CustomerController {
         }
     }
 }
-

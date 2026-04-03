@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class CompanyController {
-    static async findAll(request: Request, response: Response): Promise<void> {
+    private companyService = new CompanyService();
+
+    async findAll(request: Request, response: Response): Promise<void> {
         try {
             const { search, status, page = '1', limit = '20' } = request.query;
-            const result = await CompanyService.findAll(search as string, status as string, Number(page), Number(limit));
+            const result = await this.companyService.findAll(search as string, status as string, Number(page), Number(limit));
 
             const apiResponse: IApiResponse = { type: 'success', data: result };
             response.status(200).json(apiResponse);
@@ -19,10 +21,10 @@ export default class CompanyController {
         }
     }
 
-    static async findById(request: Request, response: Response): Promise<void> {
+    async findById(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const company = await CompanyService.findByIdWithProfile(id);
+            const company = await this.companyService.findByIdWithProfile(id);
 
             const apiResponse: IApiResponse = { type: 'success', data: company };
             response.status(200).json(apiResponse);
@@ -39,9 +41,9 @@ export default class CompanyController {
         }
     }
 
-    static async create(request: Request, response: Response): Promise<void> {
+    async create(request: Request, response: Response): Promise<void> {
         try {
-            const company = await CompanyService.create(request.body);
+            const company = await this.companyService.create(request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: company };
             response.status(201).json(apiResponse);
@@ -58,10 +60,10 @@ export default class CompanyController {
         }
     }
 
-    static async update(request: Request, response: Response): Promise<void> {
+    async update(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const company = await CompanyService.update(id, request.body);
+            const company = await this.companyService.update(id, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: company };
             response.status(200).json(apiResponse);
@@ -78,10 +80,10 @@ export default class CompanyController {
         }
     }
 
-    static async toggleStatus(request: Request, response: Response): Promise<void> {
+    async toggleStatus(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const company = await CompanyService.toggleStatus(id);
+            const company = await this.companyService.toggleStatus(id);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: company };
             response.status(200).json(apiResponse);
@@ -98,9 +100,9 @@ export default class CompanyController {
         }
     }
 
-    static async findAllActive(_request: Request, response: Response): Promise<void> {
+    async findAllActive(_request: Request, response: Response): Promise<void> {
         try {
-            const companies = await CompanyService.findAllActive();
+            const companies = await this.companyService.findAllActive();
 
             const apiResponse: IApiResponse = { type: 'success', data: companies };
             response.status(200).json(apiResponse);
@@ -110,10 +112,10 @@ export default class CompanyController {
         }
     }
 
-    static async findBranches(request: Request, response: Response): Promise<void> {
+    async findBranches(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const branches = await CompanyService.findBranches(id);
+            const branches = await this.companyService.findBranches(id);
 
             const apiResponse: IApiResponse = { type: 'success', data: branches };
             response.status(200).json(apiResponse);
@@ -130,10 +132,10 @@ export default class CompanyController {
         }
     }
 
-    static async inspect(request: IAuthRequest, response: Response): Promise<void> {
+    async inspect(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const company = await CompanyService.inspect(id, request.userId!, request.userRole!);
+            const company = await this.companyService.inspect(id, request.userId!, request.userRole!);
 
             const apiResponse: IApiResponse = { type: 'success', data: company };
             response.status(200).json(apiResponse);
@@ -150,9 +152,9 @@ export default class CompanyController {
         }
     }
 
-    static async leaveInspection(request: IAuthRequest, response: Response): Promise<void> {
+    async leaveInspection(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            await CompanyService.leaveInspection(request.userId!);
+            await this.companyService.leaveInspection(request.userId!);
 
             const apiResponse: IApiResponse = { type: 'success' };
             response.status(200).json(apiResponse);
@@ -162,4 +164,3 @@ export default class CompanyController {
         }
     }
 }
-

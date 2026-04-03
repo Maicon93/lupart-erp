@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 import AuthRepository from '../repositories/AuthRepository';
-import JWTUtil from '../helpers/JWTUtil';
+import { generateAccessToken, generateRefreshToken, getRefreshExpiresAt } from '../helpers/JWTUtil';
 import messageCodes from '../i18n/MessageCodes';
 import { UserStatus } from '../models/User';
 import { ITokenPair } from '../interfaces/ITokenPair';
@@ -18,8 +18,10 @@ interface ILoginResult extends ITokenPair {
 type IRefreshResult = ITokenPair;
 
 export default class AuthService {
-    static async login(email: string, password: string): Promise<ILoginResult> {
-        const user = await AuthRepository.findUserByEmail(email);
+    private authRepository = new AuthRepository();
+
+    async login(email: string, password: string): Promise<ILoginResult> {
+        const user = await this.authRepository.findUserByEmail(email);
 
         if (!user || !(await bcrypt.compare(password, user.password))) {
             throw { status: 401, messageCode: messageCodes.auth.errors.INVALID_CREDENTIALS };
@@ -30,13 +32,13 @@ export default class AuthService {
         }
 
         const roleName = user.role.name;
-        const accessToken = JWTUtil.generateAccessToken({ userId: user.id, role: roleName });
-        const refreshToken = JWTUtil.generateRefreshToken();
-        const expiresAt = JWTUtil.getRefreshExpiresAt();
+        const accessToken = generateAccessToken({ userId: user.id, role: roleName });
+        const refreshToken = generateRefreshToken();
+        const expiresAt = getRefreshExpiresAt();
 
-        await AuthRepository.saveRefreshToken(user.id, refreshToken, expiresAt);
+        await this.authRepository.saveRefreshToken(user.id, refreshToken, expiresAt);
 
-        const userCompanies = await AuthRepository.findUserCompanies(user.id);
+        const userCompanies = await this.authRepository.findUserCompanies(user.id);
         const companies = userCompanies.map((userCompany) => ({
             id: userCompany.company.id,
             name: userCompany.company.name,
@@ -47,7 +49,7 @@ export default class AuthService {
             throw { status: 403, messageCode: messageCodes.auth.errors.USER_NO_COMPANY };
         }
 
-        const profile = await AuthRepository.findUserProfile(user.id);
+        const profile = await this.authRepository.findUserProfile(user.id);
 
         return {
             token: accessToken,
@@ -62,12 +64,12 @@ export default class AuthService {
         };
     }
 
-    static async refresh(currentRefreshToken: string): Promise<IRefreshResult> {
-        const storedToken = await AuthRepository.findRefreshToken(currentRefreshToken);
+    async refresh(currentRefreshToken: string): Promise<IRefreshResult> {
+        const storedToken = await this.authRepository.findRefreshToken(currentRefreshToken);
 
         if (!storedToken || storedToken.expiresAt < new Date()) {
             if (storedToken) {
-                await AuthRepository.deleteRefreshToken(currentRefreshToken);
+                await this.authRepository.deleteRefreshToken(currentRefreshToken);
             }
             throw { status: 401, messageCode: messageCodes.auth.errors.INVALID_REFRESH_TOKEN };
         }
@@ -75,13 +77,13 @@ export default class AuthService {
         const user = storedToken.user;
         const roleName = user.role.name;
 
-        await AuthRepository.deleteRefreshToken(currentRefreshToken);
+        await this.authRepository.deleteRefreshToken(currentRefreshToken);
 
-        const newAccessToken = JWTUtil.generateAccessToken({ userId: user.id, role: roleName });
-        const newRefreshToken = JWTUtil.generateRefreshToken();
-        const expiresAt = JWTUtil.getRefreshExpiresAt();
+        const newAccessToken = generateAccessToken({ userId: user.id, role: roleName });
+        const newRefreshToken = generateRefreshToken();
+        const expiresAt = getRefreshExpiresAt();
 
-        await AuthRepository.saveRefreshToken(user.id, newRefreshToken, expiresAt);
+        await this.authRepository.saveRefreshToken(user.id, newRefreshToken, expiresAt);
 
         return {
             token: newAccessToken,
@@ -89,8 +91,8 @@ export default class AuthService {
         };
     }
 
-    static async updatePreferences(userId: number, preferences: { theme?: string; language?: string }): Promise<void> {
-        const profile = await AuthRepository.findUserProfile(userId);
+    async updatePreferences(userId: number, preferences: { theme?: string; language?: string }): Promise<void> {
+        const profile = await this.authRepository.findUserProfile(userId);
 
         if (!profile) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -106,11 +108,11 @@ export default class AuthService {
             updateData.language = preferences.language;
         }
 
-        await AuthRepository.updateUserProfile(profile.id, updateData);
+        await this.authRepository.updateUserProfile(profile.id, updateData);
     }
 
-    static async logout(refreshToken: string): Promise<void> {
-        await AuthRepository.deleteRefreshToken(refreshToken);
+    async logout(refreshToken: string): Promise<void> {
+        await this.authRepository.deleteRefreshToken(refreshToken);
     }
 }
 

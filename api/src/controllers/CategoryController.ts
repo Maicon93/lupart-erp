@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class CategoryController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private categoryService = new CategoryService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, status, page = '1', limit = '20' } = request.query;
-            const result = await CategoryService.findAll(
+            const result = await this.categoryService.findAll(
                 request.companyId!,
                 search as string,
                 status as string,
@@ -26,10 +28,10 @@ export default class CategoryController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const category = await CategoryService.findById(id, request.companyId!);
+            const category = await this.categoryService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: category };
             response.status(200).json(apiResponse);
@@ -46,9 +48,9 @@ export default class CategoryController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const category = await CategoryService.create(request.companyId!, request.body);
+            const category = await this.categoryService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: category };
             response.status(201).json(apiResponse);
@@ -65,10 +67,10 @@ export default class CategoryController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const category = await CategoryService.update(id, request.companyId!, request.body);
+            const category = await this.categoryService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: category };
             response.status(200).json(apiResponse);
@@ -85,10 +87,10 @@ export default class CategoryController {
         }
     }
 
-    static async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
+    async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const category = await CategoryService.toggleStatus(id, request.companyId!);
+            const category = await this.categoryService.toggleStatus(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: category };
             response.status(200).json(apiResponse);
@@ -105,10 +107,10 @@ export default class CategoryController {
         }
     }
 
-    static async remove(request: IAuthRequest, response: Response): Promise<void> {
+    async remove(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            await CategoryService.remove(id, request.companyId!);
+            await this.categoryService.remove(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.DELETED };
             response.status(200).json(apiResponse);
@@ -125,4 +127,3 @@ export default class CategoryController {
         }
     }
 }
-

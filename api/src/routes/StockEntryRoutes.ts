@@ -1,12 +1,13 @@
-import { Router, RequestHandler } from 'express';
+import { Router } from 'express';
 import StockEntryController from '../controllers/StockEntryController';
-import ValidationMiddleware from '../middlewares/validationMiddleware';
+import { validate } from '../middlewares/validationMiddleware';
 import { createStockEntrySchema } from '../schemas/StockEntrySchema';
 
 const router = Router();
+const controller = new StockEntryController();
 
-router.get('/', StockEntryController.findAll as RequestHandler);
-router.get('/:id', StockEntryController.findById as RequestHandler);
-router.post('/', ValidationMiddleware.validate(createStockEntrySchema), StockEntryController.create as RequestHandler);
+router.get('/', (req, res) => controller.findAll(req as any, res));
+router.get('/:id', (req, res) => controller.findById(req as any, res));
+router.post('/', validate(createStockEntrySchema), (req, res) => controller.create(req as any, res));
 
 export default router;

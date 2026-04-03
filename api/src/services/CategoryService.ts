@@ -5,12 +5,14 @@ import messageCodes from '../i18n/MessageCodes';
 import { IBasicEntityInput } from '../interfaces/IBasicEntityInput';
 
 export default class CategoryService {
-    static async findAll(companyId: number, search?: string, status?: string, page = 1, limit = 20) {
-        return CategoryRepository.findAll(companyId, search, status, page, limit);
+    private categoryRepository = new CategoryRepository();
+
+    async findAll(companyId: number, search?: string, status?: string, page = 1, limit = 20) {
+        return this.categoryRepository.findAll(companyId, search, status, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const category = await CategoryRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const category = await this.categoryRepository.findById(id, companyId);
 
         if (!category) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -19,8 +21,8 @@ export default class CategoryService {
         return category;
     }
 
-    static async create(companyId: number, input: IBasicEntityInput) {
-        const existing = await CategoryRepository.findByName(input.name, companyId);
+    async create(companyId: number, input: IBasicEntityInput) {
+        const existing = await this.categoryRepository.findByName(input.name, companyId);
 
         if (existing) {
             throw { status: 400, messageCode: messageCodes.categories.errors.NAME_ALREADY_EXISTS };
@@ -40,14 +42,14 @@ export default class CategoryService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IBasicEntityInput) {
-        const category = await CategoryRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IBasicEntityInput) {
+        const category = await this.categoryRepository.findById(id, companyId);
 
         if (!category) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const existing = await CategoryRepository.findByName(input.name, companyId);
+        const existing = await this.categoryRepository.findByName(input.name, companyId);
 
         if (existing && existing.id !== id) {
             throw { status: 400, messageCode: messageCodes.categories.errors.NAME_ALREADY_EXISTS };
@@ -62,8 +64,8 @@ export default class CategoryService {
         return category;
     }
 
-    static async toggleStatus(id: number, companyId: number) {
-        const category = await CategoryRepository.findById(id, companyId);
+    async toggleStatus(id: number, companyId: number) {
+        const category = await this.categoryRepository.findById(id, companyId);
 
         if (!category) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -80,8 +82,8 @@ export default class CategoryService {
         return category;
     }
 
-    static async remove(id: number, companyId: number) {
-        const category = await CategoryRepository.findById(id, companyId);
+    async remove(id: number, companyId: number) {
+        const category = await this.categoryRepository.findById(id, companyId);
 
         if (!category) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

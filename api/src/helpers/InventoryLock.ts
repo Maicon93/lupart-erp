@@ -14,13 +14,10 @@
  * Deve consultar a tabela inventory_items filtrando por product_id e inventário com status = 'in_progress'.
  */
 
-export default class InventoryLock {
-    static async check(_productIds: number[], _companyId: number): Promise<void> {
-        // TODO: Implementar quando a tela de Inventário (112) for criada
-        // const blockedProducts = await inventoryItemRepository.findBlockedProducts(productIds, companyId);
-        // if (blockedProducts.length > 0) {
-        //     throw { status: 400, messageCode: messageCodes.common.errors.PRODUCT_IN_ACTIVE_INVENTORY };
-        // }
-    }
+export async function checkInventoryLock(_productIds: number[], _companyId: number): Promise<void> {
+    // TODO: Implementar quando a tela de Inventário (112) for criada
+    // const blockedProducts = await inventoryItemRepository.findBlockedProducts(productIds, companyId);
+    // if (blockedProducts.length > 0) {
+    //     throw { status: 400, messageCode: messageCodes.common.errors.PRODUCT_IN_ACTIVE_INVENTORY };
+    // }
 }
-

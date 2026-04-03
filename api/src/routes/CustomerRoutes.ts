@@ -1,14 +1,15 @@
-import { Router, RequestHandler } from 'express';
+import { Router } from 'express';
 import CustomerController from '../controllers/CustomerController';
-import ValidationMiddleware from '../middlewares/validationMiddleware';
+import { validate } from '../middlewares/validationMiddleware';
 import { createCustomerSchema, updateCustomerSchema } from '../schemas/CustomerSchema';
 
 const router = Router();
+const controller = new CustomerController();
 
-router.get('/', CustomerController.findAll as RequestHandler);
-router.get('/:id', CustomerController.findById as RequestHandler);
-router.post('/', ValidationMiddleware.validate(createCustomerSchema), CustomerController.create as RequestHandler);
-router.put('/:id', ValidationMiddleware.validate(updateCustomerSchema), CustomerController.update as RequestHandler);
-router.delete('/:id', CustomerController.remove as RequestHandler);
+router.get('/', (req, res) => controller.findAll(req as any, res));
+router.get('/:id', (req, res) => controller.findById(req as any, res));
+router.post('/', validate(createCustomerSchema), (req, res) => controller.create(req as any, res));
+router.put('/:id', validate(updateCustomerSchema), (req, res) => controller.update(req as any, res));
+router.delete('/:id', (req, res) => controller.remove(req as any, res));
 
 export default router;

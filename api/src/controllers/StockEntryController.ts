@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class StockEntryController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private stockEntryService = new StockEntryService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, supplierId, dateStart, dateEnd, createdBy, page = '1', limit = '20' } = request.query;
-            const result = await StockEntryService.findAll(
+            const result = await this.stockEntryService.findAll(
                 request.companyId!,
                 search as string,
                 supplierId ? Number(supplierId) : undefined,
@@ -29,10 +31,10 @@ export default class StockEntryController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const entry = await StockEntryService.findById(id, request.companyId!);
+            const entry = await this.stockEntryService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: entry };
             response.status(200).json(apiResponse);
@@ -49,9 +51,9 @@ export default class StockEntryController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const entry = await StockEntryService.create(request.companyId!, request.userId!, request.body);
+            const entry = await this.stockEntryService.create(request.companyId!, request.userId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: entry };
             response.status(201).json(apiResponse);
@@ -68,4 +70,3 @@ export default class StockEntryController {
         }
     }
 }
-

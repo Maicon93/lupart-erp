@@ -5,12 +5,14 @@ import messageCodes from '../i18n/MessageCodes';
 import { IBasicEntityInput } from '../interfaces/IBasicEntityInput';
 
 export default class PaymentTypeService {
-    static async findAll(companyId: number, search?: string, status?: string, page = 1, limit = 20) {
-        return PaymentTypeRepository.findAll(companyId, search, status, page, limit);
+    private paymentTypeRepository = new PaymentTypeRepository();
+
+    async findAll(companyId: number, search?: string, status?: string, page = 1, limit = 20) {
+        return this.paymentTypeRepository.findAll(companyId, search, status, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const paymentType = await PaymentTypeRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const paymentType = await this.paymentTypeRepository.findById(id, companyId);
 
         if (!paymentType) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -19,8 +21,8 @@ export default class PaymentTypeService {
         return paymentType;
     }
 
-    static async create(companyId: number, input: IBasicEntityInput) {
-        const existing = await PaymentTypeRepository.findByName(input.name, companyId);
+    async create(companyId: number, input: IBasicEntityInput) {
+        const existing = await this.paymentTypeRepository.findByName(input.name, companyId);
 
         if (existing) {
             throw { status: 400, messageCode: messageCodes.paymentTypes.errors.NAME_ALREADY_EXISTS };
@@ -40,14 +42,14 @@ export default class PaymentTypeService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IBasicEntityInput) {
-        const paymentType = await PaymentTypeRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IBasicEntityInput) {
+        const paymentType = await this.paymentTypeRepository.findById(id, companyId);
 
         if (!paymentType) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const existing = await PaymentTypeRepository.findByName(input.name, companyId);
+        const existing = await this.paymentTypeRepository.findByName(input.name, companyId);
 
         if (existing && existing.id !== id) {
             throw { status: 400, messageCode: messageCodes.paymentTypes.errors.NAME_ALREADY_EXISTS };
@@ -62,8 +64,8 @@ export default class PaymentTypeService {
         return paymentType;
     }
 
-    static async toggleStatus(id: number, companyId: number) {
-        const paymentType = await PaymentTypeRepository.findById(id, companyId);
+    async toggleStatus(id: number, companyId: number) {
+        const paymentType = await this.paymentTypeRepository.findById(id, companyId);
 
         if (!paymentType) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

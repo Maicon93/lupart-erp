@@ -4,7 +4,7 @@ import { StockEntryItem } from '../models/StockEntryItem';
 import { Product } from '../models/Product';
 import { ProductMovimentation, ProductMovimentationType } from '../models/ProductMovimentation';
 import StockEntryRepository from '../repositories/StockEntryRepository';
-import InventoryLock from '../helpers/InventoryLock';
+import { checkInventoryLock } from '../helpers/InventoryLock';
 import messageCodes from '../i18n/MessageCodes';
 
 interface IStockEntryItemInput {
@@ -21,7 +21,9 @@ interface IStockEntryInput {
 }
 
 export default class StockEntryService {
-    static async findAll(
+    private stockEntryRepository = new StockEntryRepository();
+
+    async findAll(
         companyId: number,
         search?: string,
         supplierId?: number,
@@ -31,24 +33,24 @@ export default class StockEntryService {
         page = 1,
         limit = 20
     ) {
-        return StockEntryRepository.findAll(companyId, search, supplierId, dateStart, dateEnd, createdBy, page, limit);
+        return this.stockEntryRepository.findAll(companyId, search, supplierId, dateStart, dateEnd, createdBy, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const entry = await StockEntryRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const entry = await this.stockEntryRepository.findById(id, companyId);
 
         if (!entry) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const items = await StockEntryRepository.findItemsByEntryId(id);
+        const items = await this.stockEntryRepository.findItemsByEntryId(id);
 
         return { ...entry, items };
     }
 
-    static async create(companyId: number, userId: number, input: IStockEntryInput) {
+    async create(companyId: number, userId: number, input: IStockEntryInput) {
         const productIds = input.items.map((item) => item.productId);
-        await InventoryLock.check(productIds, companyId);
+        await checkInventoryLock(productIds, companyId);
 
         const result = await AppDataSource.transaction(async (manager) => {
             let totalValue: number | null = null;

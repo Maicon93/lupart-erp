@@ -6,10 +6,12 @@ import logger from '../helpers/Logger';
 import { IApiResponse } from '../interfaces/IApiResponse';
 
 export default class MeasurementUnitController {
-    static async findAll(request: IAuthRequest, response: Response): Promise<void> {
+    private measurementUnitService = new MeasurementUnitService();
+
+    async findAll(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const { search, status, page = '1', limit = '20' } = request.query;
-            const result = await MeasurementUnitService.findAll(
+            const result = await this.measurementUnitService.findAll(
                 request.companyId!,
                 search as string,
                 status as string,
@@ -26,10 +28,10 @@ export default class MeasurementUnitController {
         }
     }
 
-    static async findById(request: IAuthRequest, response: Response): Promise<void> {
+    async findById(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const unit = await MeasurementUnitService.findById(id, request.companyId!);
+            const unit = await this.measurementUnitService.findById(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', data: unit };
             response.status(200).json(apiResponse);
@@ -46,9 +48,9 @@ export default class MeasurementUnitController {
         }
     }
 
-    static async create(request: IAuthRequest, response: Response): Promise<void> {
+    async create(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            const unit = await MeasurementUnitService.create(request.companyId!, request.body);
+            const unit = await this.measurementUnitService.create(request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.CREATED, data: unit };
             response.status(201).json(apiResponse);
@@ -65,10 +67,10 @@ export default class MeasurementUnitController {
         }
     }
 
-    static async update(request: IAuthRequest, response: Response): Promise<void> {
+    async update(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const unit = await MeasurementUnitService.update(id, request.companyId!, request.body);
+            const unit = await this.measurementUnitService.update(id, request.companyId!, request.body);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: unit };
             response.status(200).json(apiResponse);
@@ -85,10 +87,10 @@ export default class MeasurementUnitController {
         }
     }
 
-    static async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
+    async toggleStatus(request: IAuthRequest, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const unit = await MeasurementUnitService.toggleStatus(id, request.companyId!);
+            const unit = await this.measurementUnitService.toggleStatus(id, request.companyId!);
 
             const apiResponse: IApiResponse = { type: 'success', messageCode: messageCodes.common.messages.UPDATED, data: unit };
             response.status(200).json(apiResponse);
@@ -105,4 +107,3 @@ export default class MeasurementUnitController {
         }
     }
 }
-

@@ -9,7 +9,9 @@ const REFRESH_COOKIE_NAME = 'refreshToken';
 const REFRESH_COOKIE_MAX_AGE = 7 * 24 * 60 * 60 * 1000;
 
 export default class AuthController {
-    private static setRefreshCookie(response: Response, token: string): void {
+    private authService = new AuthService();
+
+    private setRefreshCookie(response: Response, token: string): void {
         response.cookie(REFRESH_COOKIE_NAME, token, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -19,7 +21,7 @@ export default class AuthController {
         });
     }
 
-    private static clearRefreshCookie(response: Response): void {
+    private clearRefreshCookie(response: Response): void {
         response.clearCookie(REFRESH_COOKIE_NAME, {
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
@@ -28,10 +30,10 @@ export default class AuthController {
         });
     }
 
-    static async login(request: Request, response: Response): Promise<void> {
+    async login(request: Request, response: Response): Promise<void> {
         try {
             const { email, password } = request.body;
-            const result = await AuthService.login(email, password);
+            const result = await this.authService.login(email, password);
 
             this.setRefreshCookie(response, result.refreshToken);
 
@@ -67,7 +69,7 @@ export default class AuthController {
         }
     }
 
-    static async refresh(request: Request, response: Response): Promise<void> {
+    async refresh(request: Request, response: Response): Promise<void> {
         try {
             const currentRefreshToken = request.cookies[REFRESH_COOKIE_NAME];
 
@@ -80,7 +82,7 @@ export default class AuthController {
                 return;
             }
 
-            const result = await AuthService.refresh(currentRefreshToken);
+            const result = await this.authService.refresh(currentRefreshToken);
 
             this.setRefreshCookie(response, result.refreshToken);
 
@@ -113,12 +115,12 @@ export default class AuthController {
         }
     }
 
-    static async logout(request: Request, response: Response): Promise<void> {
+    async logout(request: Request, response: Response): Promise<void> {
         try {
             const refreshToken = request.cookies[REFRESH_COOKIE_NAME];
 
             if (refreshToken) {
-                await AuthService.logout(refreshToken);
+                await this.authService.logout(refreshToken);
             }
 
             this.clearRefreshCookie(response);
@@ -141,9 +143,9 @@ export default class AuthController {
         }
     }
 
-    static async updatePreferences(request: IAuthRequest, response: Response): Promise<void> {
+    async updatePreferences(request: IAuthRequest, response: Response): Promise<void> {
         try {
-            await AuthService.updatePreferences(request.userId!, request.body);
+            await this.authService.updatePreferences(request.userId!, request.body);
 
             const apiResponse: IApiResponse = {
                 type: 'success',
@@ -171,4 +173,3 @@ export default class AuthController {
         }
     }
 }
-

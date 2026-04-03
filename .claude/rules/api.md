@@ -24,4 +24,9 @@
   - Fallbacks são permitidos apenas quando óbvios e inofensivos (ex: `NODE_ENV` defaulting para `'development'`)
   - Ao identificar um caso onde um fallback pode ser viável, **sugerir ao usuário** e aguardar aprovação antes de incluir
 - Arquivos TS em PascalCase (`ProductService.ts`, `JWTUtil.ts`)
-- **Controllers, Services, Repositories, Helpers, Middlewares**: usar `export default class NomeClasse {` com métodos `static` — a classe funciona como namespace, sem necessidade de instanciar
+- **Estrutura por camada** (sem `static` em nenhuma):
+  - **Repository**: `export default class` com métodos de instância — campos `private repository = AppDataSource.getRepository(Model)`
+  - **Service**: `export default class` com métodos de instância — campos `private xxxRepository = new XxxRepository()`
+  - **Controller**: `export default class` com métodos de instância — campos `private xxxService = new XxxService()`; instanciado nas rotas: `const controller = new XxxController()`
+  - **Middleware**: `export function` (função nomeada) — sem classe
+  - **Helper/Util**: `export function` (funções nomeadas) — sem classe

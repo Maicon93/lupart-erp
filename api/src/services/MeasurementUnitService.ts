@@ -9,18 +9,20 @@ interface IMeasurementUnitInput {
 }
 
 export default class MeasurementUnitService {
-    static async findAll(
+    private measurementUnitRepository = new MeasurementUnitRepository();
+
+    async findAll(
         companyId: number,
         search?: string,
         status?: string,
         page = 1,
         limit = 20
     ) {
-        return MeasurementUnitRepository.findAll(companyId, search, status, page, limit);
+        return this.measurementUnitRepository.findAll(companyId, search, status, page, limit);
     }
 
-    static async findById(id: number, companyId: number) {
-        const unit = await MeasurementUnitRepository.findById(id, companyId);
+    async findById(id: number, companyId: number) {
+        const unit = await this.measurementUnitRepository.findById(id, companyId);
 
         if (!unit) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
@@ -29,8 +31,8 @@ export default class MeasurementUnitService {
         return unit;
     }
 
-    static async create(companyId: number, input: IMeasurementUnitInput) {
-        const existing = await MeasurementUnitRepository.findByAbbreviation(input.abbreviation, companyId);
+    async create(companyId: number, input: IMeasurementUnitInput) {
+        const existing = await this.measurementUnitRepository.findByAbbreviation(input.abbreviation, companyId);
 
         if (existing) {
             throw { status: 400, messageCode: messageCodes.measurementUnits.errors.ABBREVIATION_ALREADY_EXISTS };
@@ -50,14 +52,14 @@ export default class MeasurementUnitService {
         return result;
     }
 
-    static async update(id: number, companyId: number, input: IMeasurementUnitInput) {
-        const unit = await MeasurementUnitRepository.findById(id, companyId);
+    async update(id: number, companyId: number, input: IMeasurementUnitInput) {
+        const unit = await this.measurementUnitRepository.findById(id, companyId);
 
         if (!unit) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
         }
 
-        const existing = await MeasurementUnitRepository.findByAbbreviation(input.abbreviation, companyId);
+        const existing = await this.measurementUnitRepository.findByAbbreviation(input.abbreviation, companyId);
 
         if (existing && existing.id !== id) {
             throw { status: 400, messageCode: messageCodes.measurementUnits.errors.ABBREVIATION_ALREADY_EXISTS };
@@ -72,8 +74,8 @@ export default class MeasurementUnitService {
         return unit;
     }
 
-    static async toggleStatus(id: number, companyId: number) {
-        const unit = await MeasurementUnitRepository.findById(id, companyId);
+    async toggleStatus(id: number, companyId: number) {
+        const unit = await this.measurementUnitRepository.findById(id, companyId);
 
         if (!unit) {
             throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };

@@ -1,18 +1,20 @@
 import PermissionRepository from '../repositories/PermissionRepository';
 
 export default class PermissionService {
-    static async findAll(filter?: string, page?: number, limit?: number) {
-        return PermissionRepository.findAll(filter, page, limit);
+    private permissionRepository = new PermissionRepository();
+
+    async findAll(filter?: string, page?: number, limit?: number) {
+        return this.permissionRepository.findAll(filter, page, limit);
     }
 
-    static async checkPermission(userId: number, userRole: string, permission: string): Promise<boolean> {
+    async checkPermission(userId: number, userRole: string, permission: string): Promise<boolean> {
         // Admin tem acesso total a todas as telas
         if (userRole === 'admin') {
             return true;
         }
 
         // Para usuários comuns, verificar via role_permissions
-        return PermissionRepository.hasPermission(userId, permission);
+        return this.permissionRepository.hasPermission(userId, permission);
     }
 }
 

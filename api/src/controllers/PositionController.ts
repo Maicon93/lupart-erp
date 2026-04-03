@@ -12,10 +12,12 @@ const getUserId = (request: Request): number => {
 };
 
 export default class PositionController {
-    static async findAll(request: Request, response: Response): Promise<void> {
+    private positionService = new PositionService();
+
+    async findAll(request: Request, response: Response): Promise<void> {
         try {
             const { search, page = '1', limit = '20' } = request.query;
-            const result = await PositionService.findAll(
+            const result = await this.positionService.findAll(
                 search as string,
                 Number(page),
                 Number(limit),
@@ -33,10 +35,10 @@ export default class PositionController {
         }
     }
 
-    static async findById(request: Request, response: Response): Promise<void> {
+    async findById(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            const position = await PositionService.findById(id);
+            const position = await this.positionService.findById(id);
 
             const apiResponse: IApiResponse = {
                 type: 'success',
@@ -57,10 +59,10 @@ export default class PositionController {
         }
     }
 
-    static async create(request: Request, response: Response): Promise<void> {
+    async create(request: Request, response: Response): Promise<void> {
         try {
             const userId = getUserId(request);
-            const position = await PositionService.create(request.body, userId);
+            const position = await this.positionService.create(request.body, userId);
 
             const apiResponse: IApiResponse = {
                 type: 'success',
@@ -82,11 +84,11 @@ export default class PositionController {
         }
     }
 
-    static async update(request: Request, response: Response): Promise<void> {
+    async update(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
             const userId = getUserId(request);
-            const position = await PositionService.update(id, request.body, userId);
+            const position = await this.positionService.update(id, request.body, userId);
 
             const apiResponse: IApiResponse = {
                 type: 'success',
@@ -108,10 +110,10 @@ export default class PositionController {
         }
     }
 
-    static async remove(request: Request, response: Response): Promise<void> {
+    async remove(request: Request, response: Response): Promise<void> {
         try {
             const id = Number(request.params.id);
-            await PositionService.remove(id);
+            await this.positionService.remove(id);
 
             const apiResponse: IApiResponse = {
                 type: 'success',
@@ -132,4 +134,3 @@ export default class PositionController {
         }
     }
 }
-
