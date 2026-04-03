@@ -4,6 +4,7 @@ import { StockEntryItem } from '../models/StockEntryItem';
 import { Product } from '../models/Product';
 import { ProductMovimentation, ProductMovimentationType } from '../models/ProductMovimentation';
 import StockEntryRepository from '../repositories/StockEntryRepository';
+import checkInventoryLock from '../helpers/InventoryLock';
 import messageCodes from '../i18n/MessageCodes';
 
 interface IStockEntryItemInput {
@@ -45,7 +46,8 @@ const findById = async (id: number, companyId: number) => {
 };
 
 const create = async (companyId: number, userId: number, input: IStockEntryInput) => {
-    // TODO: inventoryLock — verificar se algum produto está em inventário ativo
+    const productIds = input.items.map((item) => item.productId);
+    await checkInventoryLock(productIds, companyId);
 
     const result = await AppDataSource.transaction(async (manager) => {
         let totalValue: number | null = null;
@@ -119,7 +121,9 @@ const create = async (companyId: number, userId: number, input: IStockEntryInput
             await manager.save(movimentation);
         }
 
-        await manager.update(StockEntry, savedEntry.id, { totalValue });
+        if (totalValue !== null) {
+            await manager.update(StockEntry, savedEntry.id, { totalValue });
+        }
 
         return savedEntry;
     });
