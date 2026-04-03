@@ -68,11 +68,26 @@ Para cada arquivo alterado, leia o conteúdo e verifique:
 - [ ] Spinner/loading em botões de ação
 - [ ] Props e emits declarados explicitamente
 
+### Schemas Zod (arquivos em `schemas/`)
+- [ ] Toda mensagem de erro em schemas Zod DEVE ser uma chave i18n (nunca texto direto ou mensagem default do Zod)
+- [ ] Verificar `invalid_type_error`, `.min()`, `.max()`, `.positive()`, `.refine()` — todos devem ter mensagem i18n
+- [ ] Se o schema usa mensagem default do Zod (ex: "Invalid input: expected number, received null"), é um ERRO
+- [ ] Toda chave i18n usada no schema deve existir em pt-BR.json e en.json
+
+### Dialogs de formulário (q-dialog)
+- [ ] Sem `persistent` — Esc e clique fora fecham o dialog
+- [ ] `q-separator` entre o título e o conteúdo do formulário
+- [ ] Formulários não submetem com Enter (`<q-form @submit.prevent greedy>`, botão Salvar com `@click` em vez de `type="submit"`)
+- [ ] Botão Inativar/Ativar (quando existir): `outline`, na mesma linha dos botões Cancelar/Salvar, alinhado à esquerda com `q-space` separando
+- [ ] Botão Cancelar: `flat`
+- [ ] Botão Salvar: `color="primary"` com `:loading`
+
 ### i18n (arquivos de tradução)
 - [ ] Chaves no formato modulo.contexto.CHAVE (UPPER_SNAKE_CASE)
 - [ ] Chave existe em TODOS os idiomas (pt-BR.json e en.json)
 - [ ] Chave existe no MessageCodes.ts da API
 - [ ] Chaves globais sob common.*, específicas sob modulo.*
+- [ ] Chave `modulo.TITLE` deve conter o número da tela como prefixo (ex: "110 Entrada de Estoque", "12 Empresas")
 
 ### Geral (todos os arquivos)
 - [ ] Código em inglês (variáveis, funções, classes)
@@ -81,6 +96,8 @@ Para cada arquivo alterado, leia o conteúdo e verifique:
 - [ ] Nenhum console.log
 - [ ] Soft delete (nunca DELETE CASCADE)
 - [ ] Campos novos com active = true por padrão
+- [ ] Operador `??` em vez de `||` para campos nullable (evitar descartar `0` ou `''` como falsy)
+- [ ] Sem valores de fallback silenciosos (ex: `|| 0`, `|| ''`, `|| 'default'`) — fallbacks mascaram erros com dados que podem não condizer com a verdade. Se um valor é obrigatório, deve falhar explicitamente. Fallbacks só são aceitos quando solicitados pelo usuário
 
 
 ## Passo 4 — Gerar relatório
