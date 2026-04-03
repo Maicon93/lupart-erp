@@ -9,6 +9,7 @@ export const createUserSchema = z
         phone: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         country: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         language: z.string().nonempty('common.validations.REQUIRED_FIELD'),
+        theme: z.enum(['light', 'dark'], { required_error: 'common.validations.REQUIRED_FIELD' }),
         roleId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
         companyId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
     })
@@ -30,6 +31,7 @@ export const updateUserSchema = z
         phone: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         country: z.string().nonempty('common.validations.REQUIRED_FIELD'),
         language: z.string().nonempty('common.validations.REQUIRED_FIELD'),
+        theme: z.enum(['light', 'dark'], { required_error: 'common.validations.REQUIRED_FIELD' }),
         roleId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
         companyId: z.preprocess((val) => (val === null || val === '' ? undefined : val), z.number({ required_error: 'common.validations.REQUIRED_FIELD', invalid_type_error: 'common.validations.REQUIRED_FIELD' }).int().positive()),
     })

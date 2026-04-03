@@ -117,7 +117,7 @@
                     </div>
 
                     <div class="row q-col-gutter-sm">
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4">
                             <q-select
                                 v-model="form.language"
                                 :options="languageOptions"
@@ -130,7 +130,20 @@
                                 @update:model-value="clearError('language')"
                             />
                         </div>
-                        <div class="col-12 col-sm-6">
+                        <div class="col-12 col-sm-4">
+                            <q-select
+                                v-model="form.theme"
+                                :options="themeOptions"
+                                :label="$t('users.fields.THEME') + ' *'"
+                                outlined
+                                emit-value
+                                map-options
+                                :error="!!errors.theme"
+                                :error-message="errors.theme ? $t(errors.theme) : ''"
+                                @update:model-value="clearError('theme')"
+                            />
+                        </div>
+                        <div class="col-12 col-sm-4">
                             <q-select
                                 v-model="form.roleId"
                                 :options="roles"
@@ -223,6 +236,7 @@ export default {
                 phone: '',
                 country: '',
                 language: '',
+                theme: 'light',
                 roleId: null,
                 companyId: null,
             },
@@ -234,6 +248,7 @@ export default {
                 phone: null,
                 country: null,
                 language: null,
+                theme: null,
                 roleId: null,
                 companyId: null,
             },
@@ -253,6 +268,10 @@ export default {
             languageOptions: [
                 { label: this.$t('users.languages.PT_BR'), value: 'pt-BR' },
                 { label: this.$t('users.languages.EN'), value: 'en' },
+            ],
+            themeOptions: [
+                { label: this.$t('users.themes.LIGHT'), value: 'light' },
+                { label: this.$t('users.themes.DARK'), value: 'dark' },
             ],
         };
     },
@@ -277,6 +296,7 @@ export default {
                         phone: value.phone || '',
                         country: value.country || '',
                         language: value.language || '',
+                        theme: value.theme || 'light',
                         roleId: value.roleId || value.role?.id || null,
                         companyId: value.companyId ?? null,
                     };
@@ -325,6 +345,7 @@ export default {
                 phone: '',
                 country: '',
                 language: '',
+                theme: 'light',
                 roleId: null,
                 companyId: null,
             };
@@ -336,6 +357,7 @@ export default {
                 phone: null,
                 country: null,
                 language: null,
+                theme: null,
                 roleId: null,
                 companyId: null,
             };
@@ -356,6 +378,7 @@ export default {
                 phone: null,
                 country: null,
                 language: null,
+                theme: null,
                 roleId: null,
                 companyId: null,
             };

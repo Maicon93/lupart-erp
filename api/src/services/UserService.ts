@@ -14,6 +14,7 @@ interface IUserInput {
     phone: string;
     country: string;
     language: string;
+    theme: string;
     roleId: number;
     companyId: number;
 }
@@ -56,7 +57,6 @@ const create = async (input: IUserInput, currentUserId: number): Promise<User> =
             name: input.name,
             email: input.email,
             password: hashedPassword,
-            language: input.language,
             roleId: input.roleId,
             companyId: input.companyId,
             status: UserStatus.ACTIVE,
@@ -68,6 +68,8 @@ const create = async (input: IUserInput, currentUserId: number): Promise<User> =
             userId: user.id,
             phone: input.phone,
             country: input.country,
+            language: input.language,
+            theme: input.theme,
         });
 
         await manager.save(profile);
@@ -98,7 +100,6 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
         const updateData: Partial<User> = {
             name: input.name,
             email: input.email,
-            language: input.language,
             roleId: input.roleId,
             companyId: input.companyId,
         };
@@ -115,12 +116,16 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
             await manager.update(UserProfile, existingProfile.id, {
                 phone: input.phone,
                 country: input.country,
+                language: input.language,
+                theme: input.theme,
             });
         } else {
             const profile = manager.create(UserProfile, {
                 userId: user.id,
                 phone: input.phone,
                 country: input.country,
+                language: input.language,
+                theme: input.theme,
             });
 
             await manager.save(profile);
@@ -138,7 +143,7 @@ const update = async (id: number, input: IUserInput, currentUserId: number): Pro
 
         return manager.findOneOrFail(User, {
             where: { id: user.id },
-            select: ['id', 'name', 'email', 'language', 'roleId', 'companyId', 'status', 'createdAt', 'updatedAt'],
+            select: ['id', 'name', 'email', 'roleId', 'companyId', 'status', 'createdAt', 'updatedAt'],
         });
     });
 };
@@ -151,7 +156,7 @@ const toggleStatus = async (id: number): Promise<User> => {
         await manager.update(User, user.id, { status: newStatus });
         return manager.findOneOrFail(User, {
             where: { id: user.id },
-            select: ['id', 'name', 'email', 'language', 'roleId', 'companyId', 'status', 'createdAt', 'updatedAt'],
+            select: ['id', 'name', 'email', 'roleId', 'companyId', 'status', 'createdAt', 'updatedAt'],
         });
     });
 };

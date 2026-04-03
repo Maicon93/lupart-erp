@@ -8,10 +8,9 @@ interface ILoginResult {
     token: string;
     refreshToken: string;
     user: {
-        id: number;
         name: string;
-        email: string;
         language: string;
+        theme: string;
     };
     role: string;
     companies: { id: number; name: string; logoUrl: string | null }[];
@@ -51,14 +50,15 @@ const login = async (email: string, password: string): Promise<ILoginResult> => 
         throw { status: 403, messageCode: messageCodes.auth.errors.USER_NO_COMPANY };
     }
 
+    const profile = await AuthRepository.findUserProfile(user.id);
+
     return {
         token: accessToken,
         refreshToken,
         user: {
-            id: user.id,
             name: user.name,
-            email: user.email,
-            language: user.language,
+            language: profile?.language ?? 'pt-BR',
+            theme: profile?.theme ?? 'light',
         },
         role: roleName,
         companies,
@@ -92,8 +92,28 @@ const refresh = async (currentRefreshToken: string): Promise<IRefreshResult> => 
     };
 };
 
+const updatePreferences = async (userId: number, preferences: { theme?: string; language?: string }): Promise<void> => {
+    const profile = await AuthRepository.findUserProfile(userId);
+
+    if (!profile) {
+        throw { status: 404, messageCode: messageCodes.common.messages.NOT_FOUND };
+    }
+
+    const updateData: Partial<{ theme: string; language: string }> = {};
+
+    if (preferences.theme) {
+        updateData.theme = preferences.theme;
+    }
+
+    if (preferences.language) {
+        updateData.language = preferences.language;
+    }
+
+    await AuthRepository.updateUserProfile(profile.id, updateData);
+};
+
 const logout = async (refreshToken: string): Promise<void> => {
     await AuthRepository.deleteRefreshToken(refreshToken);
 };
 
-export default { login, refresh, logout };
+export default { login, refresh, updatePreferences, logout };

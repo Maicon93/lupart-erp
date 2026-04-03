@@ -181,6 +181,8 @@ export default {
                         ...fullUser,
                         phone: fullUser.profile?.phone || '',
                         country: fullUser.profile?.country || '',
+                        language: fullUser.profile?.language || 'pt-BR',
+                        theme: fullUser.profile?.theme || 'light',
                         companyId: fullUser.companyId ?? null,
                     };
                 } catch {

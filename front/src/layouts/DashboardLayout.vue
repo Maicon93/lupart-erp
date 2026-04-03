@@ -87,6 +87,8 @@ export default {
         } else {
             this.activePanel = this.isAdmin ? 'admin' : 'user';
         }
+
+        this.themeStore.setDark(this.authStore.user?.theme === 'dark');
     },
 
     watch: {

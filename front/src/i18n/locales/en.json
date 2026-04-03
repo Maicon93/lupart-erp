@@ -84,6 +84,7 @@
             "PHONE": "Phone",
             "COUNTRY": "Country",
             "LANGUAGE": "Language",
+            "THEME": "Theme",
             "ROLE": "Role",
             "COMPANY": "Company",
             "COMPANIES": "Companies",
@@ -110,6 +111,10 @@
         "languages": {
             "PT_BR": "Português",
             "EN": "English"
+        },
+        "themes": {
+            "LIGHT": "Light",
+            "DARK": "Dark"
         },
         "filters": {
             "ALL": "All"
@@ -183,6 +188,12 @@
             "POSITIVE_QUANTITY": "Quantity must be greater than zero",
             "AT_LEAST_ONE_ITEM": "Add at least one item",
             "INCOMPLETE_ITEMS": "Fill in the product and quantity for all items"
+        },
+        "placeholders": {
+            "SELECT_PRODUCT": "Search product...",
+            "QUANTITY": "0",
+            "OPTIONAL": "Optional",
+            "AUTO": "Automatic"
         },
         "errors": {
             "PRODUCT_NOT_FOUND": "Product not found"

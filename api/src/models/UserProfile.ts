@@ -19,6 +19,12 @@ export class UserProfile {
     @Column({ type: 'varchar' })
     country: string;
 
+    @Column({ type: 'varchar', default: 'pt-BR' })
+    language: string;
+
+    @Column({ type: 'varchar', default: 'light' })
+    theme: string;
+
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;
 

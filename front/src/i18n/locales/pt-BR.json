@@ -84,6 +84,7 @@
             "PHONE": "Telefone",
             "COUNTRY": "País",
             "LANGUAGE": "Idioma",
+            "THEME": "Tema",
             "ROLE": "Cargo",
             "COMPANY": "Empresa",
             "COMPANIES": "Empresas",
@@ -110,6 +111,10 @@
         "languages": {
             "PT_BR": "Português",
             "EN": "English"
+        },
+        "themes": {
+            "LIGHT": "Claro",
+            "DARK": "Escuro"
         },
         "filters": {
             "ALL": "Todos"
@@ -183,6 +188,12 @@
             "POSITIVE_QUANTITY": "Quantidade deve ser maior que zero",
             "AT_LEAST_ONE_ITEM": "Adicione pelo menos um item",
             "INCOMPLETE_ITEMS": "Preencha o produto e a quantidade de todos os itens"
+        },
+        "placeholders": {
+            "SELECT_PRODUCT": "Buscar produto...",
+            "QUANTITY": "0",
+            "OPTIONAL": "Opcional",
+            "AUTO": "Automático"
         },
         "errors": {
             "PRODUCT_NOT_FOUND": "Produto não encontrado"

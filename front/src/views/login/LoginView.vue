@@ -51,6 +51,7 @@
 <script>
 import { useAuthStore } from '../../stores/auth';
 import { useEnterpriseStore } from '../../stores/enterprise';
+import { useThemeStore } from '../../stores/theme';
 import { loginSchema } from '../../schemas/LoginSchema';
 import AuthService from '../../services/AuthService';
 
@@ -109,6 +110,9 @@ export default {
 
                 const authStore = useAuthStore();
                 authStore.setAuth(user, token, role);
+
+                const themeStore = useThemeStore();
+                themeStore.setDark(user.theme === 'dark');
 
                 if (role === 'admin') {
                     this.$router.push({ name: 'home' });

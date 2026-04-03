@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { IAuthRequest } from '../interfaces/IAuthRequest';
 import AuthService from '../services/AuthService';
 import messageCodes from '../i18n/MessageCodes';
 import logger from '../helpers/Logger';
@@ -139,4 +140,34 @@ const logout = async (request: Request, response: Response): Promise<void> => {
     }
 };
 
-export default { login, refresh, logout };
+const updatePreferences = async (request: IAuthRequest, response: Response): Promise<void> => {
+    try {
+        await AuthService.updatePreferences(request.userId!, request.body);
+
+        const apiResponse: IApiResponse = {
+            type: 'success',
+        };
+
+        response.status(200).json(apiResponse);
+    } catch (error: unknown) {
+        const typedError = error as { status?: number; messageCode?: string };
+
+        if (typedError.messageCode) {
+            const apiResponse: IApiResponse = {
+                type: 'error',
+                messageCode: typedError.messageCode,
+            };
+            response.status(typedError.status || 400).json(apiResponse);
+            return;
+        }
+
+        logger.error('Update preferences failed', { error });
+        const apiResponse: IApiResponse = {
+            type: 'error',
+            messageCode: messageCodes.common.messages.ERROR,
+        };
+        response.status(500).json(apiResponse);
+    }
+};
+
+export default { login, refresh, updatePreferences, logout };

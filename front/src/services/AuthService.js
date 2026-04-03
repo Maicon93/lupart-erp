@@ -6,6 +6,10 @@ const AuthService = {
             withCredentials: true,
         });
     },
+
+    updatePreferences(preferences) {
+        return $api.patch('/auth/preferences', preferences);
+    },
 };
 
 export default AuthService;

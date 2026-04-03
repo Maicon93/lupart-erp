@@ -9,6 +9,7 @@ export const createUserSchema = z
         phone: z.string().nonempty(),
         country: z.string().nonempty(),
         language: z.string().nonempty(),
+        theme: z.enum(['light', 'dark']),
         roleId: z.number().int().positive(),
         companyId: z.number().int().positive(),
     })
@@ -26,6 +27,7 @@ export const updateUserSchema = z
         phone: z.string().nonempty(),
         country: z.string().nonempty(),
         language: z.string().nonempty(),
+        theme: z.enum(['light', 'dark']),
         roleId: z.number().int().positive(),
         companyId: z.number().int().positive(),
     })

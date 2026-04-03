@@ -21,9 +21,6 @@ export class User {
     @Column({ type: 'varchar' })
     password: string;
 
-    @Column({ type: 'varchar', default: 'pt-BR' })
-    language: string;
-
     @Column({ type: 'integer', name: 'role_id' })
     roleId: number;
 

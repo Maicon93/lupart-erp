@@ -1,9 +1,11 @@
 import { AppDataSource } from '../config/database';
 import { User } from '../models/User';
+import { UserProfile } from '../models/UserProfile';
 import { RefreshToken } from '../models/RefreshToken';
 import { UserCompany } from '../models/UserCompany';
 
 const userRepository = AppDataSource.getRepository(User);
+const userProfileRepository = AppDataSource.getRepository(UserProfile);
 const refreshTokenRepository = AppDataSource.getRepository(RefreshToken);
 const userCompanyRepository = AppDataSource.getRepository(UserCompany);
 
@@ -18,6 +20,12 @@ const findUserById = async (id: number): Promise<User | null> => {
     return userRepository.findOne({
         where: { id },
         relations: ['role'],
+    });
+};
+
+const findUserProfile = async (userId: number): Promise<UserProfile | null> => {
+    return userProfileRepository.findOne({
+        where: { userId },
     });
 };
 
@@ -44,6 +52,10 @@ const deleteRefreshToken = async (token: string): Promise<void> => {
     await refreshTokenRepository.delete({ token });
 };
 
+const updateUserProfile = async (profileId: number, data: Partial<{ theme: string; language: string }>): Promise<void> => {
+    await userProfileRepository.update(profileId, data);
+};
+
 const deleteUserRefreshTokens = async (userId: number): Promise<void> => {
     await refreshTokenRepository.delete({ userId });
 };
@@ -51,6 +63,8 @@ const deleteUserRefreshTokens = async (userId: number): Promise<void> => {
 export default {
     findUserByEmail,
     findUserById,
+    findUserProfile,
+    updateUserProfile,
     findUserCompanies,
     saveRefreshToken,
     findRefreshToken,
