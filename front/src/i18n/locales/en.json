@@ -1,6 +1,6 @@
 {
     "accessPlans": {
-        "TITLE": "Access Plans",
+        "TITLE": "10 Access Plans",
         "fields": {
             "TITLE": "Title",
             "USER_LIMIT": "User limit",
@@ -29,7 +29,7 @@
         }
     },
     "companies": {
-        "TITLE": "Companies",
+        "TITLE": "12 Companies",
         "fields": {
             "NAME": "Name",
             "CNPJ": "CNPJ",
@@ -75,7 +75,7 @@
         }
     },
     "users": {
-        "TITLE": "Users",
+        "TITLE": "11 Users",
         "fields": {
             "NAME": "Name",
             "EMAIL": "Email",
@@ -131,7 +131,7 @@
         }
     },
     "positions": {
-        "TITLE": "Positions",
+        "TITLE": "13 Positions",
         "fields": {
             "NAME": "Name",
             "PERMISSIONS": "Permissions",
@@ -155,7 +155,7 @@
         }
     },
     "stockEntries": {
-        "TITLE": "Stock Entry",
+        "TITLE": "110 Stock Entry",
         "fields": {
             "ENTRY_NUMBER": "Entry #",
             "DATE": "Date",
@@ -200,7 +200,7 @@
         }
     },
     "products": {
-        "TITLE": "Products",
+        "TITLE": "107 Products",
         "fields": {
             "TYPE": "Type",
             "NAME": "Name",
@@ -238,7 +238,7 @@
         }
     },
     "paymentTypes": {
-        "TITLE": "Payment Types",
+        "TITLE": "109 Payment Types",
         "fields": {
             "NAME": "Name",
             "OBSERVATION": "Observation",
@@ -258,7 +258,7 @@
         }
     },
     "categories": {
-        "TITLE": "Categories",
+        "TITLE": "108 Categories",
         "fields": {
             "NAME": "Name",
             "OBSERVATION": "Observation",
@@ -282,7 +282,7 @@
         }
     },
     "suppliers": {
-        "TITLE": "Suppliers",
+        "TITLE": "106 Suppliers",
         "fields": {
             "NAME": "Name",
             "CPF_CNPJ": "CPF/CNPJ",
@@ -314,7 +314,7 @@
         }
     },
     "customers": {
-        "TITLE": "Customers",
+        "TITLE": "105 Customers",
         "fields": {
             "NAME": "Name",
             "CPF_CNPJ": "CPF/CNPJ",
@@ -346,7 +346,7 @@
         }
     },
     "measurementUnits": {
-        "TITLE": "Measurement Units",
+        "TITLE": "104 Measurement Units",
         "fields": {
             "ABBREVIATION": "Abbreviation",
             "DESCRIPTION": "Description",
@@ -366,7 +366,7 @@
         }
     },
     "systemParameters": {
-        "TITLE": "System Parameters",
+        "TITLE": "15 System Parameters",
         "sections": {
             "TOKENS": "Tokens",
             "UPLOAD": "Upload"
@@ -384,7 +384,7 @@
         }
     },
     "permissions": {
-        "TITLE": "Permissions",
+        "TITLE": "14 Permissions",
         "fields": {
             "NAME": "Code",
             "OBSERVATION": "Description"

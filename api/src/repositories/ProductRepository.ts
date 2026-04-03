@@ -20,7 +20,7 @@ const findAll = async (
 
     if (search) {
         query.andWhere(
-            '(product.name ILIKE :search OR product.code ILIKE :search)',
+            '(product.name ILIKE :search OR product.code ILIKE :search OR product.barcode ILIKE :search)',
             { search: `%${search}%` }
         );
     }

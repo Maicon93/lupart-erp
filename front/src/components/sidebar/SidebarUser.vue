@@ -56,7 +56,7 @@ export default {
                 {
                     label: 'sidebar.user.sections.STOCK_CONTROL',
                     items: [
-                        { icon: 'add_box', label: 'sidebar.user.items.STOCK_ENTRY', to: '/stock-entries', disabled: true },
+                        { icon: 'add_box', label: 'sidebar.user.items.STOCK_ENTRY', to: '/stock-entries', disabled: false },
                         { icon: 'tune', label: 'sidebar.user.items.STOCK_ADJUSTMENT', to: '/stock-adjustments', disabled: true },
                         { icon: 'fact_check', label: 'sidebar.user.items.INVENTORY', to: '/inventories', disabled: true },
                     ],

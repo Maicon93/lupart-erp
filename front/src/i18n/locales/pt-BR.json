@@ -1,6 +1,6 @@
 {
     "accessPlans": {
-        "TITLE": "Planos de Acesso",
+        "TITLE": "10 Planos de Acesso",
         "fields": {
             "TITLE": "Título",
             "USER_LIMIT": "Quantidade de usuários",
@@ -29,7 +29,7 @@
         }
     },
     "companies": {
-        "TITLE": "Empresas",
+        "TITLE": "12 Empresas",
         "fields": {
             "NAME": "Nome",
             "CNPJ": "CNPJ",
@@ -75,7 +75,7 @@
         }
     },
     "users": {
-        "TITLE": "Usuários",
+        "TITLE": "11 Usuários",
         "fields": {
             "NAME": "Nome",
             "EMAIL": "E-mail",
@@ -131,7 +131,7 @@
         }
     },
     "positions": {
-        "TITLE": "Cargos",
+        "TITLE": "13 Cargos",
         "fields": {
             "NAME": "Nome",
             "PERMISSIONS": "Permissões",
@@ -155,7 +155,7 @@
         }
     },
     "stockEntries": {
-        "TITLE": "Entrada de Estoque",
+        "TITLE": "110 Entrada de Estoque",
         "fields": {
             "ENTRY_NUMBER": "Nº Moviment.",
             "DATE": "Data",
@@ -200,7 +200,7 @@
         }
     },
     "products": {
-        "TITLE": "Produtos",
+        "TITLE": "107 Produtos",
         "fields": {
             "TYPE": "Tipo",
             "NAME": "Nome",
@@ -238,7 +238,7 @@
         }
     },
     "paymentTypes": {
-        "TITLE": "Tipos de Pagamento",
+        "TITLE": "109 Tipos de Pagamento",
         "fields": {
             "NAME": "Nome",
             "OBSERVATION": "Observação",
@@ -258,7 +258,7 @@
         }
     },
     "categories": {
-        "TITLE": "Categorias",
+        "TITLE": "108 Categorias",
         "fields": {
             "NAME": "Nome",
             "OBSERVATION": "Observação",
@@ -282,7 +282,7 @@
         }
     },
     "suppliers": {
-        "TITLE": "Fornecedores",
+        "TITLE": "106 Fornecedores",
         "fields": {
             "NAME": "Nome",
             "CPF_CNPJ": "CPF/CNPJ",
@@ -314,7 +314,7 @@
         }
     },
     "customers": {
-        "TITLE": "Clientes",
+        "TITLE": "105 Clientes",
         "fields": {
             "NAME": "Nome",
             "CPF_CNPJ": "CPF/CNPJ",
@@ -346,7 +346,7 @@
         }
     },
     "measurementUnits": {
-        "TITLE": "Unidades de Medida",
+        "TITLE": "104 Unidades de Medida",
         "fields": {
             "ABBREVIATION": "Sigla",
             "DESCRIPTION": "Descrição",
@@ -366,7 +366,7 @@
         }
     },
     "systemParameters": {
-        "TITLE": "Parâmetros do Sistema",
+        "TITLE": "15 Parâmetros do Sistema",
         "sections": {
             "TOKENS": "Tokens",
             "UPLOAD": "Upload"
@@ -384,7 +384,7 @@
         }
     },
     "permissions": {
-        "TITLE": "Permissões",
+        "TITLE": "14 Permissões",
         "fields": {
             "NAME": "Código",
             "OBSERVATION": "Descrição"

@@ -15,6 +15,7 @@ import supplierRoutes from './SupplierRoutes';
 import categoryRoutes from './CategoryRoutes';
 import paymentTypeRoutes from './PaymentTypeRoutes';
 import productRoutes from './ProductRoutes';
+import stockEntryRoutes from './StockEntryRoutes';
 
 const router = Router();
 
@@ -39,5 +40,6 @@ router.use('/suppliers', tenantMiddleware as express.RequestHandler, supplierRou
 router.use('/categories', tenantMiddleware as express.RequestHandler, categoryRoutes);
 router.use('/payment-types', tenantMiddleware as express.RequestHandler, paymentTypeRoutes);
 router.use('/products', tenantMiddleware as express.RequestHandler, productRoutes);
+router.use('/stock-entries', tenantMiddleware as express.RequestHandler, stockEntryRoutes);
 
 export default router;

@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, OneToMany, JoinColumn } from 'typeorm';
 import { Company } from './Company';
 import { Supplier } from './Supplier';
+import { StockEntryItem } from './StockEntryItem';
 import { User } from './User';
 
 @Entity('stock_entries')
@@ -25,9 +26,6 @@ export class StockEntry {
     @Column({ type: 'varchar', name: 'invoice_number', nullable: true })
     invoiceNumber: string;
 
-    @Column({ type: 'date' })
-    date: Date;
-
     @Column({ type: 'text', nullable: true })
     observation: string;
 
@@ -40,6 +38,9 @@ export class StockEntry {
     @ManyToOne(() => User)
     @JoinColumn({ name: 'created_by' })
     creator: User;
+
+    @OneToMany(() => StockEntryItem, (item) => item.stockEntry)
+    items: StockEntryItem[];
 
     @CreateDateColumn({ name: 'created_at' })
     createdAt: Date;

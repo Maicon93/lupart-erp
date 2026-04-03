@@ -97,6 +97,12 @@ const routes = [
                 component: () => import('../views/user/payment-types/PaymentTypeList.vue'),
                 meta: { permission: '109_payment_types', panel: 'user' },
             },
+            {
+                path: 'stock-entries',
+                name: 'stock-entries',
+                component: () => import('../views/user/stock-entries/StockEntryList.vue'),
+                meta: { permission: '110_stock_entries', panel: 'user' },
+            },
         ],
     },
     {

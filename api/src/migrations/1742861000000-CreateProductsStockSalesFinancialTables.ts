@@ -61,7 +61,6 @@ export class CreateProductsStockSalesFinancialTables1742861000000 implements Mig
                 "company_id" INTEGER NOT NULL,
                 "supplier_id" INTEGER,
                 "invoice_number" VARCHAR,
-                "date" DATE NOT NULL,
                 "observation" TEXT,
                 "total_value" DECIMAL(10, 2),
                 "created_by" INTEGER NOT NULL,

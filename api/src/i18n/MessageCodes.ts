@@ -67,6 +67,11 @@ const messageCodes = buildMessageCodes({
             CODE_ALREADY_EXISTS: 'Código interno já cadastrado para esta empresa',
         },
     },
+    stockEntries: {
+        errors: {
+            PRODUCT_NOT_FOUND: 'Produto não encontrado',
+        },
+    },
     categories: {
         errors: {
             NAME_ALREADY_EXISTS: 'Nome de categoria já cadastrado para esta empresa',
