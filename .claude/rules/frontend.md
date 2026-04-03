@@ -28,6 +28,9 @@
 - Estilo: usar classes e componentes do Quasar — evitar CSS inline. Variáveis de tema centralizadas (cores, espaçamentos)
 - Arquivos JS em PascalCase (`CustomerService.js`, `ErrorCodes.js`)
 - Rotas em kebab-case (`/dashboard`, `/stock-entry`)
+- **Meta de rotas**:
+  - Rotas de usuário: `meta: { permission, panel: 'user', screen }` — `screen` é obrigatório (número único da tela, usado para atalhos)
+  - Rotas de administrador: `meta: { permission, panel: 'admin' }` — sem `screen`, pois o painel admin não possui atalhos
 - **Dialogs de formulário (q-dialog)**:
   - Sem `persistent` — Esc e clique fora fecham o dialog
   - `q-separator` entre o título e o conteúdo do formulário

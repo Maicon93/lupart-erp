@@ -24,37 +24,37 @@ const routes = [
                 path: 'admin/access-plans',
                 name: 'admin-access-plans',
                 component: () => import('../views/admin/access-plans/AccessPlanList.vue'),
-                meta: { permission: '10_access_plans', panel: 'admin', screen: 10 },
+                meta: { permission: '10_access_plans', panel: 'admin' },
             },
             {
                 path: 'admin/companies',
                 name: 'admin-companies',
                 component: () => import('../views/admin/companies/CompanyList.vue'),
-                meta: { permission: '12_companies', panel: 'admin', screen: 12 },
+                meta: { permission: '12_companies', panel: 'admin' },
             },
             {
                 path: 'admin/users',
                 name: 'admin-users',
                 component: () => import('../views/admin/users/UserList.vue'),
-                meta: { permission: '11_users', panel: 'admin', screen: 11 },
+                meta: { permission: '11_users', panel: 'admin' },
             },
             {
                 path: 'admin/positions',
                 name: 'admin-positions',
                 component: () => import('../views/admin/positions/PositionList.vue'),
-                meta: { permission: '13_positions', panel: 'admin', screen: 13 },
+                meta: { permission: '13_positions', panel: 'admin' },
             },
             {
                 path: 'admin/system-parameters',
                 name: 'admin-system-parameters',
                 component: () => import('../views/admin/system-parameters/SystemParameterList.vue'),
-                meta: { permission: '15_system_parameters', panel: 'admin', screen: 15 },
+                meta: { permission: '15_system_parameters', panel: 'admin' },
             },
             {
                 path: 'admin/permissions',
                 name: 'admin-permissions',
                 component: () => import('../views/admin/permissions/PermissionList.vue'),
-                meta: { permission: '14_permissions', panel: 'admin', screen: 14 },
+                meta: { permission: '14_permissions', panel: 'admin' },
             },
             // User routes
             {
