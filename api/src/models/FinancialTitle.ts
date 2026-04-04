@@ -14,6 +14,23 @@ import { Supplier } from './Supplier';
 import { PaymentType } from './PaymentType';
 import { User } from './User';
 
+export enum FinancialTitleType {
+    INFLOW = 'inflow',
+    OUTFLOW = 'outflow',
+}
+
+export enum FinancialTitleOrigin {
+    SALE = 'sale',
+    SERVICE_ORDER = 'service_order',
+    MANUAL = 'manual',
+}
+
+export enum FinancialTitleStatus {
+    PENDING = 'pending',
+    PAID = 'paid',
+    CANCELLED = 'cancelled',
+}
+
 @Entity('financial_titles')
 export class FinancialTitle {
     @PrimaryGeneratedColumn()
@@ -72,7 +89,7 @@ export class FinancialTitle {
     @JoinColumn({ name: 'payment_type_id' })
     paymentType: PaymentType;
 
-    @Column({ type: 'varchar', default: 'pendente' })
+    @Column({ type: 'varchar', default: 'pending' })
     status: string;
 
     @Column({ type: 'varchar', nullable: true })

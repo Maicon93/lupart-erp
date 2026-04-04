@@ -99,6 +99,18 @@ const routes = [
                 component: () => import('../views/user/stock-entries/StockEntryList.vue'),
                 meta: { permission: '110_stock_entries', panel: 'user', screen: 110 },
             },
+            {
+                path: 'sales',
+                name: 'sales',
+                component: () => import('../views/user/sales/SaleList.vue'),
+                meta: { permission: '115_sales', panel: 'user', screen: 115 },
+            },
+            {
+                path: 'settings',
+                name: 'company-settings',
+                component: () => import('../views/user/settings/CompanySettingsView.vue'),
+                meta: { permission: '125_settings', panel: 'user', screen: 125 },
+            },
         ],
     },
     {

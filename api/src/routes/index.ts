@@ -15,6 +15,8 @@ import categoryRoutes from './CategoryRoutes';
 import paymentTypeRoutes from './PaymentTypeRoutes';
 import productRoutes from './ProductRoutes';
 import stockEntryRoutes from './StockEntryRoutes';
+import saleRoutes from './SaleRoutes';
+import companySettingRoutes from './CompanySettingRoutes';
 
 const router = Router();
 
@@ -40,5 +42,7 @@ router.use('/categories', tenantMiddleware, categoryRoutes);
 router.use('/payment-types', tenantMiddleware, paymentTypeRoutes);
 router.use('/products', tenantMiddleware, productRoutes);
 router.use('/stock-entries', tenantMiddleware, stockEntryRoutes);
+router.use('/sales', tenantMiddleware, saleRoutes);
+router.use('/company-settings', tenantMiddleware, companySettingRoutes);
 
 export default router;

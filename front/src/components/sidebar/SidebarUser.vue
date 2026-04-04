@@ -65,7 +65,7 @@ export default {
                     label: 'sidebar.user.sections.TRANSACTIONS',
                     items: [
                         { icon: 'point_of_sale', label: 'sidebar.user.items.DIRECT_SALE', to: '/direct-sale', disabled: true },
-                        { icon: 'receipt_long', label: 'sidebar.user.items.SALES', to: '/sales', disabled: true },
+                        { icon: 'receipt_long', label: 'sidebar.user.items.SALES', to: '/sales', disabled: false },
                         { icon: 'description', label: 'sidebar.user.items.QUOTES', to: '/quotes', disabled: true },
                         { icon: 'build', label: 'sidebar.user.items.SERVICE_ORDERS', to: '/service-orders', disabled: true },
                     ],
@@ -91,7 +91,7 @@ export default {
                 {
                     label: 'sidebar.user.sections.SETTINGS',
                     items: [
-                        { icon: 'settings', label: 'sidebar.user.items.COMPANY_SETTINGS', to: '/company-settings', disabled: true },
+                        { icon: 'settings', label: 'sidebar.user.items.COMPANY_SETTINGS', to: '/settings' },
                         { icon: 'card_membership', label: 'sidebar.user.items.MY_PLAN', to: '/my-plan', disabled: true },
                         { icon: 'group', label: 'sidebar.user.items.USERS', to: '/users', disabled: true },
                     ],
