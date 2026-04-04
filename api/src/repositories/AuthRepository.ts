@@ -13,7 +13,7 @@ export default class AuthRepository {
     async findUserByEmail(email: string): Promise<User | null> {
         return this.userRepository.findOne({
             where: { email },
-            relations: ['role'],
+            relations: ['role', 'company'],
         });
     }
 

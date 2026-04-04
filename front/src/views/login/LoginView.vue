@@ -104,7 +104,7 @@ export default {
 
             try {
                 const { data } = await AuthService.login(this.form);
-                const { token, user, role, companies } = data.data;
+                const { token, user, role, company, companies } = data.data;
 
                 localStorage.setItem('token', token);
 
@@ -114,7 +114,12 @@ export default {
                 const themeStore = useThemeStore();
                 themeStore.setDark(user.theme === 'dark');
 
+                const enterpriseStore = useEnterpriseStore();
+
                 if (role === 'admin') {
+                    if (company) {
+                        enterpriseStore.setCompany(company);
+                    }
                     this.$router.push({ name: 'home' });
                     return;
                 }
@@ -124,8 +129,6 @@ export default {
                     authStore.clearAuth();
                     return;
                 }
-
-                const enterpriseStore = useEnterpriseStore();
 
                 if (companies.length === 1) {
                     enterpriseStore.setCompany(companies[0]);

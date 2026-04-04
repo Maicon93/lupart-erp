@@ -43,6 +43,7 @@ export default class AuthController {
                     token: result.token,
                     user: result.user,
                     role: result.role,
+                    company: result.company,
                     companies: result.companies,
                 },
             };

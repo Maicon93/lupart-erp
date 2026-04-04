@@ -5,6 +5,12 @@ import messageCodes from '../i18n/MessageCodes';
 import { UserStatus } from '../models/User';
 import { ITokenPair } from '../interfaces/ITokenPair';
 
+interface ICompany {
+    id: number;
+    name: string;
+    logoUrl: string | null;
+}
+
 interface ILoginResult extends ITokenPair {
     user: {
         name: string;
@@ -12,7 +18,8 @@ interface ILoginResult extends ITokenPair {
         theme: string;
     };
     role: string;
-    companies: { id: number; name: string; logoUrl: string | null }[];
+    company: ICompany | null;
+    companies: ICompany[];
 }
 
 type IRefreshResult = ITokenPair;
@@ -51,6 +58,10 @@ export default class AuthService {
 
         const profile = await this.authRepository.findUserProfile(user.id);
 
+        const company = user.company
+            ? { id: user.company.id, name: user.company.name, logoUrl: user.company.logoUrl ?? null }
+            : null;
+
         return {
             token: accessToken,
             refreshToken,
@@ -60,6 +71,7 @@ export default class AuthService {
                 theme: profile?.theme ?? 'light',
             },
             role: roleName,
+            company,
             companies,
         };
     }
