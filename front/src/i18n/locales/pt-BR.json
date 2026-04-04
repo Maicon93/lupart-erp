@@ -154,6 +154,107 @@
             "CANNOT_EDIT_GLOBAL": "Não é possível editar cargos globais do sistema"
         }
     },
+    "sales": {
+        "TITLE": "115 Vendas",
+        "fields": {
+            "SALE_NUMBER": "Nº Venda",
+            "DATE": "Data",
+            "DATE_START": "Data início",
+            "DATE_END": "Data fim",
+            "CUSTOMER": "Cliente",
+            "FINAL_VALUE": "Valor Final",
+            "STATUS": "Status",
+            "RESPONSIBLE": "Responsável",
+            "ACTIONS": "Ações",
+            "OBSERVATION": "Observação",
+            "TOTAL_VALUE": "Valor Total",
+            "CURRENT_STOCK": "Estoque Atual",
+            "MEASUREMENT_UNIT": "Un. Medida",
+            "PRODUCT": "Produto",
+            "QUANTITY": "Quantidade",
+            "UNIT_PRICE": "Preço Unitário",
+            "SUBTOTAL": "Subtotal",
+            "DISCOUNT_PERCENTAGE": "Desconto %",
+            "DISCOUNT_VALUE": "Desconto R$",
+            "PAYMENT_FORM": "Forma de Pagamento",
+            "INSTALLMENT": "Parcela",
+            "PAYMENT_TYPE": "Tipo de Pagamento",
+            "VALUE": "Valor",
+            "DUE_DATE": "Data de Vencimento",
+            "PAID": "Pago",
+            "PENDING": "Pendente",
+            "INSTALLMENTS_TOTAL": "Total Parcelas",
+            "TITLE_STATUS": "Status",
+            "PAID_VALUE": "Valor Pago",
+            "REMAINING_VALUE": "Valor Faltante",
+            "CANCEL_REASON": "Motivo do Cancelamento"
+        },
+        "actions": {
+            "CREATE": "Nova Venda",
+            "DETAILS": "Detalhes",
+            "NEW_CUSTOMER": "Novo Cliente",
+            "ADD_ITEM": "Adicionar Item",
+            "GO_TO_PAYMENT": "Ir para Pagamento",
+            "ADD_INSTALLMENT": "Adicionar Parcela",
+            "REVIEW": "Revisar Venda",
+            "VIEW_PAYMENT": "Ver Pagamento",
+            "VIEW_TITLES": "Ver Títulos",
+            "CANCEL_SALE": "Cancelar Venda",
+            "CONFIRM_CANCEL": "Confirmar Cancelamento"
+        },
+        "sections": {
+            "ITEMS": "Itens da Venda",
+            "PAYMENT": "Pagamento",
+            "DISCOUNT": "Desconto",
+            "REVIEW": "Revisão da Venda"
+        },
+        "status": {
+            "FINALIZED": "Finalizada",
+            "CANCELLED": "Cancelada"
+        },
+        "paymentForms": {
+            "CASH": "À vista",
+            "INSTALLMENT": "Parcelado"
+        },
+        "titleStatus": {
+            "PENDING": "Pendente",
+            "PAID": "Pago",
+            "OVERDUE": "Vencido",
+            "CANCELLED": "Cancelado"
+        },
+        "messages": {
+            "CANCELLED": "Venda cancelada com sucesso",
+            "INSTALLMENTS_SHORT": "Falta {value}",
+            "INSTALLMENTS_EXCEED": "Excede em {value}",
+            "INVENTORY_LOCK_TITLE": "Produto bloqueado",
+            "INVENTORY_LOCK_BODY": "Este produto está bloqueado por um inventário ativo. Finalize o inventário antes de realizar a venda."
+        },
+        "validations": {
+            "AT_LEAST_ONE_ITEM": "Adicione pelo menos um item",
+            "INCOMPLETE_ITEMS": "Preencha o produto, quantidade e preço de todos os itens",
+            "STOCK_ERROR_EXISTS": "Corrija os erros de estoque antes de continuar",
+            "POSITIVE_QUANTITY": "Quantidade deve ser maior que zero",
+            "POSITIVE_PRICE": "Preço deve ser maior que zero",
+            "INSUFFICIENT_STOCK_WARNING": "Quantidade excede o estoque disponível",
+            "DISCOUNT_RANGE": "Desconto deve estar entre 0 e 100",
+            "INVALID_DISCOUNT": "Valor de desconto inválido"
+        },
+        "errors": {
+            "NOT_FOUND": "Venda não encontrada",
+            "ALREADY_CANCELLED": "Esta venda já está cancelada",
+            "INSUFFICIENT_STOCK": "Estoque insuficiente para um ou mais produtos",
+            "PRODUCT_NOT_FOUND": "Produto não encontrado na venda"
+        },
+        "placeholders": {
+            "SELECT_PRODUCT": "Buscar produto...",
+            "SELECT_PAYMENT_TYPE": "Selecionar...",
+            "QUANTITY": "0"
+        },
+        "pdf": {
+            "TITLE": "Venda #{id}",
+            "DEFAULT_FILENAME": "comprovante-venda"
+        }
+    },
     "stockEntries": {
         "TITLE": "110 Entrada de Estoque",
         "fields": {
@@ -168,6 +269,7 @@
             "TOTAL_VALUE": "Valor Total",
             "PRODUCT": "Produto",
             "MEASUREMENT_UNIT": "Un. Medida",
+            "CURRENT_STOCK": "Estoque Atual",
             "QUANTITY": "Quantidade",
             "UNIT_PRICE": "Preço Unit.",
             "SUBTOTAL": "Subtotal",
@@ -514,6 +616,29 @@
             "WEBSITE": "Site"
         }
     },
+    "companySettings": {
+        "TITLE": "125 Configurações da Empresa",
+        "sections": {
+            "BRAND": "Marca",
+            "STOCK": "Estoque"
+        },
+        "fields": {
+            "LOGO": "Logo da Empresa",
+            "ALLOW_NEGATIVE_STOCK": "Permitir estoque negativo"
+        },
+        "hints": {
+            "LOGO_FORMATS": "Formatos: PNG, JPG. Máx: 2 MB",
+            "ALLOW_NEGATIVE_STOCK": "Permite realizar vendas e ordens de serviço mesmo quando o estoque for insuficiente (telas 114, 115 e 118)."
+        },
+        "actions": {
+            "UPLOAD_LOGO": "Enviar Logo",
+            "REMOVE_LOGO": "Remover"
+        },
+        "errors": {
+            "NO_LOGO": "A empresa não possui logo cadastrado",
+            "LOGO_REQUIRED": "Arquivo de logo não enviado"
+        }
+    },
     "common": {
         "actions": {
             "LOGOUT": "Sair",
@@ -526,7 +651,10 @@
             "FILTER": "Filtrar",
             "BACK": "Voltar",
             "CONFIRM": "Confirmar",
-            "CLOSE": "Fechar"
+            "CLOSE": "Fechar",
+            "PRINT": "Imprimir",
+            "DOWNLOAD": "Baixar",
+            "DEFAULT_PDF_FILENAME": "documento"
         },
         "validations": {
             "REQUIRED_FIELD": "Campo obrigatório",

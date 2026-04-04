@@ -72,6 +72,20 @@ const messageCodes = buildMessageCodes({
             PRODUCT_NOT_FOUND: 'Produto não encontrado',
         },
     },
+    sales: {
+        messages: {
+            CANCELLED: 'Venda cancelada com sucesso',
+        },
+        errors: {
+            NOT_FOUND: 'Venda não encontrada',
+            PRODUCT_NOT_FOUND: 'Produto não encontrado na venda',
+            ALREADY_CANCELLED: 'Esta venda já está cancelada',
+            INSUFFICIENT_STOCK: 'Estoque insuficiente para um ou mais produtos',
+        },
+        validations: {
+            INVALID_DISCOUNT: 'Valor de desconto inválido',
+        },
+    },
     categories: {
         errors: {
             NAME_ALREADY_EXISTS: 'Nome de categoria já cadastrado para esta empresa',
@@ -109,6 +123,12 @@ const messageCodes = buildMessageCodes({
             HAS_LINKED_USERS: 'Não é possível excluir este cargo pois existem usuários vinculados a ele',
             CANNOT_DELETE_GLOBAL: 'Não é possível excluir cargos globais do sistema',
             CANNOT_EDIT_GLOBAL: 'Não é possível editar cargos globais do sistema',
+        },
+    },
+    companySettings: {
+        errors: {
+            NO_LOGO: 'A empresa não possui logo cadastrado',
+            LOGO_REQUIRED: 'Arquivo de logo não enviado',
         },
     },
     common: {

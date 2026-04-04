@@ -154,6 +154,107 @@
             "CANNOT_EDIT_GLOBAL": "Cannot edit global system positions"
         }
     },
+    "sales": {
+        "TITLE": "115 Sales",
+        "fields": {
+            "SALE_NUMBER": "Sale #",
+            "DATE": "Date",
+            "DATE_START": "Start date",
+            "DATE_END": "End date",
+            "CUSTOMER": "Customer",
+            "FINAL_VALUE": "Final Value",
+            "STATUS": "Status",
+            "RESPONSIBLE": "Responsible",
+            "ACTIONS": "Actions",
+            "OBSERVATION": "Observation",
+            "TOTAL_VALUE": "Total Value",
+            "CURRENT_STOCK": "Current Stock",
+            "MEASUREMENT_UNIT": "Unit",
+            "PRODUCT": "Product",
+            "QUANTITY": "Quantity",
+            "UNIT_PRICE": "Unit Price",
+            "SUBTOTAL": "Subtotal",
+            "DISCOUNT_PERCENTAGE": "Discount %",
+            "DISCOUNT_VALUE": "Discount R$",
+            "PAYMENT_FORM": "Payment Method",
+            "INSTALLMENT": "Installment",
+            "PAYMENT_TYPE": "Payment Type",
+            "VALUE": "Value",
+            "DUE_DATE": "Due Date",
+            "PAID": "Paid",
+            "PENDING": "Pending",
+            "INSTALLMENTS_TOTAL": "Installments Total",
+            "TITLE_STATUS": "Status",
+            "PAID_VALUE": "Paid Value",
+            "REMAINING_VALUE": "Remaining Value",
+            "CANCEL_REASON": "Cancellation Reason"
+        },
+        "actions": {
+            "CREATE": "New Sale",
+            "DETAILS": "Details",
+            "NEW_CUSTOMER": "New Customer",
+            "ADD_ITEM": "Add Item",
+            "GO_TO_PAYMENT": "Go to Payment",
+            "ADD_INSTALLMENT": "Add Installment",
+            "REVIEW": "Review Sale",
+            "VIEW_PAYMENT": "View Payment",
+            "VIEW_TITLES": "View Titles",
+            "CANCEL_SALE": "Cancel Sale",
+            "CONFIRM_CANCEL": "Confirm Cancellation"
+        },
+        "sections": {
+            "ITEMS": "Sale Items",
+            "PAYMENT": "Payment",
+            "DISCOUNT": "Discount",
+            "REVIEW": "Sale Review"
+        },
+        "status": {
+            "FINALIZED": "Finalized",
+            "CANCELLED": "Cancelled"
+        },
+        "paymentForms": {
+            "CASH": "Cash",
+            "INSTALLMENT": "Installment"
+        },
+        "titleStatus": {
+            "PENDING": "Pending",
+            "PAID": "Paid",
+            "OVERDUE": "Overdue",
+            "CANCELLED": "Cancelled"
+        },
+        "messages": {
+            "CANCELLED": "Sale cancelled successfully",
+            "INSTALLMENTS_SHORT": "Missing {value}",
+            "INSTALLMENTS_EXCEED": "Exceeds by {value}",
+            "INVENTORY_LOCK_TITLE": "Product locked",
+            "INVENTORY_LOCK_BODY": "This product is locked by an active inventory. Finish the inventory before making a sale."
+        },
+        "validations": {
+            "AT_LEAST_ONE_ITEM": "Add at least one item",
+            "INCOMPLETE_ITEMS": "Fill in the product, quantity and price for all items",
+            "STOCK_ERROR_EXISTS": "Fix stock errors before continuing",
+            "POSITIVE_QUANTITY": "Quantity must be greater than zero",
+            "POSITIVE_PRICE": "Price must be greater than zero",
+            "INSUFFICIENT_STOCK_WARNING": "Quantity exceeds available stock",
+            "DISCOUNT_RANGE": "Discount must be between 0 and 100",
+            "INVALID_DISCOUNT": "Invalid discount value"
+        },
+        "errors": {
+            "NOT_FOUND": "Sale not found",
+            "ALREADY_CANCELLED": "This sale is already cancelled",
+            "INSUFFICIENT_STOCK": "Insufficient stock for one or more products",
+            "PRODUCT_NOT_FOUND": "Product not found in sale"
+        },
+        "placeholders": {
+            "SELECT_PRODUCT": "Search product...",
+            "SELECT_PAYMENT_TYPE": "Select...",
+            "QUANTITY": "0"
+        },
+        "pdf": {
+            "TITLE": "Sale #{id}",
+            "DEFAULT_FILENAME": "sale-receipt"
+        }
+    },
     "stockEntries": {
         "TITLE": "110 Stock Entry",
         "fields": {
@@ -168,6 +269,7 @@
             "TOTAL_VALUE": "Total Value",
             "PRODUCT": "Product",
             "MEASUREMENT_UNIT": "Unit",
+            "CURRENT_STOCK": "Current Stock",
             "QUANTITY": "Quantity",
             "UNIT_PRICE": "Unit Price",
             "SUBTOTAL": "Subtotal",
@@ -514,6 +616,29 @@
             "WEBSITE": "Website"
         }
     },
+    "companySettings": {
+        "TITLE": "125 Company Settings",
+        "sections": {
+            "BRAND": "Brand",
+            "STOCK": "Stock"
+        },
+        "fields": {
+            "LOGO": "Company Logo",
+            "ALLOW_NEGATIVE_STOCK": "Allow negative stock"
+        },
+        "hints": {
+            "LOGO_FORMATS": "Formats: PNG, JPG. Max: 2 MB",
+            "ALLOW_NEGATIVE_STOCK": "Allows sales and service orders even when stock is insufficient (screens 114, 115 and 118)."
+        },
+        "actions": {
+            "UPLOAD_LOGO": "Upload Logo",
+            "REMOVE_LOGO": "Remove"
+        },
+        "errors": {
+            "NO_LOGO": "The company has no logo registered",
+            "LOGO_REQUIRED": "Logo file not provided"
+        }
+    },
     "common": {
         "actions": {
             "LOGOUT": "Logout",
@@ -526,7 +651,10 @@
             "FILTER": "Filter",
             "BACK": "Back",
             "CONFIRM": "Confirm",
-            "CLOSE": "Close"
+            "CLOSE": "Close",
+            "PRINT": "Print",
+            "DOWNLOAD": "Download",
+            "DEFAULT_PDF_FILENAME": "document"
         },
         "validations": {
             "REQUIRED_FIELD": "Required field",
