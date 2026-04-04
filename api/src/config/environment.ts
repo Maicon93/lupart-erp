@@ -13,6 +13,11 @@ const environmentSchema = z.object({
     JWT_SECRET: z.string().min(1),
     JWT_EXPIRES_IN: z.string().min(1),
     JWT_REFRESH_EXPIRES_IN: z.string().min(1),
+
+    AWS_ACCESS_KEY_ID: z.string().min(1),
+    AWS_SECRET_ACCESS_KEY: z.string().min(1),
+    AWS_REGION: z.string().min(1),
+    AWS_BUCKET: z.string().min(1),
 });
 
 type Environment = z.infer<typeof environmentSchema>;

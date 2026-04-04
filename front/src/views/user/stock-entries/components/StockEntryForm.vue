@@ -1,6 +1,6 @@
 <template>
     <q-dialog :model-value="modelValue" @update:model-value="$emit('update:modelValue', $event)">
-        <q-card style="width: 90vw; max-width: 90vw; height: 90vh; max-height: 90vh">
+        <q-card style="width: 80vw; max-width: 80vw; height: 80vh; max-height: 80vh">
             <q-card-section>
                 <div class="row items-center">
                     <div class="text-h6" style="color: var(--text-primary)">
@@ -81,15 +81,11 @@
                                     @update:model-value="onProductSelected(props.rowIndex, $event)"
                                 />
                             </q-td>
-                            <q-td key="measurementUnit" :props="props">
-                                <q-input
-                                    :model-value="props.row.measurementUnitAbbreviation"
-                                    :placeholder="$t('stockEntries.placeholders.AUTO')"
-                                    outlined
-                                    dense
-                                    hide-bottom-space
-                                    disable
-                                />
+                            <q-td key="measurementUnit" :props="props" class="text-center" style="color: var(--text-secondary)">
+                                {{ props.row.measurementUnitAbbreviation || '—' }}
+                            </q-td>
+                            <q-td key="stock" :props="props" class="text-center" style="color: var(--text-secondary)">
+                                {{ props.row.stock !== null ? props.row.stock : '—' }}
                             </q-td>
                             <q-td key="quantity" :props="props">
                                 <q-input
@@ -112,15 +108,8 @@
                                     @update:model-value="onUnitPriceInput(props.rowIndex, $event)"
                                 />
                             </q-td>
-                            <q-td key="subtotal" :props="props">
-                                <q-input
-                                    :model-value="props.row.unitPrice ? formatCurrency(props.row.quantity * props.row.unitPrice) : null"
-                                    :placeholder="$t('stockEntries.placeholders.AUTO')"
-                                    outlined
-                                    dense
-                                    hide-bottom-space
-                                    disable
-                                />
+                            <q-td key="subtotal" :props="props" class="text-center" style="color: var(--text-secondary)">
+                                {{ props.row.unitPrice && props.row.quantity ? formatCurrency(props.row.quantity * props.row.unitPrice) : '0' }}
                             </q-td>
                             <q-td key="remove" :props="props" class="text-center">
                                 <q-btn flat round icon="delete" size="sm" color="negative" @click="removeItem(props.rowIndex)" />
@@ -191,11 +180,12 @@ export default {
             productOptions: [],
             allProducts: [],
             itemColumns: [
-                { name: 'product', label: this.$t('stockEntries.fields.PRODUCT'), field: 'product', align: 'center', headerStyle: 'width: 40%' },
-                { name: 'measurementUnit', label: this.$t('stockEntries.fields.MEASUREMENT_UNIT'), field: 'measurementUnit', align: 'center', headerStyle: 'width: 10%' },
+                { name: 'product', label: this.$t('stockEntries.fields.PRODUCT'), field: 'product', align: 'center', headerStyle: 'width: 35%' },
+                { name: 'measurementUnit', label: this.$t('stockEntries.fields.MEASUREMENT_UNIT'), field: 'measurementUnit', align: 'center', headerStyle: 'width: 8%' },
+                { name: 'stock', label: this.$t('stockEntries.fields.CURRENT_STOCK'), field: 'stock', align: 'center', headerStyle: 'width: 10%' },
                 { name: 'quantity', label: this.$t('stockEntries.fields.QUANTITY'), field: 'quantity', align: 'center', headerStyle: 'width: 12%' },
                 { name: 'unitPrice', label: this.$t('stockEntries.fields.UNIT_PRICE'), field: 'unitPrice', align: 'center', headerStyle: 'width: 14%' },
-                { name: 'subtotal', label: this.$t('stockEntries.fields.SUBTOTAL'), field: 'subtotal', align: 'center', headerStyle: 'width: 14%' },
+                { name: 'subtotal', label: this.$t('stockEntries.fields.SUBTOTAL'), field: 'subtotal', align: 'center', headerStyle: 'width: 12%' },
                 { name: 'remove', label: '', field: 'remove', align: 'center', headerStyle: 'width: 5%' },
             ],
         };
@@ -241,6 +231,7 @@ export default {
                     value: product.id,
                     search: `${product.name} ${product.code || ''} ${product.barcode || ''}`.toLowerCase(),
                     measurementUnitAbbreviation: product.measurementUnit?.abbreviation || '',
+                    stock: Number(product.stock),
                 }));
                 this.productOptions = this.allProducts;
             } catch {
@@ -267,6 +258,7 @@ export default {
             if (product) {
                 this.form.items[index].measurementUnitAbbreviation = product.measurementUnitAbbreviation;
                 this.form.items[index].productLabel = product.label;
+                this.form.items[index].stock = product.stock;
             }
         },
 
@@ -280,6 +272,7 @@ export default {
                 productId: null,
                 productLabel: '',
                 measurementUnitAbbreviation: '',
+                stock: null,
                 quantity: null,
                 unitPrice: null,
                 unitPriceDisplay: '',

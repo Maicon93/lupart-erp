@@ -37,6 +37,18 @@ input:-webkit-autofill:focus {
     --text-secondary: #888888;
 }
 
+/* ── Date input calendar icon ── */
+input[type='date']::-webkit-calendar-picker-indicator {
+    filter: none;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.body--dark input[type='date']::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    opacity: 0.7;
+}
+
 /* ── Dark Mode: Quasar outlined inputs ── */
 .body--dark .q-field--outlined .q-field__control:before {
     border-color: #575555;

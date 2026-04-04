@@ -32,7 +32,11 @@
       "Bash(ls repositories/*.ts)",
       "Bash(ls helpers/*.ts)",
       "Bash(ls controllers/*.ts services/*.ts repositories/*.ts helpers/*.ts)",
-      "Read(//home/maico/Documentos/projects/pessoais/lupart/api/src/interfaces/**)"
+      "Read(//home/maico/Documentos/projects/pessoais/lupart/api/src/interfaces/**)",
+      "Bash(grep -n \"private static.*Repository = AppDataSource\" /home/maicon/Documentos/projects/pessoais/lupart/api/src/repositories/*.ts)",
+      "Bash(npm test:*)",
+      "Bash(npx vitest:*)",
+      "Bash(xargs ls:*)"
     ],
     "additionalDirectories": [
       "/home/maicon/Documentos/projects/pessoais/lupart/api/src/routes"
